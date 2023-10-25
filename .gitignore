@@ -39,3 +39,7 @@
 # the following code in the Terminal:
 # find . -size +100M | sed 's|^\./||g' | cat >> .gitignore; awk '!NF || !seen[$0]++' .gitignore
 
+
+#data files that are too large :(
+data/NSDUH_2020_Tab.txt
+data/NSDUH_2021_Tab.txt
