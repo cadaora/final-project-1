@@ -18,47 +18,53 @@ execute:
 from: markdown+emoji 
 ---
 
-::: {.callout-important}
-## Memo format
+```{r}
+#| label: load-pkgs
+# Loading package(s)
+library(tidyverse)
+library(naniar)
+library(janitor)
+```
 
-Like all other submissions for this course, we expect the memo to be neat and well organized.
 
-You should make this document your own. This is a template. To help with this we have added a date to the yaml above (good whenever writing memos). You should remove this block when making this document your own.
-
-:::
 
 ::: {.callout-tip icon=false}
 
 ## Github Repo Link
 
-To link to your github **repo**sitory, appropriately edit the example link below. Meaning replace `https://your-github-repo-url` with your github repo url. Suggest verifying the link works before submitting.
-
-[https://your-github-repo-url](https://your-github-repo-url)
+[https://github.com/stat301-1-2023-fall/final-project-1-cadaora](https://github.com/stat301-1-2023-fall/final-project-1-cadaora)
 
 :::
 
-::: {.callout-warning}
-GitHub (free account) cannot store large files. If you try to commit and push a large dataset you will have an ERROR! Any file over 100 MB (100,000 KB) needs to be added to the `.gitignore` file BEFORE committing.
-
-**We may need to do that for files in your final project!**
-:::
 
 ## Data source
 
-Blah blah blah^[where blah blah came from, an example of footnote]
+I am using data from the National Survey on Drug Use and Health (NSDUH) for 2020^[[https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2020-nsduh-2020-ds0001](https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2020-nsduh-2020-ds0001)] and 2021^[[https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2021-nsduh-2021-ds0001](https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2021-nsduh-2021-ds0001)]. It is a survey conducted by the Substance Abuse and Mental Health Administration (SAMSHA) of people aged 12 and older in the United States. It covers topics including mental health and substance use. I originally was planning to use years 2015-2021, however, due to methodology changes including web-based interviewing, the 2020 and 2021 NSDUH data are not comparable to data from previous years. Additionally, the file was too large to fit on my laptop. 
 
 ## Why this data
 
-Blah blah blah^[another footnote]
+I'm interested in exploring what societal factors can impact drug use. I'd like to particularly focus on college students since that's applicable to my life.
 
 ## Data quality & complexity check
+Most of the variables are integers that would need to be interpreted using the code book. Additionally, all of the variables are in uppercase and should be converted to lowercase using the 'janitor' package. Many The original 2020 file has 32893 observations of 2890 variables. After filtering only college students we now have 3337 observations.
+```{r}
+#| label: load-datasets
+NSDUH_2020 <-read.delim(file="data/NSDUH_2020_Tab.txt")
+```
 
-Blah blah blah
+```{r}
+#| label: filter-college-datasets
+NSDUH_2020_college <- NSDUH_2020 %>%
+  filter(EDUSCHGRD2==9|EDUSCHGRD2==10|EDUSCHGRD2==11) %>%
+  clean_names()
+  
+```
+
 
 ## Potential data issues
+I'll need to merge the two datasets. In order to shorten the loading time of any future scripts, I began with creating two smaller datasets only including college students and writing those to files. The most tedious part will be turning the integer variables into factor variables using the codebook.
 
-Due to methodology changes, particularly the addition of web-based interviewing, the 2021 NSDUH data are not comparable to data from previous years.
 
 ## Misc
 
-Blah Blah
+ Later I will have to 
