@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Claire Derksen">
-<meta name="dcterms.date" content="2023-10-25">
+<meta name="dcterms.date" content="2023-10-26">
 
 <title>Progress Memo 1</title>
 <style>
@@ -3022,7 +3022,7 @@ Data Science 1 with R (STAT 301-1)</p><p></p>
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 25, 2023</p>
+      <p class="date">October 26, 2023</p>
     </div>
   </div>
   
@@ -3047,15 +3047,33 @@ Github Repo Link
 </div>
 <section id="data-source" class="level2">
 <h2 class="anchored" data-anchor-id="data-source">Data source</h2>
-<p>I am using data from the National Survey on Drug Use and Health (NSDUH) for 2020<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and 2021<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. It is a survey conducted by the Substance Abuse and Mental Health Administration (SAMSHA) of people aged 12 and older in the United States. It covers topics including mental health and substance use. I originally was planning to use years 2015-2021, however, due to methodology changes including web-based interviewing, the 2020 and 2021 NSDUH data are not comparable to data from previous years. Additionally, the file was too large to fit on my laptop.</p>
+<p>I am using data from the National Survey on Drug Use and Health (NSDUH) for 2020<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and 2019<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. It is a survey conducted by the Substance Abuse and Mental Health Administration (SAMSHA) of people aged 12 and older in the United States. It covers topics including mental health and substance use. Due to methodology changes including web-based interviewing, the 2020 and 2019 NSDUH data may be hard to compare. However, SAMSHA provided a comparability chart that shows what variables are compatible between 2019 and 2020.</p>
 </section>
 <section id="why-this-data" class="level2">
 <h2 class="anchored" data-anchor-id="why-this-data">Why this data</h2>
-<p>I’m interested in exploring what societal factors can impact drug use. I’d like to particularly focus on college students since that’s applicable to my life.</p>
+<p>I’m interested in exploring what societal factors can impact drug use. I’d like to particularly focus on college students since that’s applicable to my life. It’d be interesting to see if there was any particular increase in drug use during the start of the COVID-19 pandemic caused by the isolation of quarantine. Since the survey also tracks mental health topics I could also expore any changes in the mental health of college students during the pandemic.</p>
 </section>
 <section id="data-quality-complexity-check" class="level2">
 <h2 class="anchored" data-anchor-id="data-quality-complexity-check">Data quality &amp; complexity check</h2>
-<p>Most of the variables are integers that would need to be interpreted using the code book. Additionally, all of the variables are in uppercase and should be converted to lowercase using the ‘janitor’ package. Many The original 2020 file has 32893 observations of 2890 variables. After filtering only college students we now have 3337 observations.</p>
+<p>Most of the variables are integers that would need to be interpreted using the code book. The original 2020 file had 32893 observations and 2890 variables. The previous year, 2019, had 56136 observations and 2741 variables. After filtering only college students we had 3337 observations in the 2020 dataset and 6136 in the 2019 dataset.</p>
+<p>Just looking at missingness there seems to be a considerable amount of data missing. However, looking at the codebook helps us understand why certain variables have no data.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  variable n_miss pct_miss
+1 SIMHSUI2   3337      100
+2 SIMHDPR2   3337      100
+3 SIMHFEA2   3337      100
+ [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 2887 rows ]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    variable n_miss pct_miss
+1 SRCFRSEDNM   3331 99.82020
+2 SRCCLFRSED   3331 99.82020
+3 NDTRNNOCOV   3327 99.70033
+ [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 2702 rows ]</code></pre>
+</div>
+</div>
+<p>The variables that were removed were reserved for people under 18. So our data set of college students will have little to no percentage missing. For the remaining variables I will have to look through the code book in order to determine whether the data is worth keeping.</p>
 </section>
 <section id="potential-data-issues" class="level2">
 <h2 class="anchored" data-anchor-id="potential-data-issues">Potential data issues</h2>
@@ -3063,7 +3081,7 @@ Github Repo Link
 </section>
 <section id="misc" class="level2">
 <h2 class="anchored" data-anchor-id="misc">Misc</h2>
-<p>Later I will have to</p>
+<p>Later I will have to decide what variables I would like to select I can change the variable names from uppercase to lowercase.</p>
 </section>
 
 
@@ -3071,7 +3089,7 @@ Github Repo Link
 
 <ol>
 <li id="fn1"><p><a href="https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2020-nsduh-2020-ds0001">https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2020-nsduh-2020-ds0001</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p><a href="https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2021-nsduh-2021-ds0001">https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2021-nsduh-2021-ds0001</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2019-nsduh-2019-ds0001">https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2019-nsduh-2019-ds0001</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main>
 <!-- /main column -->
