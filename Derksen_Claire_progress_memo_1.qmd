@@ -56,7 +56,8 @@ NSDUH_2020 <-read.delim(file="data/NSDUH_2020_Tab.txt")
 #| label: filter-college-datasets
 NSDUH_2020_college <- NSDUH_2020 %>%
   filter(EDUSCHGRD2==9|EDUSCHGRD2==10|EDUSCHGRD2==11) %>%
-  clean_names()
+  clean_names() %>%
+  write.csv(file="data/NSDUH_2020_college")
   
 ```
 
