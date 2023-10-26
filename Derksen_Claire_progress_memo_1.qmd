@@ -46,21 +46,29 @@ I am using data from the National Survey on Drug Use and Health (NSDUH) for 2020
 I'm interested in exploring what societal factors can impact drug use. I'd like to particularly focus on college students since that's applicable to my life.
 
 ## Data quality & complexity check
-Most of the variables are integers that would need to be interpreted using the code book. Additionally, all of the variables are in uppercase and should be converted to lowercase using the 'janitor' package. Many The original 2020 file has 32893 observations of 2890 variables. After filtering only college students we now have 3337 observations.
+Most of the variables are integers that would need to be interpreted using the code book. The original 2020 and 2021 files had 32893 and 58034 observations of 2890 variables respectively. After filtering only college students we now have 3337 observations in the 2020 dataset and 6177 in the 2021 dataset.
 ```{r}
 #| label: load-datasets
+#| eval: false
 NSDUH_2020 <-read.delim(file="data/NSDUH_2020_Tab.txt")
+NSDUH_2021 <-read.delim(file="data/NSDUH_2021_Tab.txt")
 ```
 
 ```{r}
 #| label: filter-college-datasets
+#| eval: false
 NSDUH_2020_college <- NSDUH_2020 %>%
   filter(EDUSCHGRD2==9|EDUSCHGRD2==10|EDUSCHGRD2==11) %>%
-  clean_names() %>%
-  write.csv(file="data/NSDUH_2020_college")
-  
+  write_rds(file="data/NSDUH_2020_college.rds")
+
+NSDUH_2021_college <- NSDUH_2021 %>%
+  filter(EDUSCHGRD2==9|EDUSCHGRD2==10|EDUSCHGRD2==11) %>%
+  write_rds(file="data/NSDUH_2021_college.rds")
 ```
 
+```{r}
+bruhbruh <-read_rds(file="data/NSDUH_2020_college.rds")
+```
 
 ## Potential data issues
 I'll need to merge the two datasets. In order to shorten the loading time of any future scripts, I began with creating two smaller datasets only including college students and writing those to files. The most tedious part will be turning the integer variables into factor variables using the codebook.
@@ -68,4 +76,4 @@ I'll need to merge the two datasets. In order to shorten the loading time of any
 
 ## Misc
 
- Later I will have to 
+ Later I will have to decide what variables I would like to select I can change the variable names from uppercase to lowercase.
