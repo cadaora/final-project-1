@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Claire Derksen">
-<meta name="dcterms.date" content="2023-10-26">
+<meta name="dcterms.date" content="2023-10-27">
 
 <title>Progress Memo 1</title>
 <style>
@@ -3022,7 +3022,7 @@ Data Science 1 with R (STAT 301-1)</p><p></p>
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 26, 2023</p>
+      <p class="date">October 27, 2023</p>
     </div>
   </div>
   
@@ -3051,37 +3051,76 @@ Github Repo Link
 </section>
 <section id="why-this-data" class="level2">
 <h2 class="anchored" data-anchor-id="why-this-data">Why this data</h2>
-<p>I’m interested in exploring what societal factors can impact drug use. I’d like to particularly focus on college students since that’s applicable to my life. It’d be interesting to see if there was any particular increase in drug use during the start of the COVID-19 pandemic caused by the isolation of quarantine. Since the survey also tracks mental health topics I could also expore any changes in the mental health of college students during the pandemic.</p>
+<p>I’m interested in exploring what societal factors can impact drug use. I’d like to particularly focus on college students since that’s applicable to my life. It’d be interesting to see if there was any particular increase in drug use during the start of the COVID-19 pandemic caused by the isolation of quarantine. Since the survey also tracks mental health topics I could also explore any changes in the mental health of college students during the pandemic.</p>
 </section>
 <section id="data-quality-complexity-check" class="level2">
 <h2 class="anchored" data-anchor-id="data-quality-complexity-check">Data quality &amp; complexity check</h2>
-<p>Most of the variables are integers that would need to be interpreted using the code book. The original 2020 file had 32893 observations and 2890 variables. The previous year, 2019, had 56136 observations and 2741 variables. After filtering only college students we had 3337 observations in the 2020 dataset and 6136 in the 2019 dataset.</p>
+<p>Most of the variables are integers that would need to be interpreted using the code book. The original 2020 file had 32893 observations and 2890 variables. The previous year, 2019, had 56136 observations and 2741 variables. After filtering only college students we had 3337 observations in the 2020 dataset and 6136 observations in the 2019 dataset.</p>
+<p>I started with assessing missingness in the 2020 college dataset.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 3
+   variable n_miss pct_miss
+   &lt;chr&gt;     &lt;int&gt;    &lt;dbl&gt;
+ 1 SIMHSUI2   3337      100
+ 2 SIMHDPR2   3337      100
+ 3 SIMHFEA2   3337      100
+ 4 SIMHBRK2   3337      100
+ 5 SIMHEAT2   3337      100
+ 6 SIMHANG2   3337      100
+ 7 SIMHFIT2   3337      100
+ 8 SIMHFML2   3337      100
+ 9 SIMHFRD2   3337      100
+10 SIMHOTP2   3337      100</code></pre>
+</div>
+</div>
 <p>Just looking at missingness there seems to be a considerable amount of data missing. However, looking at the codebook helps us understand why certain variables have no data.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>  variable n_miss pct_miss
-1 SIMHSUI2   3337      100
-2 SIMHDPR2   3337      100
-3 SIMHFEA2   3337      100
- [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 2887 rows ]</code></pre>
+<pre><code># A tibble: 10 × 3
+   variable   n_miss pct_miss
+   &lt;chr&gt;       &lt;int&gt;    &lt;dbl&gt;
+ 1 SRCFRSEDNM   3331     99.8
+ 2 SRCCLFRSED   3331     99.8
+ 3 NDTRNNOCOV   3327     99.7
+ 4 NDTRNNOTPY   3327     99.7
+ 5 NDTRNTSPHR   3327     99.7
+ 6 NDTRNWANTD   3327     99.7
+ 7 NDTRNNSTOP   3327     99.7
+ 8 NDTRNPFULL   3327     99.7
+ 9 NDTRNDKWHR   3327     99.7
+10 NDTRNNBRNG   3327     99.7</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>    variable n_miss pct_miss
-1 SRCFRSEDNM   3331 99.82020
-2 SRCCLFRSED   3331 99.82020
-3 NDTRNNOCOV   3327 99.70033
- [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 2702 rows ]</code></pre>
 </div>
-</div>
-<p>The variables that were removed were reserved for people under 18. So our data set of college students will have little to no percentage missing. For the remaining variables I will have to look through the code book in order to determine whether the data is worth keeping.</p>
+<p>The 2020 codebook reveals the variables with at or near 100% missingness were reserved for people under 18, so our data set of college students will have little to no values for those variables. For the remaining variables with a high proportion of missingness I will have to look through the code book in order to determine whether the data is worth keeping.</p>
 </section>
 <section id="potential-data-issues" class="level2">
 <h2 class="anchored" data-anchor-id="potential-data-issues">Potential data issues</h2>
-<p>I’ll need to merge the two datasets. In order to shorten the loading time of any future scripts, I began with creating two smaller datasets only including college students and writing those to files. The most tedious part will be turning the integer variables into factor variables using the codebook.</p>
+<p>In order to eliminate non-comparable variables I imported the excel comparability column for 2019-2020 using readxl and converted it into a list. After removing the non-comparable variables, there were still many variables with a high portion of missingness. I decided to continue looking through the codebook to decipher why they are missing.</p>
+<p>One issue I encountered was noticed was processing time. It takes a long time for the &gt;100MB .txt files to load. I solved this by creating two new .rds files for each year in order to shorten future loading times.</p>
+<p>I’ll need to merge the two datasets. The most tedious part will be turning the integer variables into factor variables using the code book so it’s better to not have a ton of variables. (Explain general code 999).</p>
 </section>
 <section id="misc" class="level2">
 <h2 class="anchored" data-anchor-id="misc">Misc</h2>
-<p>Later I will have to decide what variables I would like to select I can change the variable names from uppercase to lowercase.</p>
+<p>I then used the list to select what variables to keep. After that I assessed missingness again.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,092 × 3
+   variable   n_miss pct_miss
+   &lt;chr&gt;       &lt;int&gt;    &lt;dbl&gt;
+ 1 SRCCLFRSED   3331     99.8
+ 2 SRCFRSEDNM   3331     99.8
+ 3 NDTRNDKWHR   3327     99.7
+ 4 NDTRNFNDOU   3327     99.7
+ 5 NDTRNHANDL   3327     99.7
+ 6 NDTRNJOBNG   3327     99.7
+ 7 NDTRNMIMPT   3327     99.7
+ 8 NDTRNNBRNG   3327     99.7
+ 9 NDTRNNOCOV   3327     99.7
+10 NDTRNNOHLP   3327     99.7
+# ℹ 2,082 more rows</code></pre>
+</div>
+</div>
 </section>
 
 
