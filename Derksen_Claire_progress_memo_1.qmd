@@ -27,33 +27,34 @@ library(janitor)
 library(readxl)
 ```
 
-
-
-::: {.callout-tip icon=false}
-
+::: {.callout-tip icon="false"}
 ## Github Repo Link
 
-[https://github.com/stat301-1-2023-fall/final-project-1-cadaora](https://github.com/stat301-1-2023-fall/final-project-1-cadaora)
-
+<https://github.com/stat301-1-2023-fall/final-project-1-cadaora>
 :::
-
 
 ## Data source
 
-I am using data from the National Survey on Drug Use and Health (NSDUH) for 2020^[[https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2020-nsduh-2020-ds0001](https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2020-nsduh-2020-ds0001)] and 2019^[[https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2019-nsduh-2019-ds0001](https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2019-nsduh-2019-ds0001)]. It is a survey conducted by the Substance Abuse and Mental Health Administration (SAMSHA) of people aged 12 and older in the United States. It covers topics including mental health and substance use. Due to methodology changes including web-based interviewing, the 2020 and 2019 NSDUH data may be hard to compare. However, SAMSHA provided a comparability chart that shows what variables are compatible between 2019 and 2020.
+I am using data from the National Survey on Drug Use and Health (NSDUH) for 2020[^1] and 2019[^2]. It is a survey conducted by the Substance Abuse and Mental Health Administration (SAMSHA) of people aged 12 and older in the United States. It covers topics including mental health and substance use. Due to methodology changes including web-based interviewing, the 2020 and 2019 NSDUH data may be hard to compare. However, SAMSHA provided a comparability chart that shows what variables are comparable between 2019 and 2020. I will use the comparability chart to merge the two data sets.
+
+[^1]: <https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2020-nsduh-2020-ds0001>
+
+[^2]: <https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2019-nsduh-2019-ds0001>
 
 ## Why this data
 
 I'm interested in exploring what societal factors can impact drug use. I'd like to particularly focus on college students since that's applicable to my life. It'd be interesting to see if there was any particular increase in drug use during the start of the COVID-19 pandemic caused by the isolation of quarantine. Since the survey also tracks mental health topics I could also explore any changes in the mental health of college students during the pandemic.
 
 ## Data quality & complexity check
+
 Most of the variables are integers that would need to be interpreted using the code book. The original 2020 file had 32893 observations and 2890 variables. The previous year, 2019, had 56136 observations and 2741 variables. After filtering only college students we had 3337 observations in the 2020 dataset and 6136 observations in the 2019 dataset.
 
 I started with assessing missingness in the 2020 college dataset.
+
 ```{r}
 #| label: load-datasets
 #| eval: false
-NSDUH_2020 <-read.delim(file="data/NSDUH_2020_Tab.txt")
+NSDUH_2020 <-read.delim(file="data/NSDUH_2020_Tab.txt",na.strings = ".")
 NSDUH_2019 <-read.delim(file="data/NSDUH_2019_Tab.txt")
 ```
 
@@ -83,6 +84,7 @@ miss_var_summary(NSDUH_2020_college) %>% slice_head(n=10)
 ```
 
 Just looking at missingness there seems to be a considerable amount of data missing. However, looking at the codebook helps us understand why certain variables have no data.
+
 ```{r}
 #| label: 2020 missingness-pt2
 NSDUH_2020_college <-NSDUH_2020_college %>%
@@ -95,30 +97,56 @@ NSDUH_2020_college %>%
 
   
 ```
-The 2020 codebook reveals the variables with at or near 100% missingness were reserved for people under 18, so our data set of college students will have little to no values for those variables. For the remaining variables with a high proportion of missingness I will have to look through the code book in order to determine whether the data is worth keeping. 
+
+The 2020 codebook reveals the variables at or near 100% missingness were reserved for people under 18, so our data set of college students will have little to no values for those variables. For the remaining variables with a high proportion of missingness I will have to look through the code book in order to determine whether the data is worth keeping.
+
+One variable I could easily explore that I know I will be using is EDUSCHGRD2. From this we can see the proportion of different years in college in our 2020 dataset.
+```{r}
+#| label: years bar graph
+NSDUH_2020_college %>%
+  mutate(grade=ifelse(EDUSCHGRD2==9, 
+                      "1st Year",ifelse(EDUSCHGRD2==10,"2nd or 3rd Year","4th Year or Higher"))) %>%
+  ggplot(aes(x=grade))+geom_bar(fill="salmon") + 
+  labs(title="Year in College in 2020 Dataset", x="Grade",y="Count")
+```
 
 ## Potential data issues
-In order to eliminate non-comparable variables I imported the excel comparability column for 2019-2020 using readxl and converted it into a list. After removing the non-comparable variables, there were still many variables with a high portion of missingness. I decided to continue looking through the codebook to decipher why they are missing. 
 
-One issue I encountered was noticed was processing time. It takes a long time for the >100MB .txt files to load. I solved this by creating two new .rds files for each year in order to shorten future loading times.
+In order to eliminate non-comparable variables I imported the excel comparability column for 2019-2020 using readxl and converted it into a list. After removing the non-comparable variables, there were still many variables with a high portion of missingness. I decided to continue looking through the codebook to decipher why they are missing.
 
-I'll need to merge the two datasets. The most tedious part will be turning the integer variables into factor variables using the code book so it's better to not have a ton of variables. (Explain general code 999). 
+Many of the variables with high missingness are only asked for people who said they did use a specific drug. So if the majority of people answered no in a previous question asking about the drug, the later relevant question will have a majority NA values. I should be able to fix this later once I convert the integer values to factor values. Examples of this are questions asking about the source of a drug (variables starting with SRC) or questions only asked to smokers(CIG\_). One challenge is that many variables code legitimate skips and unknowns together in NA so I'm unsure of whether I should replace the NA. The values around 72% missing starting with A are questions relating to adults diagnosed with depression so I will keep those variables for analysis.
 
+I decided to get rid of the questions asking about drug treatment/rehab since I wanted to focus more on drug use and very few college students had been to rehab in the past year. I also got rid of nicotine dependence scores, questions specific to underage drinking(UAD...), and adult mental health service utilization (AU\_,AMH\_,MH\_,RCV\_).
 
-
-## Misc
-
- I then used the list to select what variables to keep. After that I assessed missingness again.
 ```{r}
-#| label: compatability
+#| label: comparability
 comparability <- read_excel("data/RDAS_Comparability.xlsx") %>%
   filter(!is.na(`2019-2020`)) %>%
   select(Variable) %>%
   deframe()
 
 NSDUH_2020_college <-NSDUH_2020_college %>%
-  select(any_of(comparability))
-
-miss_var_summary(NSDUH_2020_college)
+  select(any_of(comparability)) %>%
+  relocate(any_of(names(NSDUH_2020_college)))
 ```
+
+```{r}
+#| label: remove unwanted variables
+NSDUH_2020_college <- NSDUH_2020_college %>%
+  select(!TXEVRRCVD2:NDTRNMIMPT&
+           !NDSSANSP:DNICNSP &
+           !starts_with("UAD") &
+           !AUINPYR:RCVMHASPTX)
+miss_var_summary(NSDUH_2020_college)%>% 
+  slice_head(n=23) %>%
+  print.data.frame()
+```
+ALCNUMDKPM refers to whether the number of drinks in the past month was >0. Meaning that if the value is NA it is either no or unknown. I'll reassess missingness after I'm able to convert the variables to factors. The standard code conventions on page 31 of the 2020 codebook will be helpful in converting the variables and hopefully there are only a few exceptions to the convention.
+
+One issue I encountered while working with the data set was processing time. It takes a long time for the >100MB .txt files to load. I solved this by creating two new .rds files for each year only containing college students in order to shorten future loading times.
+
+## Misc
+My plan is to apply the comparability chart to the 2019 and remove the unwanted variables. After that I will confirm that it has the same variables as the 2020 dataset and combine them. From there I will apply the standard code conventions to convert the variables to factors as well as address some of the values with a high missingness proportion.
+
+I'd also like to use the janitor package to make the names lowercase and start to focus in on what variables are most of interest.
 
