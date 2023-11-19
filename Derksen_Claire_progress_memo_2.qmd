@@ -33,7 +33,7 @@ library(readxl)
 
 I decided to also include young adults (18-25) that were not currently in college in order to have something to compare college students to. I created new rds files for young adults and deleted the previous college rds files. These files were larger so the 2019 rds had to be added to .gitignore. 
 
-I altered the variable `FILEDATE` to `year` and got rid of the month and day.
+I altered the character variable `FILEDATE` to the numeric variable `year` by getting rid of the month and day.
 
 
 ```{r}
@@ -67,8 +67,23 @@ NSDUH_2019 %>%
            any_of(comparability)) %>%
   write_rds(file="data/NSDUH_2019_YA.rds")
 
-YA_2019_2020 <- bind_rows(YA_2020,YA_2019)
-write_rds(YA_2019_2020,file="data/NSDUH_2019_2020_YA.rds")
 
+```
+
+```{r}
+#| label: read rdsm bind-years, create year variable
+YA_2020 <- read_rds(file="data/NSDUH_2020_YA.rds")
+YA_2019 <- read_rds(file="data/NSDUH_2019_YA.rds")
+
+YA_2019_2020 <- bind_rows(YA_2020,YA_2019)
+
+YA_2019_2020 %>%
+  separate_wider_regex(
+    FILEDATE,
+    patterns = c(
+      "../../",
+      year = "[0-9]+"
+    )
+  )
 ```
 
