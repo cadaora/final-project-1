@@ -31,5 +31,44 @@ library(readxl)
 
 ## Data Changes
 
-I decided to examine young adults that were not currently in college in order to have something to compare college students to.
+I decided to also include young adults (18-25) that were not currently in college in order to have something to compare college students to. I created new rds files for young adults and deleted the previous college rds files. These files were larger so the 2019 rds had to be added to .gitignore. 
+
+I altered the variable `FILEDATE` to `year` and got rid of the month and day.
+
+
+```{r}
+#| label: create-YA-rds-files
+#| eval: false
+
+# list of comparable variables
+comparability <- read_excel("data/RDAS_Comparability.xlsx") %>%
+  filter(!is.na(`2019-2020`)) %>%
+  select(Variable) %>%
+  deframe()
+
+NSDUH_2020 <-read.delim(file="data/NSDUH_2020_Tab.txt",na.strings = ".")
+NSDUH_2019 <-read.delim(file="data/NSDUH_2019_Tab.txt",na.strings = ".")
+
+NSDUH_2020 %>%
+  filter(CATAGE==2) %>%
+  select(!TXEVRRCVD2:NDTRNMIMPT&
+           !NDSSANSP:DNICNSP &
+           !starts_with("UAD") &
+           !AUINPYR:RCVMHASPTX &
+           any_of(comparability)) %>%
+  write_rds(file="data/NSDUH_2020_YA.rds")
+
+NSDUH_2019 %>%
+  filter(CATAGE==2) %>%
+  select(!TXEVRRCVD2:NDTRNMIMPT&
+           !NDSSANSP:DNICNSP &
+           !starts_with("UAD") &
+           !AUINPYR:RCVMHASPTX &
+           any_of(comparability)) %>%
+  write_rds(file="data/NSDUH_2019_YA.rds")
+
+YA_2019_2020 <- bind_rows(YA_2020,YA_2019)
+write_rds(YA_2019_2020,file="data/NSDUH_2019_2020_YA.rds")
+
+```
 
