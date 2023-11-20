@@ -46,22 +46,24 @@ NSDUH_2019 <-read.delim(file="data/NSDUH_2019_Tab.txt",na.strings = ".")
 
 NSDUH_2021 %>%
   filter(CATAGE==2) %>%
-  select((FILEDATE:IISEDNMAGE|      #drug use
+  select(((FILEDATE:IISEDNMAGE|      #drug use
             DSTNRV30:SUICTHNK|      #mental health
             ADDPREV:ADTMTHLP |      #depression
             CATAGE:EDUFULPAR|        #demographics
             IRFAMSOC:POVERTY3)&        #income
-           any_of(comparability)) %>%
+           any_of(comparability)), 
+         VAPNICREC) %>%
   write_rds(file="data/NSDUH_2021_YA.rds")
 
 NSDUH_2020 %>%
   filter(CATAGE==2) %>%
-  select((FILEDATE:IISEDNMAGE|     
+  select(((FILEDATE:IISEDNMAGE|     
             DSTNRV30:SUICTHNK|     
             ADDPREV:ADTMTHLP |    
             CATAGE:EDUFULPAR|       
             IRFAMSOC:POVERTY3)&       
-           any_of(comparability)) %>%
+           any_of(comparability)), 
+         VAPNICREC) %>%
   write_rds(file="data/NSDUH_2020_YA.rds")
 
 NSDUH_2019 %>%
@@ -83,21 +85,45 @@ YA_2021 <- read_rds(file="data/NSDUH_2021_YA.rds")
 YA_2020 <- read_rds(file="data/NSDUH_2020_YA.rds")
 YA_2019 <- read_rds(file="data/NSDUH_2019_YA.rds")
 
+```
+
+
+## Data Changes
+I decided to integrate data from 2021 to get a better idea of the effect of the COVID-19 pandemic. The original 2021 file had 58034 observations of 2988 variables and after filtering it had 13979 observations of 589 variables. Rather than getting rid of the variables I didn't want, I decided to focus on variables from the categories drug use, mental health, depression, demographics, and income. I applied this to 2020 and 2019 and got data frames with 595 and 594 variables respectively. 
+
+The variable `VAPNICREC` exists only in 2020 and 2021 and it assesses recency of vaping nicotine. I decided to keep the variable since e-cigarettes and vapes are pretty popular among young adults.
+```{r}
+#| label: 2021-extra-variables
+subset(YA_2020, select = !(names(YA_2020) %in% names(YA_2021))) %>%
+  slice_head(n=5) %>%
+  kable()
+
+
 YA_2020 <- YA_2020 %>%
   select(!c(ADWRDLOT,ADWRDBTR,ADWRSTHK,ADWRSPLN, ADWRSATP,AD_MDEA9))
 YA_2019 <- YA_2019 %>%
   select(!c(ADWRDLOT,ADWRDBTR,ADWRSTHK,ADWRSPLN, ADWRSATP,AD_MDEA9))
 ```
+The 6 variables added in 2021 were part of the adult depression questionnaire. I decided to get rid of them since there were other variables I could use to assess depression. 
+
+I also decided to include young adults (18-25) that were not currently in college in order to have something to compare college students to. I created new rds files for young adults and deleted the previous college rds files. 
+
+## Data Reliability
+As I read more of the documentation for the 2019 and 2020 data sets I found out that the 2020 data set was collected for the first 2 quarters of the year, stopped, then continued online for the 4th quarter. This means it is not recommended to compare it to prior or following years despite them making a comparability chart for 2019-2020. Since the comparison was already unreliable I thought to add 2021 so I could potentially see an actual impact from COVID-19 since the pandemic started affecting the US in late 2020. Data collection in 2021 was also made up of a mix of in-person and online interviews.
+
+## Altering Variables
+I altered the character variable `FILEDATE` to the numeric variable `year` by getting rid of the month and day. I also added the variable `incollege` for easier comparisons. I again selected certain variables, making sure to look at each one individually rather than by category.
+
 
 
 ```{r}
 #| label: bind-years, create year variable
-#| eval: false
-
-
 
 YA_19_21 <- bind_rows(YA_2021,YA_2020,YA_2019)
 
+YA_19_21 %>%
+  select(CIGEVER:CIGWILYR,CIGREC,CG30EST,CIG30AV,  #cigarettes
+         )
 YA_19_21 <-YA_19_21 %>%
   separate_wider_regex(
     FILEDATE,
@@ -113,21 +139,4 @@ YA_19_21 <-YA_19_21 %>%
                             TRUE,
                             FALSE))
 ```
-## Data Changes
-I decided to integrate data from 2021 to get a better idea of the effect of the COVID-19 pandemic. The original 2021 file had 58034 observations of 2988 variables and after filtering it had 13979 observations of 588 variables. Rather than getting rid of the variables I didn't want, I decided to focus on variables from the categories drug use, mental health, depression, demographics, and income. I applied this to 2020 and 2019 and got data frames with 594 variables.
-```{r}
-#| label: 2021-extra-variables
-subset(YA_2020, select = !(names(YA_2020) %in% names(YA_2021))) %>%
-  slice_head(n=5) %>%
-  kable()
-```
-The 6 additional variables were part of the adult depression questionnaire. I decided to get rid of them since there were other variables I could use to assess depression. 
 
-I also decided to include young adults (18-25) that were not currently in college in order to have something to compare college students to. I created new rds files for young adults and deleted the previous college rds files. 
-
-I altered the character variable `FILEDATE` to the numeric variable `year` by getting rid of the month and day.
-
-
-
-## Data Reliability
-As I read more of the documentation for the 2019 and 2020 data sets I found out that the 2020 data set was collected for the first 2 quarters of the year, stopped, then continued online for the 4th quarter. This means it is not recommended to compare it to prior or following years despite them making a comparability chart for 2019-2020. Since the comparison was already unreliable I thought to add 2021 so I could potentially see an actual impact from COVID-19 since the pandemic started affecting the US in late 2020. Data collection in 2021 was also made up of a mix of in-person and online interviews.
