@@ -3039,67 +3039,16 @@ Data Science 1 with R (STAT 301-1)</p><p></p>
 <p>I decided to integrate data from 2021 to get a better idea of the effect of the COVID-19 pandemic. The original 2021 file had 58034 observations of 2988 variables and after filtering it had 13979 observations of 588 variables. Rather than getting rid of the variables I didn’t want, I decided to focus on variables from the categories drug use, mental health, depression, demographics, and income. I applied this to 2020 and 2019 and got data frames with 594 variables.</p>
 <div class="cell">
 <div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: right;">ADWRDLOT</th>
-<th style="text-align: right;">ADWRDBTR</th>
-<th style="text-align: right;">ADWRSTHK</th>
-<th style="text-align: right;">ADWRSPLN</th>
-<th style="text-align: right;">ADWRSATP</th>
-<th style="text-align: right;">AD_MDEA9</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">98</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">98</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">98</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">99</td>
-<td style="text-align: right;">98</td>
-</tr>
-</tbody>
-</table>
+
 </div>
 </div>
+<p>The 6 additional variables were part of the adult depression questionnaire. I decided to get rid of them since there were other variables I could use to assess depression.</p>
 <p>I also decided to include young adults (18-25) that were not currently in college in order to have something to compare college students to. I created new rds files for young adults and deleted the previous college rds files.</p>
 <p>I altered the character variable <code>FILEDATE</code> to the numeric variable <code>year</code> by getting rid of the month and day.</p>
 </section>
 <section id="data-reliability" class="level2">
 <h2 class="anchored" data-anchor-id="data-reliability">Data Reliability</h2>
+<p>As I read more of the documentation for the 2019 and 2020 data sets I found out that the 2020 data set was collected for the first 2 quarters of the year, stopped, then continued online for the 4th quarter. This means it is not recommended to compare it to prior or following years despite them making a comparability chart for 2019-2020. Since the comparison was already unreliable I thought to add 2021 so I could potentially see an actual impact from COVID-19 since the pandemic started affecting the US in late 2020. Data collection in 2021 was also made up of a mix of in-person and online interviews.</p>
 </section>
 
 </main>
