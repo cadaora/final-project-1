@@ -73,7 +73,6 @@ NSDUH_2019 %>%
 
 ```{r}
 #| label: read rdsm bind-years, create year variable
-#| eval: false
 YA_2020 <- read_rds(file="data/NSDUH_2020_YA.rds")
 YA_2019 <- read_rds(file="data/NSDUH_2019_YA.rds")
 
@@ -88,7 +87,9 @@ YA_2019_2020 %>%
       year = "[0-9]+"
     )
   ) %>%
-  mutate(year = as.numeric(year)-1)
+  mutate(year = as.numeric(year)-1) %>%
+  group_by(year) %>%
+  summarise( count = n())
 
 YA_2019_2020 %>%
   mutate(incollege = ifelse(EDUSCHGRD2==9|EDUSCHGRD2==10|EDUSCHGRD2==11,
