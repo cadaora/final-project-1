@@ -2993,6 +2993,7 @@ vertical-align: -.125em;
   <ul>
   <li><a href="#github-repo-link" id="toc-github-repo-link" class="nav-link active" data-scroll-target="#github-repo-link">Github Repo Link</a></li>
   <li><a href="#data-changes" id="toc-data-changes" class="nav-link" data-scroll-target="#data-changes">Data Changes</a></li>
+  <li><a href="#data-reliability" id="toc-data-reliability" class="nav-link" data-scroll-target="#data-reliability">Data Reliability</a></li>
   </ul>
 </nav>
 </div>
@@ -3035,32 +3036,11 @@ Data Science 1 with R (STAT 301-1)</p><p></p>
 </section>
 <section id="data-changes" class="level2">
 <h2 class="anchored" data-anchor-id="data-changes">Data Changes</h2>
-<p>I decided to also include young adults (18-25) that were not currently in college in order to have something to compare college students to. I created new rds files for young adults and deleted the previous college rds files. These files were larger so the 2019 rds had to be added to .gitignore.</p>
+<p>I decided to integrate data from 2021 to get a better idea of the effect of the COVID-19 pandemic. I also decided to include young adults (18-25) that were not currently in college in order to have something to compare college students to. I created new rds files for young adults and deleted the previous college rds files. Rather than getting rid of the variables I didn’t want, I decided to focus on variables from the categories drug use, mental health, depression, demographics, and income.</p>
 <p>I altered the character variable <code>FILEDATE</code> to the numeric variable <code>year</code> by getting rid of the month and day.</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 22,172 × 2,033
-   year  CIGEVER CIGOFRSM CIGWILYR CIGTRY CIGREC CIG30USE CG30EST CIG30AV
-   &lt;chr&gt;   &lt;int&gt;    &lt;int&gt;    &lt;int&gt;  &lt;int&gt;  &lt;int&gt;    &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
- 1 2021        2       99       99    991     91       91      91      91
- 2 2021        2       99       99    991     91       91      91      91
- 3 2021        2       99       99    991     91       91      91      91
- 4 2021        2       99       99    991     91       91      91      91
- 5 2021        1       99       99     17      4       93      93      93
- 6 2021        1       99       99     23      3       93      93      93
- 7 2021        1       99       99     11      1       10      99       5
- 8 2021        2       99       99    991     91       91      91      91
- 9 2021        1       99       99     18      2       93      93      93
-10 2021        1       99       99     17      4       93      93      93
-# ℹ 22,162 more rows
-# ℹ 2,024 more variables: CIG30TPE &lt;int&gt;, CIG30MEN &lt;int&gt;, CIG30MLN &lt;int&gt;,
-#   CIGDLYMO &lt;int&gt;, CIGAGE &lt;int&gt;, CIG100LF &lt;int&gt;, SMKLSSEVR &lt;int&gt;,
-#   SMKLSSTRY &lt;int&gt;, SMKLSSREC &lt;int&gt;, SMKLSS30N &lt;int&gt;, SMKLSS30E &lt;int&gt;,
-#   CIGAREVR &lt;int&gt;, CIGARTRY &lt;int&gt;, CIGARREC &lt;int&gt;, CGR30USE &lt;int&gt;,
-#   CI30EST &lt;int&gt;, PIPEVER &lt;int&gt;, PIPE30DY &lt;int&gt;, ALCEVER &lt;int&gt;, ALCTRY &lt;int&gt;,
-#   ALCREC &lt;int&gt;, ALCYRTOT &lt;int&gt;, ALTOTFG &lt;int&gt;, ALFQFLG &lt;int&gt;, …</code></pre>
-</div>
-</div>
+</section>
+<section id="data-reliability" class="level2">
+<h2 class="anchored" data-anchor-id="data-reliability">Data Reliability</h2>
 </section>
 
 </main>

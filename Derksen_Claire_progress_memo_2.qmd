@@ -30,8 +30,7 @@ library(readxl)
 <https://github.com/stat301-1-2023-fall/final-project-1-cadaora>
 
 ## Data Changes
-
-I decided to also include young adults (18-25) that were not currently in college in order to have something to compare college students to. I created new rds files for young adults and deleted the previous college rds files. These files were larger so the 2019 rds had to be added to .gitignore. 
+I decided to integrate data from 2021 to get a better idea of the effect of the COVID-19 pandemic. I also decided to  include young adults (18-25) that were not currently in college in order to have something to compare college students to. I created new rds files for young adults and deleted the previous college rds files. Rather than getting rid of the variables I didn't want, I decided to focus on variables from the categories drug use, mental health, depression, demographics, and income.
 
 I altered the character variable `FILEDATE` to the numeric variable `year` by getting rid of the month and day.
 
@@ -51,19 +50,21 @@ NSDUH_2019 <-read.delim(file="data/NSDUH_2019_Tab.txt",na.strings = ".")
 
 NSDUH_2020 %>%
   filter(CATAGE==2) %>%
-  select(!TXEVRRCVD2:NDTRNMIMPT&
-           !NDSSANSP:DNICNSP &
-           !starts_with("UAD") &
-           !AUINPYR:RCVMHASPTX &
+  select((FILEDATE:IISEDNMAGE|      #drug use
+            DSTNRV30:SUICTHNK|      #mental health
+            ADDPREV:ADTMTHLP |      #depression
+            CATAGE:EDUFULPAR|        #demographics
+            IRFAMSOC:POVERTY3)&        #income
            any_of(comparability)) %>%
   write_rds(file="data/NSDUH_2020_YA.rds")
 
 NSDUH_2019 %>%
   filter(CATAGE==2) %>%
-  select(!TXEVRRCVD2:NDTRNMIMPT&
-           !NDSSANSP:DNICNSP &
-           !starts_with("UAD") &
-           !AUINPYR:RCVMHASPTX &
+  select((FILEDATE:IISEDNMAGE|     
+            DSTNRV30:SUICTRY|     
+            ADDPREV:ADTMTHLP |    
+            CATAGE:EDUFULPAR|       
+            IRFAMSOC:POVERTY3)&               
            any_of(comparability)) %>%
   write_rds(file="data/NSDUH_2019_YA.rds")
 
@@ -72,8 +73,10 @@ NSDUH_2019 %>%
 
 ```{r}
 #| label: read rdsm bind-years, create year variable
+#| eval: false
 YA_2020 <- read_rds(file="data/NSDUH_2020_YA.rds")
 YA_2019 <- read_rds(file="data/NSDUH_2019_YA.rds")
+
 
 YA_2019_2020 <- bind_rows(YA_2020,YA_2019)
 
@@ -84,6 +87,12 @@ YA_2019_2020 %>%
       "../../",
       year = "[0-9]+"
     )
-  )
-```
+  ) %>%
+  mutate(year = as.numeric(year)-1)
 
+YA_2019_2020 %>%
+  mutate(incollege = ifelse(EDUSCHGRD2==9|EDUSCHGRD2==10|EDUSCHGRD2==11,
+                            TRUE,
+                            FALSE))
+```
+## Data Reliability
