@@ -46,33 +46,35 @@ NSDUH_2019 <-read.delim(file="data/NSDUH_2019_Tab.txt",na.strings = ".")
 
 NSDUH_2021 %>%
   filter(CATAGE==2) %>%
-  select(((FILEDATE:IISEDNMAGE|      #drug use
-            DSTNRV30:SUICTHNK|      #mental health
-            ADDPREV:ADTMTHLP |      #depression
-            CATAGE:EDUFULPAR|        #demographics
-            IRFAMSOC:POVERTY3)&        #income
-           any_of(comparability)), 
-         VAPNICREC) %>%
+  select((FILEDATE|CIGOFRSM|CIGWILYR|STMRSSTDY|
+         IRCIGRC| IRALCRC| IRMJRC| IRCOCRC| IRPNRNMREC| IRSTMNMREC| #recency
+         IRCIGFM| IRALCFM| IRALCBNG30D| IRMJFM|IRCOCFM| IRPNRNM30FQ| IRSTMNM30FQ|#freq in last month
+         MICATPY|#mental health
+         AMDEYR|ASDSHOM2:ASDSSOC2| #adult depression
+         IRSEX|IREDUHIGHST2|CATAG7| EDUSCHGRD2|GOVTPROG| INCOME:POVERTY3), #demographics         
+         IRVAPANYREC) %>%              #vaping
   write_rds(file="data/NSDUH_2021_YA.rds")
 
 NSDUH_2020 %>%
   filter(CATAGE==2) %>%
-  select(((FILEDATE:IISEDNMAGE|     
-            DSTNRV30:SUICTHNK|     
-            ADDPREV:ADTMTHLP |    
-            CATAGE:EDUFULPAR|       
-            IRFAMSOC:POVERTY3)&       
-           any_of(comparability)), 
-         VAPNICREC) %>%
+  select((FILEDATE|CIGOFRSM|CIGWILYR|STMRSSTDY|
+         IRCIGRC| IRALCRC| IRMJRC| IRCOCRC| IRPNRNMREC| IRSTMNMREC| 
+         IRCIGFM| IRALCFM| IRALCBNG30D| IRMJFM|IRCOCFM| IRPNRNM30FQ| IRSTMNM30FQ|
+         MI_CAT_U|
+         AMDEYR|ASDSHOM2:ASDSSOC2| 
+         IRSEX|IREDUHIGHST2|CATAG7| EDUSCHGRD2|GOVTPROG| INCOME:POVERTY3)&          
+           any_of(comparability),
+         IRVAPANYREC) %>%
   write_rds(file="data/NSDUH_2020_YA.rds")
 
 NSDUH_2019 %>%
   filter(CATAGE==2) %>%
-  select((FILEDATE:IISEDNMAGE|     
-            DSTNRV30:SUICTRY|     
-            ADDPREV:ADTMTHLP |    
-            CATAGE:EDUFULPAR|       
-            IRFAMSOC:POVERTY3)&               
+  select((FILEDATE|CIGOFRSM|CIGWILYR|STMRSSTDY|
+         IRCIGRC| IRALCRC| IRMJRC| IRCOCRC| IRPNRNMREC| IRSTMNMREC| #recency
+         IRCIGFM| IRALCFM| IRALCBNG30D| IRMJFM|IRCOCFM| IRPNRNM30FQ| IRSTMNM30FQ|#freq in last month
+         MI_CAT_U|#mental health
+         AMDEYR|ASDSHOM2:ASDSSOC2| #adult depression
+         IRSEX|IREDUHIGHST2|CATAG7| EDUSCHGRD2|GOVTPROG| INCOME:POVERTY3)& #demographics         
            any_of(comparability)) %>%
   write_rds(file="data/NSDUH_2019_YA.rds")
 
@@ -89,22 +91,9 @@ YA_2019 <- read_rds(file="data/NSDUH_2019_YA.rds")
 
 
 ## Data Changes
-I decided to integrate data from 2021 to get a better idea of the effect of the COVID-19 pandemic. The original 2021 file had 58034 observations of 2988 variables and after filtering it had 13979 observations of 589 variables. Rather than getting rid of the variables I didn't want, I decided to focus on variables from the categories drug use, mental health, depression, demographics, and income. I applied this to 2020 and 2019 and got data frames with 595 and 594 variables respectively. 
+I decided to integrate data from 2021 to get a better idea of the effect of the COVID-19 pandemic. The original 2021 file had 58034 observations of 2988 variables and after filtering it had 13979 observations of 31 variables. Rather than getting rid of the variables I didn't want as I did before, I decided to focus on variables from the categories drug use, mental health, depression, demographics, and income. I applied this to 2020 and 2019 and got data frames with 31 and 30 variables respectively. 
 
-The variable `VAPNICREC` exists only in 2020 and 2021 and it assesses recency of vaping nicotine. I decided to keep the variable since e-cigarettes and vapes are pretty popular among young adults.
-```{r}
-#| label: 2021-extra-variables
-subset(YA_2020, select = !(names(YA_2020) %in% names(YA_2021))) %>%
-  slice_head(n=5) %>%
-  kable()
-
-
-YA_2020 <- YA_2020 %>%
-  select(!c(ADWRDLOT,ADWRDBTR,ADWRSTHK,ADWRSPLN, ADWRSATP,AD_MDEA9))
-YA_2019 <- YA_2019 %>%
-  select(!c(ADWRDLOT,ADWRDBTR,ADWRSTHK,ADWRSPLN, ADWRSATP,AD_MDEA9))
-```
-The 6 variables added in 2021 were part of the adult depression questionnaire. I decided to get rid of them since there were other variables I could use to assess depression. 
+The variable `IRVAPANYREC` exists only in 2020 and 2021 and it assesses recency of vaping nicotine. I decided to keep the variable since e-cigarettes and vapes are pretty popular among young adults.
 
 I also decided to include young adults (18-25) that were not currently in college in order to have something to compare college students to. I created new rds files for young adults and deleted the previous college rds files. 
 
@@ -112,18 +101,17 @@ I also decided to include young adults (18-25) that were not currently in colleg
 As I read more of the documentation for the 2019 and 2020 data sets I found out that the 2020 data set was collected for the first 2 quarters of the year, stopped, then continued online for the 4th quarter. This means it is not recommended to compare it to prior or following years despite them making a comparability chart for 2019-2020. Since the comparison was already unreliable I thought to add 2021 so I could potentially see an actual impact from COVID-19 since the pandemic started affecting the US in late 2020. Data collection in 2021 was also made up of a mix of in-person and online interviews.
 
 ## Altering Variables
-I altered the character variable `FILEDATE` to the numeric variable `year` by getting rid of the month and day. I also added the variable `incollege` for easier comparisons. I again selected certain variables, making sure to look at each one individually rather than by category.
+Each year had a differently named variable that gave categorical mental illness indicator based on the 2012 model (`MICATPY` in 2021,`MICAT_U` in 2020,`MI_CAT_U` in 2019). I combined all the values into `MICATPY` after using bind_rows to combine the years. I altered the character variable `FILEDATE` to the numeric variable `year` by getting rid of the month and day. I also added the variable `incollege` for easier comparisons.
 
 
-
+ 
 ```{r}
 #| label: bind-years, create year variable
 
 YA_19_21 <- bind_rows(YA_2021,YA_2020,YA_2019)
 
-YA_19_21 %>%
-  select(CIGEVER:CIGWILYR,CIGREC,CG30EST,CIG30AV,  #cigarettes
-         )
+
+
 YA_19_21 <-YA_19_21 %>%
   separate_wider_regex(
     FILEDATE,
