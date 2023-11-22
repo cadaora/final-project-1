@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Claire Derksen">
-<meta name="dcterms.date" content="2023-11-21">
+<meta name="dcterms.date" content="2023-11-22">
 
 <title>Progress Memo 2</title>
 <style>
@@ -2995,6 +2995,7 @@ vertical-align: -.125em;
   <li><a href="#data-changes" id="toc-data-changes" class="nav-link" data-scroll-target="#data-changes">Data Changes</a></li>
   <li><a href="#data-reliability" id="toc-data-reliability" class="nav-link" data-scroll-target="#data-reliability">Data Reliability</a></li>
   <li><a href="#altering-variables" id="toc-altering-variables" class="nav-link" data-scroll-target="#altering-variables">Altering Variables</a></li>
+  <li><a href="#coverting-to-factors" id="toc-coverting-to-factors" class="nav-link" data-scroll-target="#coverting-to-factors">Coverting to Factors</a></li>
   <li><a href="#progress-and-plan" id="toc-progress-and-plan" class="nav-link" data-scroll-target="#progress-and-plan">Progress and Plan</a></li>
   </ul>
 </nav>
@@ -3022,7 +3023,7 @@ Data Science 1 with R (STAT 301-1)</p><p></p>
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 21, 2023</p>
+      <p class="date">November 22, 2023</p>
     </div>
   </div>
   
@@ -3147,6 +3148,33 @@ Data Science 1 with R (STAT 301-1)</p><p></p>
 </div>
 </div>
 <p>The ASDS questions measure how depressive feelings impair role domains (home management, work, close relationships with others, and social life) on the Sheehan Disability Scale (SDS). These questions were only asked for people who reported depressive symptoms. The nicotine vaping variable is missing only in observations from 2019.</p>
+</section>
+<section id="coverting-to-factors" class="level2">
+<h2 class="anchored" data-anchor-id="coverting-to-factors">Coverting to Factors</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 36,151 × 32
+    year CIGOFRSM CIGWILYR STMRSSTDY IRCIGRC IRALCRC   IRMJRC IRCOCRC IRPNRNMREC
+   &lt;dbl&gt;    &lt;int&gt;    &lt;int&gt;     &lt;int&gt;   &lt;int&gt; &lt;fct&gt;     &lt;fct&gt;  &lt;fct&gt;   &lt;fct&gt;     
+ 1  2021       99       99        91       9 ≤ 30 days Never  Never   Never     
+ 2  2021       99       99        91       9 Never     Never  Never   Never     
+ 3  2021       99       99        91       1 ≤ 30 days ≤ 30 … Never   Never     
+ 4  2021       99       99        91       9 &gt; 12 mon… Never  Never   Never     
+ 5  2021       99       99        91       9 &gt; 30 day… ≤ 30 … Never   Never     
+ 6  2021       99       99        91       1 ≤ 30 days &gt; 30 … Never   Never     
+ 7  2021       99       99        91       9 &gt; 12 mon… Never  Never   Never     
+ 8  2021       99       99        91       2 ≤ 30 days Never  Never   Never     
+ 9  2021       99       99        91       9 Never     &gt; 12 … Never   Never     
+10  2021       99       99        91       2 ≤ 30 days &gt; 12 … Never   Never     
+# ℹ 36,141 more rows
+# ℹ 23 more variables: IRSTMNMREC &lt;fct&gt;, IRVAPNICREC &lt;fct&gt;, IRCIGFM &lt;dbl&gt;,
+#   IRALCFM &lt;dbl&gt;, IRALCBNG30D &lt;int&gt;, IRMJFM &lt;dbl&gt;, IRCOCFM &lt;dbl&gt;,
+#   IRPNRNM30FQ &lt;dbl&gt;, IRSTMNM30FQ &lt;dbl&gt;, MI_CAT_U &lt;int&gt;, AMDEYR &lt;int&gt;,
+#   ASDSHOM2 &lt;int&gt;, ASDSWRK2 &lt;int&gt;, ASDSREL2 &lt;int&gt;, ASDSSOC2 &lt;int&gt;,
+#   IRSEX &lt;int&gt;, IREDUHIGHST2 &lt;int&gt;, CATAG7 &lt;int&gt;, EDUSCHGRD2 &lt;int&gt;,
+#   GOVTPROG &lt;int&gt;, INCOME &lt;int&gt;, POVERTY3 &lt;int&gt;, incollege &lt;lgl&gt;</code></pre>
+</div>
+</div>
 </section>
 <section id="progress-and-plan" class="level2">
 <h2 class="anchored" data-anchor-id="progress-and-plan">Progress and Plan</h2>

@@ -109,7 +109,8 @@ There were different names for a variable that gave categorical mental illness i
 YA_2021 <- YA_2021 %>%
   rename(MI_CAT_U = MICATPY)
 
-YA_19_21 <- bind_rows(YA_2021,YA_2020,YA_2019)
+YA_19_21 <- bind_rows(YA_2021,YA_2020,YA_2019) %>%
+  relocate(IRVAPNICREC, .after=IRSTMNMREC)
 
 YA_19_21 <-YA_19_21 %>%
   separate_wider_regex(
@@ -141,6 +142,23 @@ YA_19_21 %>%
   kable()
 ```
 The ASDS questions measure how depressive feelings impair role domains (home management, work, close relationships with others, and social life) on the Sheehan Disability Scale (SDS). These questions were only asked for people who reported depressive symptoms. The nicotine vaping variable is missing only in observations from 2019.
+
+## Coverting to Factors
+```{r}
+#| label: recency
+factor_recency <- function(x) {
+  case_when(
+    x == 1 ~ "≤ 30 days",
+    x == 2 ~ "> 30 days, ≤ 12 months",
+    x == 3 ~ "> 12 months",
+    x == 9 ~ "Never") %>%
+    factor()
+}
+
+YA_19_21 %>%
+  mutate(across(IRALCRC:IRVAPNICREC,factor_recency))
+
+```
 
 
 ## Progress and Plan
