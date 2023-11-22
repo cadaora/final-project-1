@@ -148,8 +148,17 @@ The ASDS questions measure how depressive feelings impair role domains (home man
   From this process I found that everyone in my subset skipped `CIGOFRSM`and `CIGWILYR` so I got rid of these variables.
   
   I wanted to keep the frequency variables , however, never having used a substance was coded as 91 while having used a substance before but not in the past month was coded as 93. I thought about coding both as NA and referring to the recency questions to determine the difference. I instead decided to code never as NA and not in the past month as 0 so I don't have to refer to another variable.
+  The variable `EDUSCHGRD2` had both legitimate skips which I coded as "Not in school" and blank/no answer which I coded as NA.
+  
 ```{r}
-#| label: recency
+#| label: remove cig variables
+YA_19_21 <- YA_19_21 %>%
+  select(!CIGOFRSM:CIGWILYR) %>%
+```
+  
+  
+```{r}
+#| label: convert variables
 factor_yesno <- function(x) {
   case_when(
     x == 1 ~ "Yes",
@@ -180,16 +189,16 @@ factor_ASDS <- function(x) {
       x == 5 ~ "Very Severe",
       .default = NA)
 }
-YA_19_21 %>%
-  select(!CIGOFRSM:CIGWILYR) %>%
+
+YA_19_21 <-YA_19_21 %>%
   mutate(
     across(c(STMRSSTDY,AMDEYR,GOVTPROG),factor_yesno),
-    IRCIGRC = case_when(
-      IRCIGRC == 1 ~ "≤ 30 days",
-      IRCIGRC == 2 ~ "> 30 days, ≤ 12 months",
-      IRCIGRC == 3 ~ "> 12 months, ≤ 3 years",
-      IRCIGRC == 4 ~ "> 3 years",
-      IRCIGRC == 9 ~ "Never"),
+    IRCIGRC = fct_recode(factor(IRCIGRC),
+       "≤ 30 days"="1",
+      "> 30 days, ≤ 12 months"="2",
+      "> 12 months, ≤ 3 years"="3",
+      "> 3 years"="4",
+      "Never"="9"),
     across(IRALCRC:IRVAPNICREC,factor_recency),
     across(IRCIGFM:IRSTMNM30FQ,numeric_frequency),
     MI_CAT_U = case_when(
@@ -198,10 +207,46 @@ YA_19_21 %>%
       MI_CAT_U == 2 ~ "Moderate",
       MI_CAT_U == 3 ~ "Serious",
       .default = NA),
-    across(ASDSHOM2:ASDSSOC2,factor_ASDS))
+    across(ASDSHOM2:ASDSSOC2,factor_ASDS),
+    IRSEX = case_when(
+      IRSEX == 1 ~ "Male",
+      IRSEX == 2 ~ "Female"),
+    IREDUHIGHST2 = case_when(
+      IREDUHIGHST2 == 1 ~ "5th grade or less",
+      IREDUHIGHST2 == 2 ~ "6th grade",
+      IREDUHIGHST2 == 3 ~ "7th grade",
+      IREDUHIGHST2 == 4 ~ "8th grade",
+      IREDUHIGHST2 == 5 ~ "9th grade",
+      IREDUHIGHST2 == 6 ~ "10th grade",
+      IREDUHIGHST2 == 7 ~ "11th or 12th grade, no GED",
+      IREDUHIGHST2 == 8 ~ "GED",
+      IREDUHIGHST2 == 9 ~ "Some college",
+      IREDUHIGHST2 == 10 ~ "Associate's degree",
+      IREDUHIGHST2 == 11 ~ "College graduate or higher"),
+    CATAG7 = case_when(
+      CATAG7 == 4 ~ "18-20",
+      CATAG7 == 5 ~ "21-25"),
+    EDUSCHGRD2 = case_when(
+      EDUSCHGRD2 == 1 ~ "5th grade or lower",
+      EDUSCHGRD2 == 2 ~ "6th grade",
+      EDUSCHGRD2 == 3 ~ "7th grade",
+      EDUSCHGRD2 == 4 ~ "8th grade",
+      EDUSCHGRD2 == 5 ~ "9th grade",
+      EDUSCHGRD2 == 6 ~ "10th grade",
+      EDUSCHGRD2 == 7 ~ "11th grade",
+      EDUSCHGRD2 == 8 ~ "12th grade",
+      EDUSCHGRD2 == 9 ~ "1st year",
+      EDUSCHGRD2 == 10 ~ "2nd or 3rd year",
+      EDUSCHGRD2 == 11 ~ "4th year or higher",
+      EDUSCHGRD2 == 99 ~ "Not in school",
+      EDUSCHGRD2 == 98 ~ NA),
+    INCOME = case_when(
+      INCOME == 1 ~ "Less than $20,000",
+      INCOME == 2 ~ "$20,000 - 49,999",
+      INCOME == 3 ~ "$50,000 - 74,999",
+      INCOME == 4 ~ "$75,000 or more"))
 
-YA_19_21 %>%
-  distinct(CIGWILYR)
+levels(YA_19_21$IRALCRC)
 
 ```
 
