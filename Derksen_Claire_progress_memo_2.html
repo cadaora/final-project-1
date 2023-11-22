@@ -3038,7 +3038,7 @@ Data Science 1 with R (STAT 301-1)</p><p></p>
 <section id="data-changes" class="level2">
 <h2 class="anchored" data-anchor-id="data-changes">Data Changes</h2>
 <p>I decided to integrate data from 2021 to get a better idea of the effect of the COVID-19 pandemic. The original 2021 file had 58034 observations of 2988 variables and after filtering it had 13979 observations of 31 variables. Rather than getting rid of the variables I didn’t want as I did before, I decided to focus on variables from the categories drug use, mental health, depression, demographics, and income. I applied this to 2020 and 2019 and got data frames with 31 and 30 variables respectively.</p>
-<p>The variable <code>IRVAPANYREC</code> exists only in 2020 and 2021 and it assesses recency of vaping nicotine. I decided to keep the variable since e-cigarettes and vapes are pretty popular among young adults.</p>
+<p>The variable <code>IRVAPNICREC</code> exists only in 2020 and 2021 and it assesses recency of vaping nicotine. I decided to keep the variable since e-cigarettes and vapes are pretty popular among young adults.</p>
 <p>I also decided to include young adults (18-25) that were not currently in college in order to have something to compare college students to. I created new rds files for young adults and deleted the previous college rds files.</p>
 </section>
 <section id="data-reliability" class="level2">
@@ -3047,7 +3047,105 @@ Data Science 1 with R (STAT 301-1)</p><p></p>
 </section>
 <section id="altering-variables" class="level2">
 <h2 class="anchored" data-anchor-id="altering-variables">Altering Variables</h2>
-<p>Each year had a differently named variable that gave categorical mental illness indicator based on the 2012 model (<code>MICATPY</code> in 2021,<code>MICAT_U</code> in 2020,<code>MI_CAT_U</code> in 2019). I combined all the values into <code>MICATPY</code> after using bind_rows to combine the years. I altered the character variable <code>FILEDATE</code> to the numeric variable <code>year</code> by getting rid of the month and day. I also added the variable <code>incollege</code> for easier comparisons.</p>
+<p>There were different names for a variable that gave categorical mental illness indicator based on the 2012 model (<code>MICATPY</code> in 2021,<code>MI_CAT_U</code> in 2020 and 2021). I combined these into <code>MI_CAT_U</code> after using bind_rows to combine the years. I altered the character variable <code>FILEDATE</code> to the numeric variable <code>year</code> by getting rid of the month and day. I also added the variable <code>incollege</code> for easier comparisons. Before converting variables to factors I decided to assess missingness again.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">variable</th>
+<th style="text-align: right;">n_miss</th>
+<th style="text-align: right;">pct_miss</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ASDSWRK2</td>
+<td style="text-align: right;">30284</td>
+<td style="text-align: right;">83.770850</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ASDSREL2</td>
+<td style="text-align: right;">30280</td>
+<td style="text-align: right;">83.759785</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ASDSSOC2</td>
+<td style="text-align: right;">30278</td>
+<td style="text-align: right;">83.754253</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ASDSHOM2</td>
+<td style="text-align: right;">30277</td>
+<td style="text-align: right;">83.751487</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">IRVAPNICREC</td>
+<td style="text-align: right;">14226</td>
+<td style="text-align: right;">39.351608</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AMDEYR</td>
+<td style="text-align: right;">1239</td>
+<td style="text-align: right;">3.427291</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">POVERTY3</td>
+<td style="text-align: right;">696</td>
+<td style="text-align: right;">1.925258</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">year</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CIGOFRSM</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CIGWILYR</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.000000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">year</th>
+<th style="text-align: left;">variable</th>
+<th style="text-align: right;">n_miss</th>
+<th style="text-align: right;">pct_miss</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">IRVAPNICREC</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2020</td>
+<td style="text-align: left;">IRVAPNICREC</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">IRVAPNICREC</td>
+<td style="text-align: right;">14226</td>
+<td style="text-align: right;">100</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The ASDS questions measure how depressive feelings impair role domains (home management, work, close relationships with others, and social life) on the Sheehan Disability Scale (SDS). These questions were only asked for people who reported depressive symptoms. The nicotine vaping variable is missing only in observations from 2019. ##Progress and Plan I got pretty caught up in deciding which variables to keep so there is still space for more EDA. If there is time I would like to create a small for the 31 variables and tidy the names using the janitor package. For analysis I’d like to repeat</p>
 </section>
 
 </main>
