@@ -141,5 +141,7 @@ YA_19_21 %>%
   kable()
 ```
 The ASDS questions measure how depressive feelings impair role domains (home management, work, close relationships with others, and social life) on the Sheehan Disability Scale (SDS). These questions were only asked for people who reported depressive symptoms. The nicotine vaping variable is missing only in observations from 2019.
-##Progress and Plan
-I got pretty caught up in deciding which variables to keep so there is still space for more EDA. If there is time I would like to create a small for the 31 variables and tidy the names using the janitor package. For analysis I'd like to repeat 
+
+
+## Progress and Plan
+I got pretty caught up in deciding which variables to keep so there is still space for more EDA. I was unable to factorize the variables but I have a good idea of how to continue. I'll create a function to convert the frequency variables from numerics to factors. I may create other functions for variables with similar factors but otherwise I could approach every variable at a time. If there is time I would like to create a small for the 31 variables and tidy the names using the janitor package. For analysis I'd like to start with assessing the income demographics and age spread of the in and out of college groups. This could visualize any differences. My thought is that the group not in college may be more likely to be low income and we would instead be exploring the affect of income on drug use. I may instead seperate groups into in college and post college to try and control for that.
