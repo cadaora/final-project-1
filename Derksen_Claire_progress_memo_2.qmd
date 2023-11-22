@@ -91,7 +91,7 @@ YA_2019 <- read_rds(file="data/NSDUH_2019_YA.rds")
 
 
 ## Data Changes
-I decided to integrate data from 2021 to get a better idea of the effect of the COVID-19 pandemic. The original 2021 file had 58034 observations of 2988 variables and after filtering it had 13979 observations of 31 variables. Rather than getting rid of the variables I didn't want as I did before, I decided to focus on variables from the categories drug use, mental health, depression, demographics, and income. I applied this to 2020 and 2019 and got data frames with 31 and 30 variables respectively. 
+I decided to integrate data from 2021 to get a better idea of the effect of the COVID-19 pandemic. The original 2021 file had 58034 observations of 2988 variables and after filtering it had 13979 observations of 30 variables. Rather than getting rid of the variables I didn't want as I did before, I decided to focus on variables from the categories drug use, mental health, depression, demographics, and income. I applied this to 2020 and 2019 and got data frames with 30 and 29 variables respectively. 
 
 The variable `IRVAPNICREC` exists only in 2020 and 2021 and it assesses recency of vaping nicotine. I decided to keep the variable since e-cigarettes and vapes are pretty popular among young adults.
 
@@ -105,7 +105,7 @@ There were different names for a variable that gave categorical mental illness i
 
  
 ```{r}
-#| label: bind-years, create year variable
+#| label: bind-years, create year and incollege variable
 YA_2021 <- YA_2021 %>%
   rename(MI_CAT_U = MICATPY)
 
@@ -124,8 +124,8 @@ YA_19_21 <-YA_19_21 %>%
 
 YA_19_21 <-YA_19_21 %>%
   mutate(incollege = ifelse(EDUSCHGRD2==9|EDUSCHGRD2==10|EDUSCHGRD2==11,
-                            TRUE,
-                            FALSE))
+                            "Enrolled",
+                            "Not Enrolled"))
 
 ```
 
@@ -143,9 +143,20 @@ YA_19_21 %>%
 ```
 The ASDS questions measure how depressive feelings impair role domains (home management, work, close relationships with others, and social life) on the Sheehan Disability Scale (SDS). These questions were only asked for people who reported depressive symptoms. The nicotine vaping variable is missing only in observations from 2019.
 
-## Coverting to Factors
+## Coverting Variables to Different Classes
+  I created functions to convert similar variable types to factors. For any variable that had identical coding I created a function and used across() to convert those to factors.
+  From this process I found that everyone in my subset skipped `CIGOFRSM`and `CIGWILYR` so I got rid of these variables.
+  
+  I wanted to keep the frequency variables , however, never having used a substance was coded as 91 while having used a substance before but not in the past month was coded as 93. I thought about coding both as NA and referring to the recency questions to determine the difference. I instead decided to code never as NA and not in the past month as 0 so I don't have to refer to another variable.
 ```{r}
 #| label: recency
+factor_yesno <- function(x) {
+  case_when(
+    x == 1 ~ "Yes",
+    x == 2 ~ "No",
+    .default = NA) %>%
+    factor()
+}
 factor_recency <- function(x) {
   case_when(
     x == 1 ~ "≤ 30 days",
@@ -154,9 +165,43 @@ factor_recency <- function(x) {
     x == 9 ~ "Never") %>%
     factor()
 }
+numeric_frequency <- function(x) {
+  case_when(
+    x == 91 ~ NA,
+    x == 93 ~ 0,
+    .default = x)
+}
+factor_ASDS <- function(x) {
+  case_when(
+      x == 1 ~ "None",
+      x == 2 ~ "Mild",
+      x == 3 ~ "Moderate",
+      x == 4 ~ "Severe",
+      x == 5 ~ "Very Severe",
+      .default = NA)
+}
+YA_19_21 %>%
+  select(!CIGOFRSM:CIGWILYR) %>%
+  mutate(
+    across(c(STMRSSTDY,AMDEYR,GOVTPROG),factor_yesno),
+    IRCIGRC = case_when(
+      IRCIGRC == 1 ~ "≤ 30 days",
+      IRCIGRC == 2 ~ "> 30 days, ≤ 12 months",
+      IRCIGRC == 3 ~ "> 12 months, ≤ 3 years",
+      IRCIGRC == 4 ~ "> 3 years",
+      IRCIGRC == 9 ~ "Never"),
+    across(IRALCRC:IRVAPNICREC,factor_recency),
+    across(IRCIGFM:IRSTMNM30FQ,numeric_frequency),
+    MI_CAT_U = case_when(
+      MI_CAT_U == 0 ~ "None",
+      MI_CAT_U == 1 ~ "Mild",
+      MI_CAT_U == 2 ~ "Moderate",
+      MI_CAT_U == 3 ~ "Serious",
+      .default = NA),
+    across(ASDSHOM2:ASDSSOC2,factor_ASDS))
 
 YA_19_21 %>%
-  mutate(across(IRALCRC:IRVAPNICREC,factor_recency))
+  distinct(CIGWILYR)
 
 ```
 
