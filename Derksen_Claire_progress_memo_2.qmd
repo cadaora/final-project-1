@@ -146,7 +146,7 @@ The ASDS questions measure how depressive feelings impair role domains (home man
 ## Coverting Variables to Different Classes
   I created functions to convert similar variable types to factors. For any variable that had identical coding I created a function and used across() to convert those to factors.
   From this process I found that everyone in my subset skipped `CIGOFRSM`and `CIGWILYR` so I got rid of these variables.
-  
+  I initially tried using case_when() for to convert these however they didn't keep the factor order. I instead used fct_recode() after factoring the initial numeric value. If I had any problems I specified the levels when using factor().
   I wanted to keep the frequency variables , however, never having used a substance was coded as 91 while having used a substance before but not in the past month was coded as 93. I thought about coding both as NA and referring to the recency questions to determine the difference. I instead decided to code never as NA and not in the past month as 0 so I don't have to refer to another variable.
   The variable `EDUSCHGRD2` had both legitimate skips which I coded as "Not in school" and blank/no answer which I coded as NA.
   
@@ -159,10 +159,6 @@ YA_19_21 <- YA_19_21 %>%
   
 ```{r}
 #| label: convert variables
-#| eval: false
-levels_CIGREC = tibble(
-       old=c("1","2","3","4","9"),
-      new=c("≤ 30 days","> 30 days, ≤ 12 months","> 12 months, ≤ 3 years", "> 3 years","Never"))
 
 factor_yesno <- function(x) {
   fct_recode(factor(x, levels = c("1","2")),
@@ -170,12 +166,11 @@ factor_yesno <- function(x) {
     "No"="2") 
 }
 factor_recency <- function(x) {
-  case_when(
-    x == 1 ~ "≤ 30 days",
-    x == 2 ~ "> 30 days, ≤ 12 months",
-    x == 3 ~ "> 12 months",
-    x == 9 ~ "Never") %>%
-    factor()
+  fct_recode(factor(x),
+    "≤ 30 days"="1",
+    "> 30 days, ≤ 12 months"="2",
+    "> 12 months"="3",
+    "Never"="9")
 }
 numeric_frequency <- function(x) {
   case_when(
@@ -184,75 +179,79 @@ numeric_frequency <- function(x) {
     .default = x)
 }
 factor_ASDS <- function(x) {
-  case_when(
-      x == 1 ~ "None",
-      x == 2 ~ "Mild",
-      x == 3 ~ "Moderate",
-      x == 4 ~ "Severe",
-      x == 5 ~ "Very Severe",
-      .default = NA)
+  fct_recode(factor(x),
+      "None"="1",
+      "Mild"="2",
+      "Moderate"="3",
+      "Severe"="4",
+      "Very Severe"="5")
 }
 
-YA_19_21 %>%
+YA_19_21 <- YA_19_21 %>%
   mutate(
-    # across(c(STMRSSTDY,AMDEYR,GOVTPROG),factor_yesno),
-    # IRCIGRC = fct_recode(factor(IRCIGRC),
-    #    "≤ 30 days"="1",
-    #   "> 30 days, ≤ 12 months"="2",
-    #   "> 12 months, ≤ 3 years"="3",
-    #   "> 3 years"="4",
-    #   "Never"="9"),
+    across(c(STMRSSTDY,AMDEYR,GOVTPROG),factor_yesno),
+    IRCIGRC = fct_recode(factor(IRCIGRC),
+       "≤ 30 days"="1",
+      "> 30 days, ≤ 12 months"="2",
+      "> 12 months, ≤ 3 years"="3",
+      "> 3 years"="4",
+      "Never"="9"),
     across(IRALCRC:IRVAPNICREC,factor_recency),
-    # across(IRCIGFM:IRSTMNM30FQ,numeric_frequency),
-    # MI_CAT_U = case_when(
-    #   MI_CAT_U == 0 ~ "None",
-    #   MI_CAT_U == 1 ~ "Mild",
-    #   MI_CAT_U == 2 ~ "Moderate",
-    #   MI_CAT_U == 3 ~ "Serious",
-    #   .default = NA),
-    # across(ASDSHOM2:ASDSSOC2,factor_ASDS),
-    # IRSEX = case_when(
-    #   IRSEX == 1 ~ "Male",
-    #   IRSEX == 2 ~ "Female"),
-    # IREDUHIGHST2 = case_when(
-    #   IREDUHIGHST2 == 1 ~ "5th grade or less",
-    #   IREDUHIGHST2 == 2 ~ "6th grade",
-    #   IREDUHIGHST2 == 3 ~ "7th grade",
-    #   IREDUHIGHST2 == 4 ~ "8th grade",
-    #   IREDUHIGHST2 == 5 ~ "9th grade",
-    #   IREDUHIGHST2 == 6 ~ "10th grade",
-    #   IREDUHIGHST2 == 7 ~ "11th or 12th grade, no GED",
-    #   IREDUHIGHST2 == 8 ~ "GED",
-    #   IREDUHIGHST2 == 9 ~ "Some college",
-    #   IREDUHIGHST2 == 10 ~ "Associate's degree",
-    #   IREDUHIGHST2 == 11 ~ "College graduate or higher"),
-    # CATAG7 = case_when(
-    #   CATAG7 == 4 ~ "18-20",
-    #   CATAG7 == 5 ~ "21-25"),
-    # EDUSCHGRD2 = case_when(
-    #   EDUSCHGRD2 == 1 ~ "5th grade or lower",
-    #   EDUSCHGRD2 == 2 ~ "6th grade",
-    #   EDUSCHGRD2 == 3 ~ "7th grade",
-    #   EDUSCHGRD2 == 4 ~ "8th grade",
-    #   EDUSCHGRD2 == 5 ~ "9th grade",
-    #   EDUSCHGRD2 == 6 ~ "10th grade",
-    #   EDUSCHGRD2 == 7 ~ "11th grade",
-    #   EDUSCHGRD2 == 8 ~ "12th grade",
-    #   EDUSCHGRD2 == 9 ~ "1st year",
-    #   EDUSCHGRD2 == 10 ~ "2nd or 3rd year",
-    #   EDUSCHGRD2 == 11 ~ "4th year or higher",
-    #   EDUSCHGRD2 == 99 ~ "Not in school",
-    #   EDUSCHGRD2 == 98 ~ NA),
-    # INCOME = case_when(
-    #   INCOME == 1 ~ "Less than $20,000",
-    #   INCOME == 2 ~ "$20,000 - 49,999",
-    #   INCOME == 3 ~ "$50,000 - 74,999",
-    #   INCOME == 4 ~ "$75,000 or more"))
-
-levels(YA_19_21$IRCIGRC)
+    across(IRCIGFM:IRSTMNM30FQ,numeric_frequency),
+    MI_CAT_U = fct_recode(factor(MI_CAT_U),
+      "None"="0",
+      "Mild"="1",
+      "Moderate"="2",
+      "Serious"="3"),
+    across(ASDSHOM2:ASDSSOC2,factor_ASDS),
+    IRSEX = fct_recode(factor(IRSEX),
+      "Male"="1",
+      "Female"="2"),
+    IREDUHIGHST2 = fct_recode(factor(IREDUHIGHST2),
+      "5th grade or less"="1",
+      "6th grade"="2",
+      "7th grade"="3",
+      "8th grade"="4",
+      "9th grade"="5",
+      "10th grade"="6",
+      "11th or 12th grade, no GED"="7",
+      "GED"="8",
+      "Some college"="9",
+      "Associate's degree"="10",
+      "College graduate or higher"="11"),
+    CATAG7 = fct_recode(factor(CATAG7),
+      "18-20"="4",
+      "21-25"="5"),
+    EDUSCHGRD2 = fct_recode(factor(EDUSCHGRD2),
+      "5th grade or lower"="1",
+      "6th grade"="2",
+      "7th grade"="3",
+      "8th grade"="4",
+      "9th grade"="5",
+      "10th grade"="6",
+      "11th grade"="7",
+      "12th grade"="8",
+      "1st year"="9",
+      "2nd or 3rd year"="10",
+      "4th year or higher"="11",
+      NULL="98",
+      "Not in school"="99"),
+    INCOME = fct_recode(factor(INCOME),
+      "Less than $20,000"="1",
+      "$20,000 - 49,999"="2",
+      "$50,000 - 74,999"="3",
+      "$75,000 or more"="4"))
 
 ```
 
+```{r}
+#| label: check factors
+#| eval: false
+YA_19_21 %>%
+  select(where(is.factor)) %>%
+  map(levels)
+```
+## Analysis
 
 ## Progress and Plan
 I got pretty caught up in deciding which variables to keep so there is still space for more EDA. I was unable to factorize the variables but I have a good idea of how to continue. I'll create a function to convert the frequency variables from numerics to factors. I may create other functions for variables with similar factors but otherwise I could approach every variable at a time. If there is time I would like to create a small for the 31 variables and tidy the names using the janitor package. For analysis I'd like to start with assessing the income demographics and age spread of the in and out of college groups. This could visualize any differences. My thought is that the group not in college may be more likely to be low income and we would instead be exploring the affect of income on drug use. I may instead seperate groups into in college and post college to try and control for that.

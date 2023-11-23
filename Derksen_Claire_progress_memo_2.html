@@ -2996,6 +2996,7 @@ vertical-align: -.125em;
   <li><a href="#data-reliability" id="toc-data-reliability" class="nav-link" data-scroll-target="#data-reliability">Data Reliability</a></li>
   <li><a href="#altering-variables" id="toc-altering-variables" class="nav-link" data-scroll-target="#altering-variables">Altering Variables</a></li>
   <li><a href="#coverting-variables-to-different-classes" id="toc-coverting-variables-to-different-classes" class="nav-link" data-scroll-target="#coverting-variables-to-different-classes">Coverting Variables to Different Classes</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
   <li><a href="#progress-and-plan" id="toc-progress-and-plan" class="nav-link" data-scroll-target="#progress-and-plan">Progress and Plan</a></li>
   </ul>
 </nav>
@@ -3151,8 +3152,10 @@ Data Science 1 with R (STAT 301-1)</p><p></p>
 </section>
 <section id="coverting-variables-to-different-classes" class="level2">
 <h2 class="anchored" data-anchor-id="coverting-variables-to-different-classes">Coverting Variables to Different Classes</h2>
-<p>I created functions to convert similar variable types to factors. For any variable that had identical coding I created a function and used across() to convert those to factors. From this process I found that everyone in my subset skipped <code>CIGOFRSM</code>and <code>CIGWILYR</code> so I got rid of these variables.</p>
-<p>I wanted to keep the frequency variables , however, never having used a substance was coded as 91 while having used a substance before but not in the past month was coded as 93. I thought about coding both as NA and referring to the recency questions to determine the difference. I instead decided to code never as NA and not in the past month as 0 so I don’t have to refer to another variable. The variable <code>EDUSCHGRD2</code> had both legitimate skips which I coded as “Not in school” and blank/no answer which I coded as NA.</p>
+<p>I created functions to convert similar variable types to factors. For any variable that had identical coding I created a function and used across() to convert those to factors. From this process I found that everyone in my subset skipped <code>CIGOFRSM</code>and <code>CIGWILYR</code> so I got rid of these variables. I initially tried using case_when() for to convert these however they didn’t keep the factor order. I instead used fct_recode() after factoring the initial numeric value. If I had any problems I specified the levels when using factor(). I wanted to keep the frequency variables , however, never having used a substance was coded as 91 while having used a substance before but not in the past month was coded as 93. I thought about coding both as NA and referring to the recency questions to determine the difference. I instead decided to code never as NA and not in the past month as 0 so I don’t have to refer to another variable. The variable <code>EDUSCHGRD2</code> had both legitimate skips which I coded as “Not in school” and blank/no answer which I coded as NA.</p>
+</section>
+<section id="analysis" class="level2">
+<h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
 </section>
 <section id="progress-and-plan" class="level2">
 <h2 class="anchored" data-anchor-id="progress-and-plan">Progress and Plan</h2>
