@@ -3152,37 +3152,7 @@ Data Science 1 with R (STAT 301-1)</p><p></p>
 <section id="coverting-variables-to-different-classes" class="level2">
 <h2 class="anchored" data-anchor-id="coverting-variables-to-different-classes">Coverting Variables to Different Classes</h2>
 <p>I created functions to convert similar variable types to factors. For any variable that had identical coding I created a function and used across() to convert those to factors. From this process I found that everyone in my subset skipped <code>CIGOFRSM</code>and <code>CIGWILYR</code> so I got rid of these variables.</p>
-<p>I wanted to keep the frequency variables , however, never having used a substance was coded as 91 while having used a substance before but not in the past month was coded as 93. I thought about coding both as NA and referring to the recency questions to determine the difference. I instead decided to code never as NA and not in the past month as 0 so I don’t have to refer to another variable.</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 36,151 × 29
-    year STMRSSTDY IRCIGRC          IRALCRC IRMJRC IRCOCRC IRPNRNMREC IRSTMNMREC
-   &lt;dbl&gt; &lt;fct&gt;     &lt;chr&gt;            &lt;fct&gt;   &lt;fct&gt;  &lt;fct&gt;   &lt;fct&gt;      &lt;fct&gt;     
- 1  2021 &lt;NA&gt;      Never            ≤ 30 d… Never  Never   Never      Never     
- 2  2021 &lt;NA&gt;      Never            Never   Never  Never   Never      Never     
- 3  2021 &lt;NA&gt;      ≤ 30 days        ≤ 30 d… ≤ 30 … Never   Never      Never     
- 4  2021 &lt;NA&gt;      Never            &gt; 12 m… Never  Never   Never      Never     
- 5  2021 &lt;NA&gt;      Never            &gt; 30 d… ≤ 30 … Never   Never      Never     
- 6  2021 &lt;NA&gt;      ≤ 30 days        ≤ 30 d… &gt; 30 … Never   Never      Never     
- 7  2021 &lt;NA&gt;      Never            &gt; 12 m… Never  Never   Never      Never     
- 8  2021 &lt;NA&gt;      &gt; 30 days, ≤ 12… ≤ 30 d… Never  Never   Never      Never     
- 9  2021 &lt;NA&gt;      Never            Never   &gt; 12 … Never   Never      Never     
-10  2021 &lt;NA&gt;      &gt; 30 days, ≤ 12… ≤ 30 d… &gt; 12 … Never   Never      Never     
-# ℹ 36,141 more rows
-# ℹ 21 more variables: IRVAPNICREC &lt;fct&gt;, IRCIGFM &lt;dbl&gt;, IRALCFM &lt;dbl&gt;,
-#   IRALCBNG30D &lt;dbl&gt;, IRMJFM &lt;dbl&gt;, IRCOCFM &lt;dbl&gt;, IRPNRNM30FQ &lt;dbl&gt;,
-#   IRSTMNM30FQ &lt;dbl&gt;, MI_CAT_U &lt;chr&gt;, AMDEYR &lt;fct&gt;, ASDSHOM2 &lt;chr&gt;,
-#   ASDSWRK2 &lt;chr&gt;, ASDSREL2 &lt;chr&gt;, ASDSSOC2 &lt;chr&gt;, IRSEX &lt;int&gt;,
-#   IREDUHIGHST2 &lt;int&gt;, CATAG7 &lt;int&gt;, EDUSCHGRD2 &lt;int&gt;, GOVTPROG &lt;fct&gt;,
-#   INCOME &lt;int&gt;, incollege &lt;chr&gt;</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 1
-  CIGWILYR
-     &lt;int&gt;
-1       99</code></pre>
-</div>
-</div>
+<p>I wanted to keep the frequency variables , however, never having used a substance was coded as 91 while having used a substance before but not in the past month was coded as 93. I thought about coding both as NA and referring to the recency questions to determine the difference. I instead decided to code never as NA and not in the past month as 0 so I don’t have to refer to another variable. The variable <code>EDUSCHGRD2</code> had both legitimate skips which I coded as “Not in school” and blank/no answer which I coded as NA.</p>
 </section>
 <section id="progress-and-plan" class="level2">
 <h2 class="anchored" data-anchor-id="progress-and-plan">Progress and Plan</h2>
