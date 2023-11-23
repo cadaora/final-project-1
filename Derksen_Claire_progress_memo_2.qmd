@@ -25,6 +25,7 @@ library(naniar)
 library(janitor)
 library(readxl)
 library(knitr)
+library(ggthemes)
 ```
 ## Github Repo Link
 
@@ -252,6 +253,28 @@ YA_19_21 %>%
   map(levels)
 ```
 ## Analysis
+I wanted to first visualize the differences between the enrolled group and the unenrolled group.
+```{r}
+#| label: age compare enrolled group
+YA_19_21 %>%
+  ggplot(aes(x=incollege,fill=CATAG7)) +
+  geom_bar(position = "fill") +
+  labs(title = "Proportion of Age Groups in Enrolled vs Not Enrolled", 
+       x="Proportion",
+       y="College Enrollment",
+       fill="Age") +
+  theme_fivethirtyeight()
+
+YA_19_21 %>%
+  ggplot(aes(x=incollege,fill=INCOME)) +
+  geom_bar(position = "fill") +
+  labs(title = "Proportion of Income Groups in Enrolled vs Not Enrolled", 
+       x="Proportion",
+       y="College Enrollment",
+       fill="Family Income") +
+  theme_fivethirtyeight()
+```
+As expected the group not enrolled are slightly older. This group likely includes a good amount of college graduates. I expected the income of the not enrolled group to be generally lower however it seems that in the enrolled group the outer groups of less than \$20,000 and $75,000 or more are while the middle groups are larger in the not enrolled group. Perhaps people that aren't enrolled are able to contribute more to family income.
 
 ## Progress and Plan
-I got pretty caught up in deciding which variables to keep so there is still space for more EDA. I was unable to factorize the variables but I have a good idea of how to continue. I'll create a function to convert the frequency variables from numerics to factors. I may create other functions for variables with similar factors but otherwise I could approach every variable at a time. If there is time I would like to create a small for the 31 variables and tidy the names using the janitor package. For analysis I'd like to start with assessing the income demographics and age spread of the in and out of college groups. This could visualize any differences. My thought is that the group not in college may be more likely to be low income and we would instead be exploring the affect of income on drug use. I may instead seperate groups into in college and post college to try and control for that.
+I got pretty caught up in deciding which variables to keep so there is still space for more EDA.  If there is time I would like to create a small codebook for the 29 variables and tidy the names using the janitor package. For analysis I'd like to start seeing what proportion of the not enrolled group are college graduates and look at the difference of income and age with college students.
