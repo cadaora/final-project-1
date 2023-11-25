@@ -8,14 +8,14 @@ https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-201
 
 -`NSDUH_2019_Tab.txt`: all NSDUH data from 2019 as tab-seperated values
 
--`NSDUH-2019-codebook.pdf`: codebook for `NSDUH_2019_Tab.txt`
+-`NSDUH-2019-codebook.pdf`: codebook variables in 2019 data
 
 -`NSDUH_2020_Tab.txt`: all NSDUH data from 2020 as tab-seperated values
 
--`NSDUH-2020-codebook.pdf`: codebook for `NSDUH_2020_Tab.txt`
+-`NSDUH-2020-codebook.pdf`: codebook variables in 2020 data
 
--`NSDUH_2020_Tab.txt`: all NSDUH data from 2020 as tab-seperated values
+-`NSDUH_2021_Tab.txt`: all NSDUH data from 2021 as tab-seperated values
 
--`NSDUH-2020-codebook.pdf`: codebook for `NSDUH_2020_Tab.txt`
+-`NSDUH-2021-codebook.pdf`: codebook variables in 2021 data
 
 -`RDAS_Comparability.xlsx`: table of what variables are comparable across years up to 2020
