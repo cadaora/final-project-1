@@ -54,8 +54,8 @@ I started with assessing missingness in the 2020 college dataset.
 ```{r}
 #| label: load-datasets
 #| eval: false
-NSDUH_2020 <-read.delim(file="data/raw/NSDUH_2020_Tab.txt",na.strings = ".")
-NSDUH_2019 <-read.delim(file="data/raw/NSDUH_2019_Tab.txt")
+NSDUH_2020 <-read.delim(file="data/NSDUH_2020_Tab.txt",na.strings = ".")
+NSDUH_2019 <-read.delim(file="data/NSDUH_2019_Tab.txt")
 ```
 
 ```{r}
@@ -120,7 +120,7 @@ I decided to get rid of the questions asking about drug treatment/rehab since I 
 
 ```{r}
 #| label: comparability
-comparability <- read_excel("data/raw/RDAS_Comparability.xlsx") %>%
+comparability <- read_excel("data/RDAS_Comparability.xlsx") %>%
   filter(!is.na(`2019-2020`)) %>%
   select(Variable) %>%
   deframe()
