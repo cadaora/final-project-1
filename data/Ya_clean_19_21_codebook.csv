@@ -1,0 +1,29 @@
+Variables,Meaning
+year, year the data was collected
+stmrsstdy, when using a stimulant in the past year, did you use it to study? (NA= Didn't use in past year)
+ircigrc, cigarette use recency
+iralcrc, alcohol use recency
+irmjrc, marijuana use recency
+ircocrc, cocaine use recency
+irpnrnmrec, pain reliever misuse (not as prescribed) recency
+irstmnmrec, stimulant misuse recency
+irvapnicrec, vaping nicotine recency (only in 2020 and 2021 dataset)
+ircigfm, times used cigarettes in past month
+iralcfm, times used alcoholin past month
+iralcbng30d, times binge drank (≥5 drinks for males,≥4 drinks for females on one occasion) in past month
+irmjfm, times used marijuana in past month
+ircocfm, times used cocaine in past month
+irpnrm30fq, times misused pain reliever in past month
+mi_cat_u, mental illness indicator
+amdeyr, major depressive episode in past year?
+asdshom2, how much do depressive symptoms impair home management?
+asdswrk2, how much do depressive symptoms impair ability to work?
+asdsrel2, how much do depressive symptoms impair close relationships?
+asdssoc2, how much do depressive symptoms impair social life?
+irsex, sex of respondent
+ireduhighst2, highest level of education
+catag7, age category
+eduschgr2, what grade are you in/going into
+govtprog, do you participate in one or more government assistance programs?
+income, total family income
+incollege, currently in/entering college?
