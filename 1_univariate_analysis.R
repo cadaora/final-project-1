@@ -4,5 +4,7 @@
 ## load packages ----
 library(tidyverse)
 library(ggthemes)
+## load dataset
+YA_19_21 <-read_rds("data/YA_clean_19_21.rds")
 
 #year count

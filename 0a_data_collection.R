@@ -4,6 +4,10 @@
 ## load packages ----
 library(tidyverse)
 library(readxl)
+#load datasets ----
+NSDUH_2021 <-read.delim(file="data/raw/NSDUH_2021_Tab.txt",na.strings = ".")
+NSDUH_2020 <-read.delim(file="data/raw/NSDUH_2020_Tab.txt",na.strings = ".")
+NSDUH_2019 <-read.delim(file="data/raw/NSDUH_2019_Tab.txt",na.strings = ".")
 
 # write filtered young adult datasets -----
 
@@ -13,9 +17,6 @@ comparability <- read_excel("data/raw/RDAS_Comparability.xlsx") %>%
   select(Variable) %>%
   deframe()
 
-NSDUH_2021 <-read.delim(file="data/raw/NSDUH_2021_Tab.txt",na.strings = ".")
-NSDUH_2020 <-read.delim(file="data/raw/NSDUH_2020_Tab.txt",na.strings = ".")
-NSDUH_2019 <-read.delim(file="data/raw/NSDUH_2019_Tab.txt",na.strings = ".")
 
 NSDUH_2021 %>%
   filter(CATAGE==2) %>%
