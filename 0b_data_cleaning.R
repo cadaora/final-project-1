@@ -116,7 +116,8 @@ YA_19_21 <- YA_19_21 %>%
                         "$50,000 - 74,999"="3",
                         "$75,000 or more"="4"))
 
-names(clean_names(YA_19_21))
+YA_19_21 <-YA_19_21 %>%
+  clean_names()
 
 #write clean rds
 YA_19_21 %>%

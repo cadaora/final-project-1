@@ -8,3 +8,5 @@ library(ggthemes)
 YA_19_21 <-read_rds("data/YA_clean_19_21.rds")
 
 #year count
+YA_19_21 %>%
+  ggplot(aes(year)) + geom_bar(fill="plum4") + theme_fivethirtyeight()
