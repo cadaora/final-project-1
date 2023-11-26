@@ -10,7 +10,13 @@ YA_2020 <- read_rds(file="data/NSDUH_2020_YA.rds")
 YA_2019 <- read_rds(file="data/NSDUH_2019_YA.rds")
 
 # bind-years, create year and incollege variable
+YA_2020 %>%
+  group_by(AGE2) %>%
+  summarise(count=n())
 YA_2021 <- YA_2021 %>%
+  mutate(AGE3=case_when(AGE3==4 ~ 7,
+                        AGE3==5 ~ 10,
+                        AGE3==6 ~ 12)) %>%
   rename(MI_CAT_U = MICATPY,
          MHSUITHK=IRSUICTHNK,
          K6SCMON=KSSLR6MON, 
@@ -18,8 +24,9 @@ YA_2021 <- YA_2021 %>%
          K6SCYR=KSSLR6YR, 
          K6SCMAX=KSSLR6MAX,
          SPDYR= SPDPSTYR,
-         COLLENRLFT=ENRLCOLLFT2
-         )
+         COLLENRLFT=ENRLCOLLFT2,
+         AGE2=AGE3
+         ) 
 
 YA_19_21 <- bind_rows(YA_2021,YA_2020,YA_2019) %>%
   relocate(IRVAPNICREC, .after=IRSTMNMREC)
@@ -97,9 +104,10 @@ YA_19_21 <- YA_19_21 %>%
                               "Some college"="9",
                               "Associate's degree"="10",
                               "College graduate or higher"="11"),
-    CATAG7 = fct_recode(factor(CATAG7),
-                        "18-20"="4",
-                        "21-25"="5"),
+    CATAG7 = fct_collapse(factor(AGE2),
+                        "18-20"=c("7","8","9"),
+                        "21-23"=c("10","11"),
+                        "24-25"=c("12")),
     COLLENRLFT= fct_recode(factor(COLLENRLFT),
                            "Full-Time College Student 18-22"="1",
                            "Other Aged 18-22"="2",
