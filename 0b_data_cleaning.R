@@ -11,7 +11,14 @@ YA_2019 <- read_rds(file="data/NSDUH_2019_YA.rds")
 
 # bind-years, create year and incollege variable
 YA_2021 <- YA_2021 %>%
-  rename(MI_CAT_U = MICATPY)
+  rename(MI_CAT_U = MICATPY,
+         MHSUITHK=IRSUICTHNK,
+         K6SCMON=KSSLR6MON, 
+         SPDMON=SPDPSTMON, 
+         K6SCYR=KSSLR6YR, 
+         K6SCMAX=KSSLR6MAX,
+         SPDYR= SPDPSTYR
+         )
 
 YA_19_21 <- bind_rows(YA_2021,YA_2020,YA_2019) %>%
   relocate(IRVAPNICREC, .after=IRSTMNMREC)
@@ -63,7 +70,7 @@ factor_ASDS <- function(x) {
 #convert variables
 YA_19_21 <- YA_19_21 %>%
   mutate(
-    across(c(STMRSSTDY,AMDEYR,GOVTPROG),factor_yesno),
+    across(c(STMRSSTDY,SPDMON,SPDYR, MHSUITHK,AMDEYR,GOVTPROG),factor_yesno),
     IRCIGRC = fct_recode(factor(IRCIGRC),
                          "≤ 30 days"="1",
                          "> 30 days, ≤ 12 months"="2",
