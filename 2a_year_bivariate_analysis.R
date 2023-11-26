@@ -7,3 +7,6 @@ library(ggthemes)
 ## load dataset
 YA_19_21 <-read_rds("data/YA_clean_19_21.rds")
 
+#average K6 score vs year
+YA_19_21 %>%
+  ggplot()

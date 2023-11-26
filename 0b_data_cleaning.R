@@ -10,9 +10,7 @@ YA_2020 <- read_rds(file="data/NSDUH_2020_YA.rds")
 YA_2019 <- read_rds(file="data/NSDUH_2019_YA.rds")
 
 # bind-years, create year and incollege variable
-YA_2020 %>%
-  group_by(AGE2) %>%
-  summarise(count=n())
+
 YA_2021 <- YA_2021 %>%
   mutate(AGE3=case_when(AGE3==4 ~ 7,
                         AGE3==5 ~ 10,
@@ -70,7 +68,11 @@ factor_ASDS <- function(x) {
              "Severe"="4",
              "Very Severe"="5")
 }
-
+#Alter NA in COLLENRLFT
+YA_19_21<-YA_19_21 %>%
+  mutate(COLLENRLFT=ifelse(is.na(COLLENRLFT),
+                           3,
+                           COLLENRLFT))
 #convert variables
 YA_19_21 <- YA_19_21 %>%
   mutate(
@@ -104,14 +106,14 @@ YA_19_21 <- YA_19_21 %>%
                               "Some college"="9",
                               "Associate's degree"="10",
                               "College graduate or higher"="11"),
-    CATAG7 = fct_collapse(factor(AGE2),
+    AGE2 = fct_collapse(factor(AGE2),
                         "18-20"=c("7","8","9"),
                         "21-23"=c("10","11"),
                         "24-25"=c("12")),
     COLLENRLFT= fct_recode(factor(COLLENRLFT),
-                           "Full-Time College Student 18-22"="1",
-                           "Other Aged 18-22"="2",
-                           "Unknwn/not College Aged"="3"),
+                           "Student 18-22"="1",
+                           "Other 18-22"="2",
+                           "Unknown or not 18-22"="3"),
     EDUSCHGRD2 = fct_recode(factor(EDUSCHGRD2),
                             "5th grade or lower"="1",
                             "6th grade"="2",
@@ -131,6 +133,7 @@ YA_19_21 <- YA_19_21 %>%
                         "$20,000 - 49,999"="2",
                         "$50,000 - 74,999"="3",
                         "$75,000 or more"="4"))
+
 
 YA_19_21 <-YA_19_21 %>%
   clean_names()
