@@ -30,4 +30,35 @@ gov_enrolled <-YA_19_21 %>%
   theme_light()
 ggsave(gov_enrolled,filename="figures/2b_gov_enrolled.png",scale=1.3)
 
+#sex vs enrollment in college
+sex_enrolled <-YA_19_21 %>%
+  ggplot(aes(x=collenrlft,fill=irsex)) +
+  geom_bar(position = "fill") +
+  labs(title = "Proportion of Sex in College-Aged Adults", 
+       y="Proportion",
+       x="Full-Time College Enrollment",
+       fill="Sex") +
+  theme_light()
+ggsave(sex_enrolled,filename="figures/2b_sex_enrolled.png",scale=1.3)
 
+#income vs inpost college
+income_inpost <- YA_19_21 %>%
+  ggplot(aes(x=postin_coll,fill=income)) +
+  geom_bar(position = "fill") +
+  labs(title = "Proportion of Income Groups vs Amount of College Completed", 
+       y="Proportion",
+       x="College Completion",
+       fill="Family Income") +
+  theme_light()
+ggsave(income_inpost,filename="figures/2b_income_inpost.png",scale=1.3)
+
+#sex vs inpost college
+sex_inpost <-YA_19_21 %>%
+  ggplot(aes(x=postin_coll,fill=irsex)) +
+  geom_bar(position = "fill") +
+  labs(title = "Proportion of Sex vs Amount of College Completed", 
+       y="Proportion",
+       x="College Completion",
+       fill="Sex") +
+  theme_light()
+ggsave(sex_enrolled,filename="figures/2b_sex_inpost.png",scale=1.3)
