@@ -1,4 +1,5 @@
 Variables,Meaning
+questid2, unique participant id
 year, year the data was collected
 stmrsstdy, when using a stimulant in the past year, did you use it to study? (NA= Didn't use in past year)
 ircigrc, cigarette use recency
@@ -14,7 +15,13 @@ iralcbng30d, times binge drank (≥5 drinks for males,≥4 drinks for females on
 irmjfm, times used marijuana in past month
 ircocfm, times used cocaine in past month
 irpnrm30fq, times misused pain reliever in past month
-mi_cat_u, mental illness indicator
+msuithk, seriously thought about suicide in the past year?
+k6scmon, K6 score in past month
+spdmon, serious psychological distress in past month? (K6≥13)
+k6scyr, K6 score in past year
+k6scmax, K6 score for worst month of the past year
+spdyr, serious psychological distress in past year? (K6≥13)
+mi_cat_u, categorical mental illness indicator
 amdeyr, major depressive episode in past year?
 asdshom2, how much do depressive symptoms impair home management?
 asdswrk2, how much do depressive symptoms impair ability to work?

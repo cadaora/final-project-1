@@ -12,7 +12,14 @@ YA_2019 <- read_rds(file="data/NSDUH_2019_YA.rds")
 
 # bind-years, create year and incollege variable
 YA_2021 <- YA_2021 %>%
-  rename(MI_CAT_U = MICATPY)
+  rename(MI_CAT_U = MICATPY,
+         MHSUITHK=IRSUICTHNK,
+         K6SCMON=KSSLR6MON, 
+         SPDMON=SPDPSTMON, 
+         K6SCYR=KSSLR6YR, 
+         K6SCMAX=KSSLR6MAX,
+         SPDYR= SPDPSTYR
+  )
 
 YA_19_21_unclean <- bind_rows(YA_2021,YA_2020,YA_2019) %>%
   relocate(IRVAPNICREC, .after=IRSTMNMREC)
@@ -38,10 +45,20 @@ YA_19_21_unclean %>%
   miss_var_summary(order = TRUE) %>%
   slice_head(n=10) %>%
   kable()
+
 YA_19_21_unclean %>%
   group_by(year) %>%
   miss_var_summary() %>%
-  filter(variable == "IRVAPNICREC") %>%
+  filter(variable=="IRVAPNICREC"|variable=="K6SCYR") %>%
   kable()
 
+#missingness after factorizing variables
 
+YA_19_21 %>%
+  gg_miss_var()
+
+YA_19_21 %>%
+  group_by(year) %>%
+  miss_var_summary() %>%
+  filter(variable=="eduschgrd2") %>%
+  kable()
