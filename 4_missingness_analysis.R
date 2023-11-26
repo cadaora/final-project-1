@@ -52,7 +52,7 @@ YA_19_21_unclean %>%
   filter(variable=="IRVAPNICREC"|variable=="K6SCYR") %>%
   kable()
 
-#missingness after factorizing variables
+#missingness after factorizing variables, eduschgrd2 fix
 
 YA_19_21 %>%
   gg_miss_var()
@@ -62,3 +62,4 @@ YA_19_21 %>%
   miss_var_summary() %>%
   filter(variable=="eduschgrd2") %>%
   kable()
+
