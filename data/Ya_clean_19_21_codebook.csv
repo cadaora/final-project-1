@@ -32,6 +32,7 @@ ireduhighst2, highest level of education
 age2, age category
 collenrlft, college enrollment full-time
 eduschgr2, what grade are you in/going into
+postincoll, whether in college, graduated college, or neither
 govtprog, do you participate in one or more government assistance programs?
 income, total family income
 incollege, currently in/entering college?

@@ -9,7 +9,7 @@ YA_2021 <- read_rds(file="data/NSDUH_2021_YA.rds")
 YA_2020 <- read_rds(file="data/NSDUH_2020_YA.rds")
 YA_2019 <- read_rds(file="data/NSDUH_2019_YA.rds")
 
-# bind-years, create year and incollege variable
+# bind-years, create year variable
 
 YA_2021 <- YA_2021 %>%
   mutate(AGE3=case_when(AGE3==4 ~ 7,
@@ -137,6 +137,17 @@ YA_19_21 <- YA_19_21 %>%
 
 YA_19_21 <-YA_19_21 %>%
   clean_names()
+
+#create post/in college variable
+YA_19_21 <-YA_19_21 %>%
+  mutate(postin_coll = factor(case_when(
+    (eduschgrd2=="1st year"|
+      eduschgrd2=="2nd or 3rd year"|
+      eduschgrd2=="4th year or higher")&
+      ireduhighst2 =="Some college" ~ "In College",
+    ireduhighst2 =="College graduate or higher" ~ "Graduated",
+    .default = "Neither"
+  )),.after=eduschgrd2)
 
 #write clean rds
 YA_19_21 %>%
