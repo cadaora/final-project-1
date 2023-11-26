@@ -17,7 +17,8 @@ YA_2021 <- YA_2021 %>%
          SPDMON=SPDPSTMON, 
          K6SCYR=KSSLR6YR, 
          K6SCMAX=KSSLR6MAX,
-         SPDYR= SPDPSTYR
+         SPDYR= SPDPSTYR,
+         COLLENRLFT=ENRLCOLLFT2
          )
 
 YA_19_21 <- bind_rows(YA_2021,YA_2020,YA_2019) %>%
@@ -33,10 +34,6 @@ YA_19_21 <-YA_19_21 %>%
   ) %>%
   mutate(year = as.numeric(year)-1)
 
-YA_19_21 <-YA_19_21 %>%
-  mutate(incollege = ifelse(EDUSCHGRD2==9|EDUSCHGRD2==10|EDUSCHGRD2==11,
-                            "Enrolled",
-                            "Not Enrolled"))
 
 #| label: convert variables
 
@@ -103,6 +100,10 @@ YA_19_21 <- YA_19_21 %>%
     CATAG7 = fct_recode(factor(CATAG7),
                         "18-20"="4",
                         "21-25"="5"),
+    COLLENRLFT= fct_recode(factor(COLLENRLFT),
+                           "Full-Time College Student 18-22"="1",
+                           "Other Aged 18-22"="2",
+                           "Unknwn/not College Aged"="3"),
     EDUSCHGRD2 = fct_recode(factor(EDUSCHGRD2),
                             "5th grade or lower"="1",
                             "6th grade"="2",

@@ -54,12 +54,17 @@ YA_19_21_unclean %>%
 
 #missingness after factorizing variables, eduschgrd2 fix
 
-YA_19_21 %>%
-  gg_miss_var()
+missingafterfactor <-YA_19_21 %>%
+  gg_miss_var() + 
+  labs(title="Missingness After Factorizing") +
+  theme_light()
+
+  ggsave(missingafterfactor, filename="figures/4_missingafterfactor.png")
 
 YA_19_21 %>%
   group_by(year) %>%
   miss_var_summary() %>%
   filter(variable=="eduschgrd2") %>%
   kable()
+
 
