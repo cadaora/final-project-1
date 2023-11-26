@@ -1,5 +1,5 @@
 ---
-title: "Final Report"
+title: "Mental Health and Drug Use in College Students during the Pandemic: An EDA of 2019-2021 NSDUH"
 subtitle: |
   | Final Project 
   | Data Science 1 with R (STAT 301-1)
@@ -9,19 +9,40 @@ author: "Claire Derksen"
 date: today
 ---
 
+```{r}
+#| label: load-pkgs and datasets
+# Loading package(s)
+library(tidyverse)
+library(naniar)
+library(janitor)
+library(readxl)
+library(knitr)
+library(ggthemes)
+```
+::: {.callout-tip icon="false"}
+## Github Repo Link
+
+<https://github.com/stat301-1-2023-fall/final-project-1-cadaora>
+:::
 ## Introduction
 Overview of the EDA. What was the motivation for this analysis? What initial curiosities or research questions motivated you? Describe the data source(s) you will use to build a predictive model. If you are obtaining information from websites you should cite those in your References.
+
 
 ## Data overview & quality
 A concise high level overview of the dataset(s) being explored. Description of the dataset(s) that covers basics: size, number of observations, number, of variables, variable types, and discussion of any quality issues (especially missingness and how it may impact the analysis). Highlight any important data collection issues or concerns. If over-technical, but important, then place technical details in Appendix: technical info.
 
 ## Explorations
+*missing obs analysis
 This is the heart or main body of the the report. The structure of this portion can look VERY different depending on narrative choices and organization choices made to guide readers through the project EDA. Could decide to make sections for major parts of the EDA and not used an Explorations header. The key is that you have sections that are clearly organized and guide the reader through a systematic and thoughtful exploration of the dataset(s).
 
 A thoughtful exploration weaves together prose, figures, and tables to help a reader build understanding. It is a guided tour that should have clear motivations for each step in the process (think guiding curiosities or research questions). It should be clear how things build of of each other and why we are looking at what is being presented. Should also be letting the reader know whether what is shown is as expected or is it surprising (maybe some of each).
 
 You could imagine structuring this section around analysis type: univariate, bivariate, and multivariate. Can be a little harder to build a narrative with this structure. Could build sections that are dedicated to important variables: variable 1, variable 2, etc. In this case the sections would thoroughly explore the section’s variable through univariate, bivariate, and multivariate analyses. Alternatively, could build your sections around broad curiosities/research questions. Some of which probably inspired the project, and others that were developed through conducting the EDA.
-
+```{r}
+#| label: load-pkgs and datasets
+#| fig-cap: Short description
+#| tbl-cap: Short description
+```
 ## Conclusion
 State conclusions or insights. Were you surprised by things you found or were they as expected? Why? This is a great place for future work, new research questions, and next steps.
 

@@ -1,10 +1,10 @@
-## Raw Datasets
+## Raw Files
 This repository is for NSDUH datasets, their respective codebooks, and a comparability chart. All files obtained from:
 https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2021-nsduh-2021-ds0001
 https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2020-nsduh-2020-ds0001
 https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2019-nsduh-2019-ds0001
 
-## Raw Data (>100 MB, not visible)
+## Raw Datasets (>100 MB, not visible)
 The raw .txt files aren't visible because they are too large and have been added to .gitignore.
 
 -`NSDUH_2019_Tab.txt`: all NSDUH data from 2019 as tab-seperated values
