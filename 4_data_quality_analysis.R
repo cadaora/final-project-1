@@ -1,4 +1,4 @@
-# Final Project 4_missingness_analysis ----
+# Final Project 4_data_quality_analysis ----
 # Stat 301-1
 
 ## load packages ----
@@ -6,10 +6,28 @@ library(tidyverse)
 library(ggthemes)
 
 ##load datasets ----
+NSDUH_2021 <-read.delim(file="data/raw/NSDUH_2021_Tab.txt",na.strings = ".")
+NSDUH_2020 <-read.delim(file="data/raw/NSDUH_2020_Tab.txt",na.strings = ".")
+NSDUH_2019 <-read.delim(file="data/raw/NSDUH_2019_Tab.txt",na.strings = ".")
+
+
 YA_2021 <- read_rds(file="data/NSDUH_2021_YA.rds")
 YA_2020 <- read_rds(file="data/NSDUH_2020_YA.rds")
 YA_2019 <- read_rds(file="data/NSDUH_2019_YA.rds")
 
+#raw and YA count bar graph
+n_year <- tibble(
+  year = 2019:2021,
+  raw_count = c(0,0,0),
+  YA_count = c(0,0,0)
+)
+n_rawYA <- function(df) {
+  curyear <-parse_number(deparse(substitute(df)))
+  curyear
+}
+n_rawYA(YA_2019)
+n_year[1,2] <-nrow(YA_2019)
+n_year[1,2] <-nrow(YA_2019)
 # bind-years, create year and incollege variable
 YA_2021 <- YA_2021 %>%
   rename(MI_CAT_U = MICATPY,
