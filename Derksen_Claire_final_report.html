@@ -91,13 +91,21 @@ Github Repo Link
 </div>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>Overview of the EDA. What was the motivation for this analysis? What initial curiosities or research questions motivated you? Describe the data source(s) you will use to build a predictive model. If you are obtaining information from websites you should cite those in your References.</p>
 <p>The goal of this exploration is to investigate the effects of the pandemic on drug use and mental health in college students. I graduated high school in 2020 during the start of the pandemic. I didn’t begin college until a year later, but my friends would start their freshman year online. Having what is usually a pivotal point in ones life be somewhat stunted had a negative affect on the mental health of many students in my graduating class. The isolation caused by quarantining could lead to poor mental and perhaps even physical health.</p>
 <p>In the famous “Rat Park” Experiment both isolated rats and rats in communities were given one bottle filled with water and the laced with heroin or cocaine. The isolated rats drank from the laced bottle to the point of overdose while those in the “Rat Park” community typically preferred the regular water (Sederer, 2019). This raises the question of whether humans in isolation are more likely to fall into addiction. The isolation of quarantine could make people more susceptible to drug use.</p>
+<p>In this exploration we will use the National Survey on Drug Use and Health (NSDUH) for the years 2019-2021. This survey is conducted on people over the age of 12 residing in the US and covers topics such as drug use, mental health, and other health-related issues. (explain K6 scores and MICAT)</p>
 </section>
 <section id="data-overview-quality" class="level2">
 <h2 class="anchored" data-anchor-id="data-overview-quality">Data overview &amp; quality</h2>
 <p>A concise high level overview of the dataset(s) being explored. Description of the dataset(s) that covers basics: size, number of observations, number, of variables, variable types, and discussion of any quality issues (especially missingness and how it may impact the analysis). Highlight any important data collection issues or concerns. If over-technical, but important, then place technical details in Appendix: technical info.</p>
+<p>When answering our research questions it’s important to keep in mind that there is some breakdown in comparability between the years. The 2019 interviews were all in-person while the 2021 interviews were all online. People may be more or less comfortable answering honestly when in-person vs online so it will be hard to compare the years. The 2020 interviews began the year with in-person, stopped interviews, then continues with online interviews in the last quarter. We can see this reflected in the count of observations by year.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/4_totalobs.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure 1: Total Observations in Each NSDUH Dataset</figcaption>
+</figure>
+</div>
+<p>The observations we would have had in 2020 between in-person and online are implicitly missing. Because of this, we should avoid counts and instead use proportions in our comparison between years. Additionally, some data might be unreliable if it is affected by what time of year it is. For example, some people suffer from Seasonal Depression which causes a more depressed mood in the Winter months. Another example is perhaps there is an increase in stimulant use in students right before finals.</p>
 </section>
 <section id="explorations" class="level2">
 <h2 class="anchored" data-anchor-id="explorations">Explorations</h2>
@@ -114,7 +122,11 @@ Github Repo Link
 <p>SAMHSA. (2020). National Survey on Drug Use and Health (NSDUH) population data. National Survey on Drug Use and Health 2019 (NSDUH-2021-DS0001).<a href="https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2019-nsduh-2019-ds0001" class="uri">https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2019-nsduh-2019-ds0001</a></p>
 <p>SAMHSA. (2021). National Survey on Drug Use and Health (NSDUH) population data. National Survey on Drug Use and Health 2020 (NSDUH-2021-DS0001).<a href="https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2020-nsduh-2020-ds0001" class="uri">https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2020-nsduh-2020-ds0001</a></p>
 <p>SAMHSA. (2022). National Survey on Drug Use and Health (NSDUH) population data. National Survey on Drug Use and Health 2021 (NSDUH-2021-DS0001). <a href="https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2021-nsduh-2021-ds0001" class="uri">https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2021-nsduh-2021-ds0001</a></p>
-<p>Sederer, L. I. (2019, June 10). What does “rat park” teach us about addiction? Psychiatric Times. <a href="https://www.psychiatrictimes.com/view/what-does-rat-park-teach-us-about-addiction" class="uri">https://www.psychiatrictimes.com/view/what-does-rat-park-teach-us-about-addiction</a> ## Appendix: technical info — if needed A place to share complex and important technical steps that may highly impact explorations, but the details are too technical to share in main body of the report.</p>
+<p>Sederer, L. I. (2019, June 10). What does “rat park” teach us about addiction? Psychiatric Times. <a href="https://www.psychiatrictimes.com/view/what-does-rat-park-teach-us-about-addiction" class="uri">https://www.psychiatrictimes.com/view/what-does-rat-park-teach-us-about-addiction</a></p>
+</section>
+<section id="appendix-technical-info-if-needed" class="level2">
+<h2 class="anchored" data-anchor-id="appendix-technical-info-if-needed">Appendix: technical info — if needed</h2>
+<p>A place to share complex and important technical steps that may highly impact explorations, but the details are too technical to share in main body of the report.</p>
 </section>
 <section id="appendix-extra-explorations-if-needed" class="level2">
 <h2 class="anchored" data-anchor-id="appendix-extra-explorations-if-needed">Appendix: extra explorations — if needed</h2>

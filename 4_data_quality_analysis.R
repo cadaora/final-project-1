@@ -15,19 +15,30 @@ YA_2021 <- read_rds(file="data/NSDUH_2021_YA.rds")
 YA_2020 <- read_rds(file="data/NSDUH_2020_YA.rds")
 YA_2019 <- read_rds(file="data/NSDUH_2019_YA.rds")
 
-#raw and YA count bar graph
+# total observations by year
 n_year <- tibble(
   year = 2019:2021,
-  raw_count = c(0,0,0),
-  YA_count = c(0,0,0)
+  raw_count = c(0,0,0)
 )
 n_rawYA <- function(df) {
   curyear <-parse_number(deparse(substitute(df)))
-  curyear
+  x <- curyear - 2018
+  n_year[x,2] <<- nrow(df)
 }
-n_rawYA(YA_2019)
-n_year[1,2] <-nrow(YA_2019)
-n_year[1,2] <-nrow(YA_2019)
+n_raw(NSDUH_2019)
+n_raw(NSDUH_2020)
+n_raw(NSDUH_2021)
+
+totalobs <- n_year %>%
+  ggplot(aes(x=year,y=raw_count)) + 
+  geom_col(fill="plum4") +
+  labs(title="Total NSDUH Observations by Year",
+       subtitle="In 2020, there was a decrease in observations due to COVID-19",
+       x="Year",
+       y="Count") +
+  theme_light()
+ggsave(totalobs,filename="figures/4_totalobs.png",scale=1.3)
+
 # bind-years, create year and incollege variable
 YA_2021 <- YA_2021 %>%
   rename(MI_CAT_U = MICATPY,
@@ -70,7 +81,7 @@ YA_19_21_unclean %>%
   filter(variable=="IRVAPNICREC"|variable=="K6SCYR") %>%
   kable()
 
-#missingness after factorizing variables, eduschgrd2 fix
+#missingness after factorizing variables
 
 missingafterfactor <-YA_19_21 %>%
   gg_miss_var() + 
