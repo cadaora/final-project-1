@@ -7,6 +7,10 @@ format: html
 editor: visual
 author: "Claire Derksen"
 date: today
+
+execute:
+  echo: false
+  warning: false
 ---
 
 ```{r}
@@ -27,6 +31,7 @@ library(ggthemes)
 ## Introduction
 Overview of the EDA. What was the motivation for this analysis? What initial curiosities or research questions motivated you? Describe the data source(s) you will use to build a predictive model. If you are obtaining information from websites you should cite those in your References.
 
+The goal of this exploration is to investigate the effects of the pandemic on drug use and mental health in college students. I graduated high school in 2020 during the start of the pandemic. I didn't begin college until a year later but my friends would start their freshman year online. Having what is usually a pivital point in ones life seemed to ... pivotal change in ones life. specifically the isolation. rats who are alone do more drugs... etc etc
 
 ## Data overview & quality
 A concise high level overview of the dataset(s) being explored. Description of the dataset(s) that covers basics: size, number of observations, number, of variables, variable types, and discussion of any quality issues (especially missingness and how it may impact the analysis). Highlight any important data collection issues or concerns. If over-technical, but important, then place technical details in Appendix: technical info.
@@ -46,8 +51,12 @@ You could imagine structuring this section around analysis type: univariate, biv
 ## Conclusion
 State conclusions or insights. Were you surprised by things you found or were they as expected? Why? This is a great place for future work, new research questions, and next steps.
 
-## References — if needed
-Any references used should be sited here. This includes but is not limited to where you got your data. There is no “formal” reference guideline but we recommend APA format. Example: Lastname, F. M. (Year, Month Date). Title of page. Site name. URL
+## References
+[SAMSHA 2019 National Survey on Drug Use and Health (NSDUH)](https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2019-nsduh-2019-ds0001)
+
+[SAMSHA 2020 National Survey on Drug Use and Health (NSDUH)](https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2020-nsduh-2020-ds0001)
+
+[SAMSHA 2021 National Survey on Drug Use and Health (NSDUH)](https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2021-nsduh-2021-ds0001)
 
 ## Appendix: technical info — if needed
 A place to share complex and important technical steps that may highly impact explorations, but the details are too technical to share in main body of the report.
