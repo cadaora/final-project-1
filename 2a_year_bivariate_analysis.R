@@ -7,6 +7,18 @@ library(ggthemes)
 ## load dataset
 YA_19_21 <-read_rds("data/YA_clean_19_21.rds")
 
-#average K6 score vs year
+#sex vs year
+sex_year <-YA_19_21 %>%
+  ggplot(aes(x=year,fill=fct_relevel(irsex,"Female"))) + 
+  geom_bar(position = "dodge") +
+  labs(title="Count of Sex of Young Adults (18-25) from 2019-2021",
+        subtitle="There have been more females than males every year",
+        x="Year",
+        y="Count",
+       fill="Sex") +
+  theme_light()
+ggsave(sex_year,filename="figures/2a_sex_year.png")
+
 YA_19_21 %>%
-  ggplot()
+  group_by(year,irsex) %>%
+  summarise(count=n())

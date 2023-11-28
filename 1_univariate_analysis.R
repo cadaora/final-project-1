@@ -32,7 +32,7 @@ incomecount <- YA_19_21 %>%
   labs(title="Young Adult Observations by Income",x="Income",y="Count") +
   theme_light()
 
-ggsave(incomecount,filename="figures/1_incomecount.png")
+ggsave(incomecount,filename="figures/1_incomecount.png",scale=1.3)
 
 #alcohol frequency month
 alcmonth <- YA_19_21 %>%

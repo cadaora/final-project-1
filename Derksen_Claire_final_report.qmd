@@ -22,10 +22,13 @@ library(janitor)
 library(readxl)
 library(knitr)
 library(ggthemes)
+
 # Loading datasets
 YA_2021 <- read_rds(file="data/NSDUH_2021_YA.rds")
 YA_2020 <- read_rds(file="data/NSDUH_2020_YA.rds")
 YA_2019 <- read_rds(file="data/NSDUH_2019_YA.rds")
+
+YA_19_21 <-read_rds("data/YA_clean_19_21.rds")
 ```
 
 ::: {.callout-tip icon="false"}
@@ -40,7 +43,7 @@ The goal of this exploration is to investigate the effects of the pandemic on dr
 
 In the famous "Rat Park" Experiment both isolated rats and rats in communities were given one bottle filled with water and the laced with heroin or cocaine. The isolated rats drank from the laced bottle to the point of overdose while those in the "Rat Park" community typically preferred the regular water (Sederer, 2019). This raises the question of whether humans in isolation are more likely to fall into addiction. The isolation of quarantine could make people more susceptible to drug use.
 
-In this exploration we will use the National Survey on Drug Use and Health (NSDUH) for the years 2019-2021. This survey is conducted on people over the age of 12 residing in the US and covers topics such as drug use, mental health, and other health-related issues. (explain K6 scores and MICAT, ASDS scores) (I'm looking at young adults)
+In this exploration we will use the National Survey on Drug Use and Health (NSDUH) for the years 2019-2021. This survey is conducted on people over the age of 12 residing in the US and covers topics such as drug use, mental health, and other health-related issues. (explain K6 scores and MICAT, ASDS scores) (I'm looking at young adults 18-25)
 
 ## Data overview & quality
 
@@ -48,7 +51,7 @@ A concise high level overview of the dataset(s) being explored. Description of t
 
 When answering our research questions it's important to keep in mind that there is some breakdown in comparability between the years. The 2019 interviews were all in-person while the 2021 interviews were all online. People may be more or less comfortable answering honestly when in-person vs online. The 2020 interviews began the year with in-person, stopped interviews, then continued with online interviews in the last quarter. We can see this reflected in the count of observations by year.
 
-![Figure 1: Total Observations in Each NSDUH Dataset](figures/4_totalobs.png)
+![Total Observations in Each NSDUH Dataset](figures/4_totalobs.png){#fig-1}
 
 The observations we would have had in 2020 between in-person and online are implicitly missing. Because of this, we should avoid counts and instead use proportions in our comparison between years. Additionally, some data might be unreliable if it is affected by what time of year it is. For example, some people suffer from seasonal depression which causes a more depressed mood in the Winter months. Another example is perhaps there is an increase in stimulant use in students right before finals.
 
@@ -112,10 +115,23 @@ After factorizing, the same missing values remained along with those purposefull
 
 ## Demographic Explorations
 
-The main purpose of these explorations was to understand what kind of sample I'm working with. Started with univariate analysis of sex and income to see if there is any over-representation of certain groups in the dataset.
+The main purpose of these explorations was to understand what kind of sample I'm working with. I started with univariate analysis of sex and income to see if there is any over-representation of certain groups in the data set.
 
-![Figure 2: Count of Income Groups](figures/1_incomecount.png)
+![Count of Income Groups](figures/1_incomecount.png){#fig-2}
 
+The most common income group is between \$20,000 and \$49,000. According to the 2019, 2020, and 2021 codebooks, the \$75,000 or more group is typically the largest and the less than \$20,000 group is usually smaller. This is expected since as young adults grow older they tend to make more money and are able to contribute more to the family income.
+
+![Count of Sex](figures/1_sexcount.png){#fig-3}
+
+We see there is slightly more females than males in our data set. This holds true across years as well (2a_sex_year) although the amount more of females differs. After the univariate analysis I though of different ways of defining college students and what groups would be best to compare college students to.
+
+![Income of College-Aged Adults](figures/2b_income_enrolled.png){#fig-4}
+ 
+ In @fig-4, college students are defined as adults 18-22 who are full-time college students. One disadvantage of this grouping is the 18-22 year olds who are unknown and those who aren't college aged are grouped together. It's possible the unknowns are mostly not in college or are in college so its hard to compare. Students aged 18-22 tend to move towards the more extreme ends with less than \$20,000 or \$75,000 or more.
+ 
+ ![Income of Adults in College and Graduated](figures/2b_income_inpost.png){#fig-5}
+ In @fig-5 college students are defined as currently in or entering college and having completed some college. This grouping can compare people in college and graduated regardless of age. This might allow us to compare people of similar background to avoid having that affect data. 
+ 
  This is the heart or main body of the the report. The structure of this portion can look VERY different depending on narrative choices and organization choices made to guide readers through the project EDA. Could decide to make sections for major parts of the EDA and not used an Explorations header. The key is that you have sections that are clearly organized and guide the reader through a systematic and thoughtful exploration of the dataset(s).
 
 A thoughtful exploration weaves together prose, figures, and tables to help a reader build understanding. It is a guided tour that should have clear motivations for each step in the process (think guiding curiosities or research questions). It should be clear how things build of of each other and why we are looking at what is being presented. Should also be letting the reader know whether what is shown is as expected or is it surprising (maybe some of each).
@@ -140,6 +156,20 @@ You could imagine structuring this section around analysis type: univariate, biv
 State conclusions or insights. Were you surprised by things you found or were they as expected? Why? This is a great place for future work, new research questions, and next steps.
 
 ## References
+Center for Behavioral Health Statistics and Quality.
+(2020). 2019 National Survey on Drug Use and Health Public Use File
+Codebook, Substance Abuse and Mental Health Services Administration,
+Rockville, MD <https://www.datafiles.samhsa.gov/sites/default/files/field-uploads-protected/studies/NSDUH-2019/NSDUH-2019-datasets/NSDUH-2019-DS0001/NSDUH-2019-DS0001-info/NSDUH-2019-DS0001-info-codebook.pdf>
+
+Center for Behavioral Health Statistics and Quality.
+(2021). 2020 National Survey on Drug Use and Health Public Use File
+Codebook, Substance Abuse and Mental Health Services Administration,
+Rockville, MD <https://www.datafiles.samhsa.gov/sites/default/files/field-uploads-protected/studies/NSDUH-2020/NSDUH-2020-datasets/NSDUH-2020-DS0001/NSDUH-2020-DS0001-info/NSDUH-2020-DS0001-info-codebook.pdf>
+
+ Center for Behavioral Health Statistics and Quality.
+(2022). 2021 National Survey on Drug Use and Health Public Use File
+Codebook, Substance Abuse and Mental Health Services Administration,
+Rockville, MD <https://www.datafiles.samhsa.gov/sites/default/files/field-uploads-protected/studies/NSDUH-2021/NSDUH-2021-datasets/NSDUH-2021-DS0001/NSDUH-2021-DS0001-info/NSDUH-2021-DS0001-info-codebook.pdf>
 
 SAMHSA. (2020). National Survey on Drug Use and Health (NSDUH) population data. National Survey on Drug Use and Health 2019 (NSDUH-2021-DS0001).<https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2019-nsduh-2019-ds0001>
 
