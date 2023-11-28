@@ -52,7 +52,7 @@ A concise high level overview of the dataset(s) being explored. Description of t
 
 When answering our research questions it's important to keep in mind that there is some breakdown in comparability between the years. The 2019 interviews were all in-person while the 2021 interviews were all online. People may be more or less comfortable answering honestly when in-person vs online. The 2020 interviews began the year with in-person, stopped interviews, then continued with online interviews in the last quarter. We can see this reflected in the count of observations by year.
 
-![Total Observations in Each NSDUH Dataset](figures/4_totalobs.png){#fig-1}
+![Total Observations in Each NSDUH Dataset](figures/4_totalobs.png){#fig-totalobs}
 
 The observations we would have had in 2020 between in-person and online are implicitly missing. Because of this, we should avoid counts and instead use proportions in our comparison between years. Additionally, some data might be unreliable if it is affected by what time of year it is. For example, some people suffer from seasonal depression which causes a more depressed mood in the Winter months. Another example is perhaps there is an increase in stimulant use in students right before finals.
 
@@ -118,24 +118,27 @@ After factorizing, the same missing values remained along with those purposefull
 
 The main purpose of these explorations was to understand what kind of sample I'm working with. I started with univariate analysis of sex and income to see if there is any over-representation of certain groups in the data set.
 
-![Count of Income Groups](figures/1_incomecount.png){#fig-2}
+![Count of Income Groups](figures/1_incomecount.png){#fig-countinc}
 
 The most common income group is between \$20,000 and \$49,000. According to the 2019, 2020, and 2021 codebooks, the \$75,000 or more group is typically the largest and the less than \$20,000 group is usually smaller. This is expected since as young adults grow older they tend to make more money and are able to contribute more to the family income.
 
-![Count of Sex](figures/1_sexcount.png){#fig-3}
+![Count of Sex](figures/1_sexcount.png){#fig-countsex}
 
 We see there is slightly more females than males in our data set. This holds true across years as well (2a_sex_year) although the amount more of females differs. After the univariate analysis, I though of different ways of defining college students and what groups would be best to compare college students to.
 
-![Income of College-Aged Adults](figures/2b_income_enrolled.png){#fig-4}
+![Income of College-Aged Adults](figures/2b_income_enrolled.png){#fig-collage}
  
- In @fig-4, college students are defined as adults 18-22 who are full-time college students. One disadvantage of this grouping is the 18-22 year olds who are unknown and those who aren't college aged are grouped together. It's possible the unknowns are mostly not in college or are in college so its hard to compare. Students aged 18-22 tend to move towards the more extreme ends with less than \$20,000 or \$75,000 or more.
+ In @fig-collage, college students are defined as adults 18-22 who are full-time college students. One disadvantage of this grouping is the 18-22 year olds who are unknown and those who aren't college aged are grouped together. It's possible the unknowns are mostly not in college or are in college so its hard to compare. Students aged 18-22 tend to move towards the more extreme ends with less than \$20,000 or \$75,000 or more.
  
- ![Income of Adults in College and Graduated](figures/2b_income_inpost.png){#fig-5}
- In @fig-5 college students are defined as currently in or entering college and having completed some college. This grouping can compare people in college and graduated regardless of age. One concern with the grouping in @fig-4 is that I would be indirectly comparing income groups rather than the effect of being in college. Comparing college students to graduated adults might allow us to compare people of similar socioeconomic backgrounds.
+![Income of Adults in College and Graduated](figures/2b_income_inpost.png){#fig-collgrad}
+ 
+ In @fig-collgrad college students are defined as currently in or entering college and having completed some college. This grouping can compare people in college and graduated regardless of age. One concern with the grouping in @fig-collage is that I would be indirectly comparing income groups rather than the effect of being in college. Comparing college students to graduated adults might allow us to compare people of similar socioeconomic backgrounds.
  
  
 ## Mental Health
 To explore the pandemics affect on mental health, we'll mainly be looking at variables related to mental health from 2019-2021. If there's an effect we expect a slight increase in signs of poor mental health in 2020 then a larger increase in 2021. 
+
+![Current K6 Scores Overtime for Graduated and In College](figures/3_k6mon_comp_year.png){#fig-k6moncomp}
  
  This is the heart or main body of the the report. The structure of this portion can look VERY different depending on narrative choices and organization choices made to guide readers through the project EDA. Could decide to make sections for major parts of the EDA and not used an Explorations header. The key is that you have sections that are clearly organized and guide the reader through a systematic and thoughtful exploration of the dataset(s).
 

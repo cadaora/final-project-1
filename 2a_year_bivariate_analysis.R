@@ -26,10 +26,6 @@ YA_19_21 %>%
 #K6 vs year
 YA_19_21 %>%
   filter(postin_coll=="In College") %>%
-  ggplot(aes(x=factor(year),y=k6scmax)) + geom_boxplot()
-
-YA_19_21 %>%
-  filter(postin_coll=="In College") %>%
   ggplot(aes(x=year,fill=spdyr)) + geom_bar(position="fill")
 
 YA_19_21 %>%

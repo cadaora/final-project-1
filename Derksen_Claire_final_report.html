@@ -93,13 +93,13 @@ Github Repo Link
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>The goal of this exploration is to investigate the effects of the pandemic on drug use and mental health in college students. I graduated high school in 2020 during the start of the pandemic. I didn’t begin college until a year later, but my friends would start their freshman year online. Having what is usually a pivotal point in ones life be somewhat stunted had a negative affect on the mental health of many students in my graduating class. The isolation caused by quarantining could lead to poor mental and perhaps even physical health.</p>
 <p>In the famous “Rat Park” Experiment both isolated rats and rats in communities were given one bottle filled with water and the laced with heroin or cocaine. The isolated rats drank from the laced bottle to the point of overdose while those in the “Rat Park” community typically preferred the regular water (Sederer, 2019). This raises the question of whether humans in isolation are more likely to fall into addiction. The isolation of quarantine could make people more susceptible to drug use.</p>
-<p>In this exploration we will use the National Survey on Drug Use and Health (NSDUH) for the years 2019-2021. This survey is conducted on people over the age of 12 residing in the US and covers topics such as drug use, mental health, and other health-related issues. (explain K6 scores and MICAT, ASDS scores) (I’m looking at young adults 18-25)</p>
+<p>In this exploration we will use the National Survey on Drug Use and Health (NSDUH) for the years 2019-2021. This survey is conducted on people over the age of 12 residing in the US and covers topics such as drug use, mental health, and other health-related issues. To focus on college students we will be only looking at young adults 18-25. Some of the ways they assess mental health are K6, MICAT, and SDS scores. The Kessler Psychological Distress Scale (K6) is a 6-question measure that assesses someones emotional state in the past 30 days. It runs on a scale from 0-24, higher numbers indicating more psychological distress. The Sheehan Disability Scale (SDS) measures the impact of a disorder on an adults life. It categorically measures across four domains: home management, work, close relationships, and social life.SAMHSA also has their own categorical mental illness indicator (MICAT) that assess whether the person is showing symptoms of mental illness and the serverity. (CBHSQ, 2020, Appendix E).</p>
 </section>
 <section id="data-overview-quality" class="level2">
 <h2 class="anchored" data-anchor-id="data-overview-quality">Data overview &amp; quality</h2>
 <p>A concise high level overview of the dataset(s) being explored. Description of the dataset(s) that covers basics: size, number of observations, number, of variables, variable types, and discussion of any quality issues (especially missingness and how it may impact the analysis). Highlight any important data collection issues or concerns. If over-technical, but important, then place technical details in Appendix: technical info.</p>
 <p>When answering our research questions it’s important to keep in mind that there is some breakdown in comparability between the years. The 2019 interviews were all in-person while the 2021 interviews were all online. People may be more or less comfortable answering honestly when in-person vs online. The 2020 interviews began the year with in-person, stopped interviews, then continued with online interviews in the last quarter. We can see this reflected in the count of observations by year.</p>
-<div id="fig-1" class="quarto-figure quarto-figure-center anchored">
+<div id="fig-totalobs" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="figures/4_totalobs.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Figure&nbsp;1: Total Observations in Each NSDUH Dataset</figcaption>
@@ -223,40 +223,50 @@ Github Repo Link
 <section id="demographic-explorations" class="level2">
 <h2 class="anchored" data-anchor-id="demographic-explorations">Demographic Explorations</h2>
 <p>The main purpose of these explorations was to understand what kind of sample I’m working with. I started with univariate analysis of sex and income to see if there is any over-representation of certain groups in the data set.</p>
-<div id="fig-2" class="quarto-figure quarto-figure-center anchored">
+<div id="fig-countinc" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="figures/1_incomecount.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Figure&nbsp;2: Count of Income Groups</figcaption>
 </figure>
 </div>
 <p>The most common income group is between $20,000 and $49,000. According to the 2019, 2020, and 2021 codebooks, the $75,000 or more group is typically the largest and the less than $20,000 group is usually smaller. This is expected since as young adults grow older they tend to make more money and are able to contribute more to the family income.</p>
-<div id="fig-3" class="quarto-figure quarto-figure-center anchored">
+<div id="fig-countsex" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="figures/1_sexcount.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Figure&nbsp;3: Count of Sex</figcaption>
 </figure>
 </div>
-<p>We see there is slightly more females than males in our data set. This holds true across years as well (2a_sex_year) although the amount more of females differs. After the univariate analysis I though of different ways of defining college students and what groups would be best to compare college students to.</p>
-<div id="fig-4" class="quarto-figure quarto-figure-center anchored">
+<p>We see there is slightly more females than males in our data set. This holds true across years as well (2a_sex_year) although the amount more of females differs. After the univariate analysis, I though of different ways of defining college students and what groups would be best to compare college students to.</p>
+<div id="fig-collage" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="figures/2b_income_enrolled.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Figure&nbsp;4: Income of College-Aged Adults</figcaption>
 </figure>
 </div>
-<p>In <a href="#fig-4">Figure&nbsp;4</a>, college students are defined as adults 18-22 who are full-time college students. One disadvantage of this grouping is the 18-22 year olds who are unknown and those who aren’t college aged are grouped together. It’s possible the unknowns are mostly not in college or are in college so its hard to compare. Students aged 18-22 tend to move towards the more extreme ends with less than $20,000 or $75,000 or more.</p>
-<p><img src="figures/2b_income_inpost.png" id="fig-5" class="img-fluid" alt="Income of Adults in College and Graduated"> In <strong>?@fig-5</strong> college students are defined as currently in or entering college and having completed some college. This grouping can compare people in college and graduated regardless of age. This might allow us to compare people of similar background to avoid having that affect data.</p>
+<p>In <a href="#fig-collage">Figure&nbsp;4</a>, college students are defined as adults 18-22 who are full-time college students. One disadvantage of this grouping is the 18-22 year olds who are unknown and those who aren’t college aged are grouped together. It’s possible the unknowns are mostly not in college or are in college so its hard to compare. Students aged 18-22 tend to move towards the more extreme ends with less than $20,000 or $75,000 or more.</p>
+<div id="fig-collgrad" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/2b_income_inpost.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;5: Income of Adults in College and Graduated</figcaption>
+</figure>
+</div>
+<p>In <a href="#fig-collgrad">Figure&nbsp;5</a> college students are defined as currently in or entering college and having completed some college. This grouping can compare people in college and graduated regardless of age. One concern with the grouping in <a href="#fig-collage">Figure&nbsp;4</a> is that I would be indirectly comparing income groups rather than the effect of being in college. Comparing college students to graduated adults might allow us to compare people of similar socioeconomic backgrounds.</p>
+</section>
+<section id="mental-health" class="level2">
+<h2 class="anchored" data-anchor-id="mental-health">Mental Health</h2>
+<p>To explore the pandemics affect on mental health, we’ll mainly be looking at variables related to mental health from 2019-2021. If there’s an effect we expect a slight increase in signs of poor mental health in 2020 then a larger increase in 2021.</p>
+<div id="fig-k6moncomp" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/3_k6mon_comp_year.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;6: Current K6 Scores Overtime for Graduated and In College</figcaption>
+</figure>
+</div>
 <p>This is the heart or main body of the the report. The structure of this portion can look VERY different depending on narrative choices and organization choices made to guide readers through the project EDA. Could decide to make sections for major parts of the EDA and not used an Explorations header. The key is that you have sections that are clearly organized and guide the reader through a systematic and thoughtful exploration of the dataset(s).</p>
 <p>A thoughtful exploration weaves together prose, figures, and tables to help a reader build understanding. It is a guided tour that should have clear motivations for each step in the process (think guiding curiosities or research questions). It should be clear how things build of of each other and why we are looking at what is being presented. Should also be letting the reader know whether what is shown is as expected or is it surprising (maybe some of each).</p>
 <p>You could imagine structuring this section around analysis type: univariate, bivariate, and multivariate. Can be a little harder to build a narrative with this structure. Could build sections that are dedicated to important variables: variable 1, variable 2, etc. In this case the sections would thoroughly explore the section’s variable through univariate, bivariate, and multivariate analyses. Alternatively, could build your sections around broad curiosities/research questions. Some of which probably inspired the project, and others that were developed through conducting the EDA.</p>
 </section>
-<section id="mental-health" class="level2">
-<h2 class="anchored" data-anchor-id="mental-health">Mental Health</h2>
-</section>
 <section id="drug-use" class="level2">
 <h2 class="anchored" data-anchor-id="drug-use">Drug Use</h2>
-</section>
-<section id="college-enrollment-explorations" class="level2">
-<h2 class="anchored" data-anchor-id="college-enrollment-explorations">College Enrollment Explorations</h2>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>

@@ -62,3 +62,5 @@ sex_inpost <-YA_19_21 %>%
        fill="Sex") +
   theme_light()
 ggsave(sex_enrolled,filename="figures/2b_sex_inpost.png",scale=1.3)
+
+#k6 score vs 
