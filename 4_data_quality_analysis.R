@@ -47,13 +47,16 @@ YA_2021 <- YA_2021 %>%
          SPDMON=SPDPSTMON, 
          K6SCYR=KSSLR6YR, 
          K6SCMAX=KSSLR6MAX,
-         SPDYR= SPDPSTYR
+         SPDYR= SPDPSTYR,
+         COLLENRLFT=ENRLCOLLFT2,
+         AGE2=AGE3
   )
 
-YA_19_21_unclean <- bind_rows(YA_2021,YA_2020,YA_2019) %>%
-  relocate(IRVAPNICREC, .after=IRSTMNMREC)
+YA_19_21_unfact <- bind_rows(YA_2021,YA_2020,YA_2019) %>%
+  relocate(IRVAPNICREC, .after=IRSTMNMREC) %>%
+  relocate(QUESTID2)
 
-YA_19_21_unclean <-YA_19_21_unclean %>%
+YA_19_21_unfact <-YA_19_21_unfact %>%
   separate_wider_regex(
     FILEDATE,
     patterns = c(
@@ -63,22 +66,19 @@ YA_19_21_unclean <-YA_19_21_unclean %>%
   ) %>%
   mutate(year = as.numeric(year)-1)
 
-YA_19_21_unclean <-YA_19_21_unclean %>%
-  mutate(incollege = ifelse(EDUSCHGRD2==9|EDUSCHGRD2==10|EDUSCHGRD2==11,
-                            "Enrolled",
-                            "Not Enrolled"))
+
 
 #missingness before factorizing variables, checking IRVAPNICREC only missing in 2019
 
-YA_19_21_unclean %>%
+YA_19_21_unfact %>%
   miss_var_summary(order = TRUE) %>%
   slice_head(n=10) %>%
   kable()
 
-YA_19_21_unclean %>%
+YA_19_21_unfact %>%
   group_by(year) %>%
   miss_var_summary() %>%
-  filter(variable=="IRVAPNICREC"|variable=="K6SCYR") %>%
+  filter(variable=="IRVAPNICREC"|variable=="K6SCYR"|variable=="AGE2"|variable=="COLLENRLFT") %>%
   kable()
 
 #missingness after factorizing variables

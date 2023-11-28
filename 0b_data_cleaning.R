@@ -27,7 +27,8 @@ YA_2021 <- YA_2021 %>%
          ) 
 
 YA_19_21 <- bind_rows(YA_2021,YA_2020,YA_2019) %>%
-  relocate(IRVAPNICREC, .after=IRSTMNMREC)
+  relocate(IRVAPNICREC, .after=IRSTMNMREC) %>%
+  relocate(QUESTID2)
 
 YA_19_21 <-YA_19_21 %>%
   separate_wider_regex(

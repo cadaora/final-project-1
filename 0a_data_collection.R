@@ -31,14 +31,15 @@ NSDUH_2021 %>%
 
 NSDUH_2020 %>%
   filter(CATAGE==2) %>%
-  select((QUESTID2|FILEDATE|STMRSSTDY|
+  select((FILEDATE|STMRSSTDY|
             IRCIGRC| IRALCRC| IRMJRC| IRCOCRC| IRPNRNMREC| IRSTMNMREC| 
             IRCIGFM| IRALCFM| IRALCBNG30D| IRMJFM|IRCOCFM| IRPNRNM30FQ| IRSTMNM30FQ|
             MHSUITHK|K6SCMON:SPDYR|MI_CAT_U|
             AMDEYR|ASDSHOM2:ASDSSOC2| 
             IRSEX|IREDUHIGHST2|AGE2|COLLENRLFT|EDUSCHGRD2|GOVTPROG| INCOME)&          
            any_of(comparability),
-         IRVAPNICREC) %>%
+         IRVAPNICREC,
+         QUESTID2) %>%
   write_rds(file="data/NSDUH_2020_YA.rds")
 
 NSDUH_2019 %>%
@@ -49,5 +50,6 @@ NSDUH_2019 %>%
             MHSUITHK|K6SCMON:SPDYR| MI_CAT_U|
             AMDEYR|ASDSHOM2:ASDSSOC2| 
             IRSEX|IREDUHIGHST2|AGE2| COLLENRLFT|EDUSCHGRD2|GOVTPROG| INCOME)&          
-           any_of(comparability)) %>%
+           any_of(comparability),
+         QUESTID2) %>%
   write_rds(file="data/NSDUH_2019_YA.rds")
