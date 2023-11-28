@@ -43,7 +43,8 @@ The goal of this exploration is to investigate the effects of the pandemic on dr
 
 In the famous "Rat Park" Experiment both isolated rats and rats in communities were given one bottle filled with water and the laced with heroin or cocaine. The isolated rats drank from the laced bottle to the point of overdose while those in the "Rat Park" community typically preferred the regular water (Sederer, 2019). This raises the question of whether humans in isolation are more likely to fall into addiction. The isolation of quarantine could make people more susceptible to drug use.
 
-In this exploration we will use the National Survey on Drug Use and Health (NSDUH) for the years 2019-2021. This survey is conducted on people over the age of 12 residing in the US and covers topics such as drug use, mental health, and other health-related issues. (explain K6 scores and MICAT, ASDS scores) (I'm looking at young adults 18-25)
+In this exploration we will use the National Survey on Drug Use and Health (NSDUH) for the years 2019-2021. This survey is conducted on people over the age of 12 residing in the US and covers topics such as drug use, mental health, and other health-related issues. To focus on college students we will be only looking at young adults 18-25. Some of the ways they assess mental health are K6, MICAT, and SDS scores. The Kessler Psychological Distress Scale (K6) is a 6-question measure that assesses someones emotional state in the past 30 days. It runs on a scale from 0-24, higher numbers indicating more psychological distress. The Sheehan Disability Scale (SDS) measures the impact of a disorder on an adults life. It categorically measures across four domains: home management, work, close relationships, and social life.SAMHSA also has their own categorical mental illness indicator (MICAT) that assess whether the person is showing symptoms of mental illness and the serverity.  (CBHSQ, 2020, Appendix E).
+
 
 ## Data overview & quality
 
@@ -134,7 +135,7 @@ We see there is slightly more females than males in our data set. This holds tru
  
  
 ## Mental Health
-
+To explore the pandemics affect on mental health, we'll mainly be looking at variables related to mental health from 2019-2021. If there's an effect we expect a slight increase in signs of poor mental health in 2020 then a larger increase in 2021. 
  
  This is the heart or main body of the the report. The structure of this portion can look VERY different depending on narrative choices and organization choices made to guide readers through the project EDA. Could decide to make sections for major parts of the EDA and not used an Explorations header. The key is that you have sections that are clearly organized and guide the reader through a systematic and thoughtful exploration of the dataset(s).
 
