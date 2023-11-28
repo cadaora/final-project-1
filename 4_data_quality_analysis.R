@@ -45,7 +45,6 @@ YA_2021 <- YA_2021 %>%
          MHSUITHK=IRSUICTHNK,
          K6SCMON=KSSLR6MON, 
          SPDMON=SPDPSTMON, 
-         K6SCYR=KSSLR6YR, 
          K6SCMAX=KSSLR6MAX,
          SPDYR= SPDPSTYR,
          COLLENRLFT=ENRLCOLLFT2,
@@ -78,10 +77,13 @@ YA_19_21_unfact %>%
 YA_19_21_unfact %>%
   group_by(year) %>%
   miss_var_summary() %>%
-  filter(variable=="IRVAPNICREC"|variable=="K6SCYR"|variable=="AGE2"|variable=="COLLENRLFT") %>%
+  filter(variable=="IRVAPNICREC"|
+           variable=="AGE2"|
+           variable=="COLLENRLFT"|
+           variable=="ASDSWRK2") %>%
   kable()
 
-#missingness after factorizing variables
+#missingness after factorizing variables ( see 0b_data_cleaning for factorizing functions)
 
 missingafterfactor <-YA_19_21 %>%
   gg_miss_var() + 

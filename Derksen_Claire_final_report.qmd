@@ -22,6 +22,10 @@ library(janitor)
 library(readxl)
 library(knitr)
 library(ggthemes)
+# Loading datasets
+YA_2021 <- read_rds(file="data/NSDUH_2021_YA.rds")
+YA_2020 <- read_rds(file="data/NSDUH_2020_YA.rds")
+YA_2019 <- read_rds(file="data/NSDUH_2019_YA.rds")
 ```
 
 ::: {.callout-tip icon="false"}
@@ -36,23 +40,83 @@ The goal of this exploration is to investigate the effects of the pandemic on dr
 
 In the famous "Rat Park" Experiment both isolated rats and rats in communities were given one bottle filled with water and the laced with heroin or cocaine. The isolated rats drank from the laced bottle to the point of overdose while those in the "Rat Park" community typically preferred the regular water (Sederer, 2019). This raises the question of whether humans in isolation are more likely to fall into addiction. The isolation of quarantine could make people more susceptible to drug use.
 
-In this exploration we will use the National Survey on Drug Use and Health (NSDUH) for the years 2019-2021. This survey is conducted on people over the age of 12 residing in the US and covers topics such as drug use, mental health, and other health-related issues. (explain K6 scores and MICAT)
+In this exploration we will use the National Survey on Drug Use and Health (NSDUH) for the years 2019-2021. This survey is conducted on people over the age of 12 residing in the US and covers topics such as drug use, mental health, and other health-related issues. (explain K6 scores and MICAT, ASDS scores) (I'm looking at young adults)
 
 ## Data overview & quality
 
 A concise high level overview of the dataset(s) being explored. Description of the dataset(s) that covers basics: size, number of observations, number, of variables, variable types, and discussion of any quality issues (especially missingness and how it may impact the analysis). Highlight any important data collection issues or concerns. If over-technical, but important, then place technical details in Appendix: technical info.
 
-For the 2021, 2020, and 2019 datasets there were: 58034 observations of 2988 variables, 32893 observations of 2890 variables, and 56136 observations of 2741 variables respectively.
-
-When answering our research questions it's important to keep in mind that there is some breakdown in comparability between the years. The 2019 interviews were all in-person while the 2021 interviews were all online. People may be more or less comfortable answering honestly when in-person vs online so it will be hard to compare the years. The 2020 interviews began the year with in-person, stopped interviews, then continues with online interviews in the last quarter. We can see this reflected in the count of observations by year.
+When answering our research questions it's important to keep in mind that there is some breakdown in comparability between the years. The 2019 interviews were all in-person while the 2021 interviews were all online. People may be more or less comfortable answering honestly when in-person vs online. The 2020 interviews began the year with in-person, stopped interviews, then continued with online interviews in the last quarter. We can see this reflected in the count of observations by year.
 
 ![Figure 1: Total Observations in Each NSDUH Dataset](figures/4_totalobs.png)
 
 The observations we would have had in 2020 between in-person and online are implicitly missing. Because of this, we should avoid counts and instead use proportions in our comparison between years. Additionally, some data might be unreliable if it is affected by what time of year it is. For example, some people suffer from seasonal depression which causes a more depressed mood in the Winter months. Another example is perhaps there is an increase in stimulant use in students right before finals.
 
-## Explorations
+For the 2021, 2020, and 2019 datasets there were: 58034 observations of 2988 variables, 32893 observations of 2890 variables, and 56136 observations of 2741 variables respectively. After combining the years, selecting for variables of interest, and filtering only young adults (18-25), there were 36151 observations of 35 variables. All of these were numeric and most could be converted to factors using the code book. Before factorizing, the following variables had missing values:
 
-missing obs analysis This is the heart or main body of the the report. The structure of this portion can look VERY different depending on narrative choices and organization choices made to guide readers through the project EDA. Could decide to make sections for major parts of the EDA and not used an Explorations header. The key is that you have sections that are clearly organized and guide the reader through a systematic and thoughtful exploration of the dataset(s).
+```{r}
+#| label: missing before factorizing
+YA_2021 <- YA_2021 %>%
+  mutate(AGE3=case_when(AGE3==4 ~ 7,
+                        AGE3==5 ~ 10,
+                        AGE3==6 ~ 12)) %>%
+  rename(MI_CAT_U = MICATPY,
+         MHSUITHK=IRSUICTHNK,
+         K6SCMON=KSSLR6MON, 
+         SPDMON=SPDPSTMON, 
+         K6SCMAX=KSSLR6MAX,
+         SPDYR= SPDPSTYR,
+         COLLENRLFT=ENRLCOLLFT2,
+         AGE2=AGE3
+         ) 
+
+YA_19_21_unfact <- bind_rows(YA_2021,YA_2020,YA_2019)
+
+YA_19_21_unfact <-YA_19_21_unfact %>%
+  separate_wider_regex(
+    FILEDATE,
+    patterns = c(
+      "../../",
+      year = "[0-9]+"
+    )
+  ) %>%
+  mutate(year = as.numeric(year)-1)
+
+YA_19_21_unfact %>%
+  miss_var_summary(order = TRUE) %>%
+  filter(pct_miss>0) %>%
+  mutate(pct_miss=round(pct_miss,1)) %>%
+  kable(col.names = c("Variable","# Missing","% Missing"),
+        caption = "Table 1: Missing Values Before Factorizing")
+
+```
+
+The ASDS scores (variables starting with ASDS) are mostly missing because those questions were only asked of people who reported depression symptoms. Questions about depression (`AMDEYR`) or suicidal thoughts (`MHSUITHK`) are sensitive subjects so the missing values could be due to people being uncomfortable answering and skipping the question. However, the coding of recency of vaping nicotine (`IRVAPNICREC`) and full-time college enrollment (`COLLENRLFT`) were different across years.
+
+```{r}
+#| label: missing IRVAPNICREC and COLLENRLFT by year
+YA_19_21_unfact %>%
+  group_by(year) %>%
+  miss_var_summary() %>%
+  mutate(pct_miss=round(pct_miss,1)) %>%
+  arrange(variable,.by_group=TRUE) %>%
+  filter(variable=="IRVAPNICREC"|
+           variable=="COLLENRLFT") %>%
+  kable(col.names = c("Year","Variable","# Missing","% Missing"),
+        caption = "Table 2: Nicotine Vaping and Full-Time College Enrollment Missing Values by Year")
+```
+
+In 2019 and 2020, NA values meant unknown enrollment while 3 meant the participant was not aged 18-22. In 2021, they combined these two groups into 3 so we don't see any NA values. To fix this I converted all NA values to 3 to have continuity between the years. The vaping nicotine variable was only added in 2020. I decided to keep this because vaping I predicted vaping would be popular among young adults and be worth exploring even with just 2 years' data.
+
+After factorizing, the same missing values remained along with those purposefully added. For example, I wanted to keep the values for times used a drug in the past 30 days numeric, so people who had never used the drug before were coded as NA while those who just didn't use in the past month were coded as 0.
+
+## Demographic Explorations
+
+The main purpose of these explorations was to understand what kind of sample I'm working with. Started with univariate analysis of sex and income to see if there is any over-representation of certain groups in the dataset.
+
+![Figure 2: Count of Income Groups](figures/1_incomecount.png)
+
+ This is the heart or main body of the the report. The structure of this portion can look VERY different depending on narrative choices and organization choices made to guide readers through the project EDA. Could decide to make sections for major parts of the EDA and not used an Explorations header. The key is that you have sections that are clearly organized and guide the reader through a systematic and thoughtful exploration of the dataset(s).
 
 A thoughtful exploration weaves together prose, figures, and tables to help a reader build understanding. It is a guided tour that should have clear motivations for each step in the process (think guiding curiosities or research questions). It should be clear how things build of of each other and why we are looking at what is being presented. Should also be letting the reader know whether what is shown is as expected or is it surprising (maybe some of each).
 
@@ -63,6 +127,13 @@ You could imagine structuring this section around analysis type: univariate, biv
 #| fig-cap: Short description
 #| tbl-cap: Short description
 ```
+
+## Mental Health
+
+## Drug Use
+
+
+## College Enrollment Explorations
 
 ## Conclusion
 

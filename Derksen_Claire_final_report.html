@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Claire Derksen">
-<meta name="dcterms.date" content="2023-11-27">
+<meta name="dcterms.date" content="2023-11-28">
 
 <title>Mental Health and Drug Use in College Students during the Pandemic: An EDA of 2019-2021 NSDUH</title>
 <style>
@@ -66,7 +66,7 @@ Data Science 1 with R (STAT 301-1)</p><p></p>
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 27, 2023</p>
+      <p class="date">November 28, 2023</p>
     </div>
   </div>
   
@@ -93,25 +93,154 @@ Github Repo Link
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>The goal of this exploration is to investigate the effects of the pandemic on drug use and mental health in college students. I graduated high school in 2020 during the start of the pandemic. I didn’t begin college until a year later, but my friends would start their freshman year online. Having what is usually a pivotal point in ones life be somewhat stunted had a negative affect on the mental health of many students in my graduating class. The isolation caused by quarantining could lead to poor mental and perhaps even physical health.</p>
 <p>In the famous “Rat Park” Experiment both isolated rats and rats in communities were given one bottle filled with water and the laced with heroin or cocaine. The isolated rats drank from the laced bottle to the point of overdose while those in the “Rat Park” community typically preferred the regular water (Sederer, 2019). This raises the question of whether humans in isolation are more likely to fall into addiction. The isolation of quarantine could make people more susceptible to drug use.</p>
-<p>In this exploration we will use the National Survey on Drug Use and Health (NSDUH) for the years 2019-2021. This survey is conducted on people over the age of 12 residing in the US and covers topics such as drug use, mental health, and other health-related issues. (explain K6 scores and MICAT)</p>
+<p>In this exploration we will use the National Survey on Drug Use and Health (NSDUH) for the years 2019-2021. This survey is conducted on people over the age of 12 residing in the US and covers topics such as drug use, mental health, and other health-related issues. (explain K6 scores and MICAT, ASDS scores)</p>
 </section>
 <section id="data-overview-quality" class="level2">
 <h2 class="anchored" data-anchor-id="data-overview-quality">Data overview &amp; quality</h2>
 <p>A concise high level overview of the dataset(s) being explored. Description of the dataset(s) that covers basics: size, number of observations, number, of variables, variable types, and discussion of any quality issues (especially missingness and how it may impact the analysis). Highlight any important data collection issues or concerns. If over-technical, but important, then place technical details in Appendix: technical info.</p>
-<p>When answering our research questions it’s important to keep in mind that there is some breakdown in comparability between the years. The 2019 interviews were all in-person while the 2021 interviews were all online. People may be more or less comfortable answering honestly when in-person vs online so it will be hard to compare the years. The 2020 interviews began the year with in-person, stopped interviews, then continues with online interviews in the last quarter. We can see this reflected in the count of observations by year.</p>
+<p>When answering our research questions it’s important to keep in mind that there is some breakdown in comparability between the years. The 2019 interviews were all in-person while the 2021 interviews were all online. People may be more or less comfortable answering honestly when in-person vs online. The 2020 interviews began the year with in-person, stopped interviews, then continued with online interviews in the last quarter. We can see this reflected in the count of observations by year.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figures/4_totalobs.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Figure 1: Total Observations in Each NSDUH Dataset</figcaption>
 </figure>
 </div>
-<p>The observations we would have had in 2020 between in-person and online are implicitly missing. Because of this, we should avoid counts and instead use proportions in our comparison between years. Additionally, some data might be unreliable if it is affected by what time of year it is. For example, some people suffer from Seasonal Depression which causes a more depressed mood in the Winter months. Another example is perhaps there is an increase in stimulant use in students right before finals.</p>
+<p>The observations we would have had in 2020 between in-person and online are implicitly missing. Because of this, we should avoid counts and instead use proportions in our comparison between years. Additionally, some data might be unreliable if it is affected by what time of year it is. For example, some people suffer from seasonal depression which causes a more depressed mood in the Winter months. Another example is perhaps there is an increase in stimulant use in students right before finals.</p>
+<p>For the 2021, 2020, and 2019 datasets there were: 58034 observations of 2988 variables, 32893 observations of 2890 variables, and 56136 observations of 2741 variables respectively. After combining the years, selecting for variables of interest, and filtering only young adults (18-25), there were 36151 observations of 35 variables. All of these were numeric and most could be converted to factors using the code book. Before factorizing, the following variables had missing values:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>Table 1: Missing Values Before Factorizing</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;"># Missing</th>
+<th style="text-align: right;">% Missing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ASDSWRK2</td>
+<td style="text-align: right;">30284</td>
+<td style="text-align: right;">83.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ASDSREL2</td>
+<td style="text-align: right;">30280</td>
+<td style="text-align: right;">83.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ASDSSOC2</td>
+<td style="text-align: right;">30278</td>
+<td style="text-align: right;">83.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ASDSHOM2</td>
+<td style="text-align: right;">30277</td>
+<td style="text-align: right;">83.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">IRVAPNICREC</td>
+<td style="text-align: right;">14226</td>
+<td style="text-align: right;">39.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AMDEYR</td>
+<td style="text-align: right;">1239</td>
+<td style="text-align: right;">3.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MHSUITHK</td>
+<td style="text-align: right;">478</td>
+<td style="text-align: right;">1.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COLLENRLFT</td>
+<td style="text-align: right;">327</td>
+<td style="text-align: right;">0.9</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The ASDS scores (variables starting with ASDS) are mostly missing because those questions were only asked of people who reported depression symptoms. Questions about depression (<code>AMDEYR</code>) or suicidal thoughts (<code>MHSUITHK</code>) are sensitive subjects so the missing values could be due to people being uncomfortable answering and skipping the question. However, the coding of recency of vaping nicotine (<code>IRVAPNICREC</code>) and full-time college enrollment (<code>COLLENRLFT</code>) were different across years.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>Table 2: Nicotine Vaping and Full-Time College Enrollment Missing Values by Year</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Year</th>
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;"># Missing</th>
+<th style="text-align: right;">% Missing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">COLLENRLFT</td>
+<td style="text-align: right;">94</td>
+<td style="text-align: right;">0.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">IRVAPNICREC</td>
+<td style="text-align: right;">14226</td>
+<td style="text-align: right;">100.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2020</td>
+<td style="text-align: left;">COLLENRLFT</td>
+<td style="text-align: right;">233</td>
+<td style="text-align: right;">2.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2020</td>
+<td style="text-align: left;">IRVAPNICREC</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">COLLENRLFT</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">IRVAPNICREC</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>In 2019 and 2020, NA values meant unknown enrollment while 3 meant the participant was not aged 18-22. In 2021, they combined these two groups into 3 so we don’t see any NA values. To fix this I converted all NA values to 3 to have continuity between the years. The vaping nicotine variable was only added in 2020. I decided to keep this because vaping I predicted vaping would be popular among young adults and be worth exploring even with just 2 years’ data.</p>
+<p>After factorizing, the same missing values remained along with those purposefully added. For example, I wanted to keep the values for times used a drug in the past 30 days numeric, so people who had never used the drug before were coded as NA while those who just didn’t use in the past month were coded as 0.</p>
 </section>
-<section id="explorations" class="level2">
-<h2 class="anchored" data-anchor-id="explorations">Explorations</h2>
-<p>*missing obs analysis This is the heart or main body of the the report. The structure of this portion can look VERY different depending on narrative choices and organization choices made to guide readers through the project EDA. Could decide to make sections for major parts of the EDA and not used an Explorations header. The key is that you have sections that are clearly organized and guide the reader through a systematic and thoughtful exploration of the dataset(s).</p>
+<section id="demographic-explorations" class="level2">
+<h2 class="anchored" data-anchor-id="demographic-explorations">Demographic Explorations</h2>
+<p>The main purpose of these explorations was to understand what kind of sample I’m working with. Started with univariate analysis of sex and income to see if there is any over-representation of certain groups in the dataset.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/1_incomecount.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure 2: Count of Income Groups</figcaption>
+</figure>
+</div>
+<p>This is the heart or main body of the the report. The structure of this portion can look VERY different depending on narrative choices and organization choices made to guide readers through the project EDA. Could decide to make sections for major parts of the EDA and not used an Explorations header. The key is that you have sections that are clearly organized and guide the reader through a systematic and thoughtful exploration of the dataset(s).</p>
 <p>A thoughtful exploration weaves together prose, figures, and tables to help a reader build understanding. It is a guided tour that should have clear motivations for each step in the process (think guiding curiosities or research questions). It should be clear how things build of of each other and why we are looking at what is being presented. Should also be letting the reader know whether what is shown is as expected or is it surprising (maybe some of each).</p>
 <p>You could imagine structuring this section around analysis type: univariate, bivariate, and multivariate. Can be a little harder to build a narrative with this structure. Could build sections that are dedicated to important variables: variable 1, variable 2, etc. In this case the sections would thoroughly explore the section’s variable through univariate, bivariate, and multivariate analyses. Alternatively, could build your sections around broad curiosities/research questions. Some of which probably inspired the project, and others that were developed through conducting the EDA.</p>
+</section>
+<section id="mental-health" class="level2">
+<h2 class="anchored" data-anchor-id="mental-health">Mental Health</h2>
+</section>
+<section id="drug-use" class="level2">
+<h2 class="anchored" data-anchor-id="drug-use">Drug Use</h2>
+</section>
+<section id="college-enrollment-explorations" class="level2">
+<h2 class="anchored" data-anchor-id="college-enrollment-explorations">College Enrollment Explorations</h2>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
