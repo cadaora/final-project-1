@@ -63,4 +63,7 @@ sex_inpost <-YA_19_21 %>%
   theme_light()
 ggsave(sex_enrolled,filename="figures/2b_sex_inpost.png",scale=1.3)
 
-#k6 score vs 
+#k6 score vs year in school
+YA_19_21 %>%
+  ggplot(aes(x=eduschgrd2,y=k6scmon)) +
+  geom_boxplot()

@@ -134,12 +134,23 @@ We see there is slightly more females than males in our data set. This holds tru
  
  In @fig-collgrad college students are defined as currently in or entering college and having completed some college. This grouping can compare people in college and graduated regardless of age. One concern with the grouping in @fig-collage is that I would be indirectly comparing income groups rather than the effect of being in college. Comparing college students to graduated adults might allow us to compare people of similar socioeconomic backgrounds.
  
- 
 ## Mental Health
 To explore the pandemics affect on mental health, we'll mainly be looking at variables related to mental health from 2019-2021. If there's an effect we expect a slight increase in signs of poor mental health in 2020 then a larger increase in 2021. 
 
 ![Current K6 Scores Overtime for Graduated and In College](figures/3_k6mon_comp_year.png){#fig-k6moncomp}
  
+ The neither group was removed to make it easier to compare graduated to in college. We see an increase in K6 score for both groups in 2020, perhaps as an effect of the pandemic. However, there is no increase in 2021 which suggests maybe the initial change had negative effects but didn't worsen over time.
+ 
+ ![Worst K6 Scores Overtime for Graduated and In College](figures/3_k6max_comp_year.png){#fig-k6maxcomp}
+ 
+ Participants were asked to complete K6 scores for the worst month of the year, if it was the same as the current month those scores were just used. In graduated adults we see a similar pattern to @fig-k6moncomp with the initial increase in 2020. However for students we see a slight increase followed by a larger increase. This could be from the isolation felt from online schooling. However, when we look only at 18-22 year old there isn't much of a difference between years.
+  ![Worst K6 Scores Overtime for Graduated and In College](figures/3_k6max_ft_year.png){#fig-k6maxcomp}
+
+This is also true for K6 scores for current month as seen in (figures/3_k6mon_ft_year.png). Overall, the data doesn't support a significant worsening of psychological distress for college students. 
+
+If we instead look at suicidal thoughts...
+
+
  This is the heart or main body of the the report. The structure of this portion can look VERY different depending on narrative choices and organization choices made to guide readers through the project EDA. Could decide to make sections for major parts of the EDA and not used an Explorations header. The key is that you have sections that are clearly organized and guide the reader through a systematic and thoughtful exploration of the dataset(s).
 
 A thoughtful exploration weaves together prose, figures, and tables to help a reader build understanding. It is a guided tour that should have clear motivations for each step in the process (think guiding curiosities or research questions). It should be clear how things build of of each other and why we are looking at what is being presented. Should also be letting the reader know whether what is shown is as expected or is it surprising (maybe some of each).

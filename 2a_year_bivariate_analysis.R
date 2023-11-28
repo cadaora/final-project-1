@@ -19,14 +19,14 @@ sex_year <-YA_19_21 %>%
   theme_light()
 ggsave(sex_year,filename="figures/2a_sex_year.png")
 
-YA_19_21 %>%
-  group_by(year,irsex) %>%
-  summarise(count=n())
 
-#K6 vs year
+#micat grade
 YA_19_21 %>%
-  filter(postin_coll=="In College") %>%
-  ggplot(aes(x=year,fill=spdyr)) + geom_bar(position="fill")
+  filter(eduschgrd2=="12th grade"|
+           eduschgrd2=="1st year"|
+           eduschgrd2=="2nd or 3rd year"|
+           eduschgrd2=="4th year or higher") %>%
+  ggplot(aes(x=eduschgrd2,fill=mi_cat_u)) + geom_bar(position="fill")
 
 YA_19_21 %>%
   filter(postin_coll=="In College") %>%

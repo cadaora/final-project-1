@@ -51,3 +51,4 @@ mjmonth <-YA_19_21 %>%
   theme_light()
 
 ggsave(mjmonth,filename="figures/1_mjmonth.png")
+
