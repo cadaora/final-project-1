@@ -42,10 +42,15 @@ YA_19_21 <-YA_19_21 %>%
 
 #| label: convert variables
 
-factor_yesno <- function(x) {
-  fct_recode(factor(x, levels = c("1","2")),
+factor_yesno1 <- function(x) {
+  fct_recode(factor(x, levels = c("0","1")),
              "Yes"="1",
-             "No"="2") 
+             "No"="0")
+}
+factor_yesno2 <- function(x) {
+    fct_recode(factor(x, levels = c("1","2")),
+               "Yes"="1",
+               "No"="2") 
 }
 factor_recency <- function(x) {
   fct_recode(factor(x),
@@ -75,8 +80,8 @@ YA_19_21<-YA_19_21 %>%
                            COLLENRLFT))
 #convert variables
 YA_19_21 <- YA_19_21 %>%
-  mutate(
-    across(c(STMRSSTDY,SPDMON,SPDYR, MHSUITHK,AMDEYR,GOVTPROG),factor_yesno),
+  mutate(across(c(SPDMON,SPDYR, MHSUITHK),factor_yesno1),
+    across(c(STMRSSTDY,AMDEYR,GOVTPROG),factor_yesno2),
     IRCIGRC = fct_recode(factor(IRCIGRC),
                          "≤ 30 days"="1",
                          "> 30 days, ≤ 12 months"="2",

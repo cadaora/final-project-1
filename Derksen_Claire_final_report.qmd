@@ -123,14 +123,18 @@ The most common income group is between \$20,000 and \$49,000. According to the 
 
 ![Count of Sex](figures/1_sexcount.png){#fig-3}
 
-We see there is slightly more females than males in our data set. This holds true across years as well (2a_sex_year) although the amount more of females differs. After the univariate analysis I though of different ways of defining college students and what groups would be best to compare college students to.
+We see there is slightly more females than males in our data set. This holds true across years as well (2a_sex_year) although the amount more of females differs. After the univariate analysis, I though of different ways of defining college students and what groups would be best to compare college students to.
 
 ![Income of College-Aged Adults](figures/2b_income_enrolled.png){#fig-4}
  
  In @fig-4, college students are defined as adults 18-22 who are full-time college students. One disadvantage of this grouping is the 18-22 year olds who are unknown and those who aren't college aged are grouped together. It's possible the unknowns are mostly not in college or are in college so its hard to compare. Students aged 18-22 tend to move towards the more extreme ends with less than \$20,000 or \$75,000 or more.
  
  ![Income of Adults in College and Graduated](figures/2b_income_inpost.png){#fig-5}
- In @fig-5 college students are defined as currently in or entering college and having completed some college. This grouping can compare people in college and graduated regardless of age. This might allow us to compare people of similar background to avoid having that affect data. 
+ In @fig-5 college students are defined as currently in or entering college and having completed some college. This grouping can compare people in college and graduated regardless of age. One concern with the grouping in @fig-4 is that I would be indirectly comparing income groups rather than the effect of being in college. Comparing college students to graduated adults might allow us to compare people of similar socioeconomic backgrounds.
+ 
+ 
+## Mental Health
+
  
  This is the heart or main body of the the report. The structure of this portion can look VERY different depending on narrative choices and organization choices made to guide readers through the project EDA. Could decide to make sections for major parts of the EDA and not used an Explorations header. The key is that you have sections that are clearly organized and guide the reader through a systematic and thoughtful exploration of the dataset(s).
 
@@ -144,12 +148,9 @@ You could imagine structuring this section around analysis type: univariate, biv
 #| tbl-cap: Short description
 ```
 
-## Mental Health
-
 ## Drug Use
 
 
-## College Enrollment Explorations
 
 ## Conclusion
 

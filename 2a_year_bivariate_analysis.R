@@ -22,3 +22,16 @@ ggsave(sex_year,filename="figures/2a_sex_year.png")
 YA_19_21 %>%
   group_by(year,irsex) %>%
   summarise(count=n())
+
+#K6 vs year
+YA_19_21 %>%
+  filter(postin_coll=="In College") %>%
+  ggplot(aes(x=factor(year),y=k6scmax)) + geom_boxplot()
+
+YA_19_21 %>%
+  filter(postin_coll=="In College") %>%
+  ggplot(aes(x=year,fill=spdyr)) + geom_bar(position="fill")
+
+YA_19_21 %>%
+  filter(postin_coll=="In College") %>%
+  ggplot(aes(x=year,fill=mhsuithk)) + geom_bar(position="fill")
