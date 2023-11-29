@@ -1,0 +1,52 @@
+---
+title: "Executive Summary: Exploring the Impact of the Pandemic on Drug Use and Mental Health in College Students"
+subtitle: |
+  | Final Project 
+  | Data Science 1 with R (STAT 301-1)
+format: html
+editor: visual
+author: "Claire Derksen"
+date: today
+
+execute:
+  echo: false
+  warning: false
+---
+
+::: {.callout-tip icon="false"}
+## Github Repo Link
+
+<https://github.com/stat301-1-2023-fall/final-project-1-cadaora>
+:::
+
+## Objective
+
+This report explores the effects of the COVID-19 pandemic on drug use and mental health among college students, using data from the National Survey on Drug Use and Health (NSDUH) from 2019-2021. The goal is to understand the potential links between the isolation and the mental health outcomes, as well as any changes in drug use habits in young adults (18-25).
+
+## Key Findings
+
+### Mental Health
+
+-   College students generally did not show any more distress than those not in college, as measured by the Kessler Psychological Distress Scale (K6), over the course of the pandemic. There were slight increases in some measures of distress in 2020 and 2021, however, the differences aren't significant.
+
+-   Young adults showing signs of mental illness experienced worsening impairment in daily functioning, during 2020 and 2021. This impairment affected their home tasks, work tasks, close relationships, and social life.
+
+-   As students progressed through college, they were more likely to indicate mild to serious mental illness, highlighting a potential correlation between academic advancement and mental health. This could be due to advancing in age.
+
+### Drug Use
+
+-   There was no significant increase in drug use among adults in college compared to those not in college. However, there were noticible trends in use of specific substances.
+
+-   The freshman class of 2020 showed a higher percentage of daily marijuana users compared to 2019 and 2021, possibly due to the circumstances caused by online schooling.
+
+-   Stimulant use was more prevalent among college students than those not in college. Students were also more likely to report using stimulants to study.
+
+## Data Considerations
+
+-   Breakdowns in data comparability between years, owing to variations in interview formats (in-person vs. online), should be kept in mind when interpreting results.
+
+-   In 2020 there was a pause in data collection due to COVID-19, resulting in a decrease in observations for the year.
+
+## Recommendations
+
+Since the data had mixed results on the changes in college students drug use and mental health, it is recommended the topic be further explored. A more comprehensive analysis could focus on the effect of the timing of the COVID-19 pandemic by looking at specific graduating classes. Additionally, the investigation could be enhanced by utilizing the American College Health Association\'s National College Health Assessment which focuses solely on college students.
