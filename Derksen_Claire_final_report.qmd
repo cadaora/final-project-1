@@ -177,25 +177,13 @@ College aged adults not in school there was a significant in marijuana use. That
 
 I expected to see an increase in vaping nicotine in college students particularly due to the stress of school and it being popular among young adults.
 
-![Vaping Recency and College Completion with Never](figures/3_vapewnever.png)
-College students are slightly more likely to have vaped nicotine before than graduated adults and those not in college. If you remove the group that hasn't used nicotine before you can get a better idea of changes in habits of users.
-![Vaping Recency and College Completion without Never](figures/3_vapewonever.png)
-All groups saw an increase in those that had vaped in the last 30 days while no group saw a decrease in people who had never vaped before. This suggests that the increase is due to people who have already vaped before starting to vape more frequently, perhaps to cope with stress from the pandemic. I expected college students to see the largest increase however graduated adults saw a significant increase although on average students are still more likely to have vaped recently.
-This is the heart or main body of the the report. The structure of this portion can look VERY different depending on narrative choices and organization choices made to guide readers through the project EDA. Could decide to make sections for major parts of the EDA and not used an Explorations header. The key is that you have sections that are clearly organized and guide the reader through a systematic and thoughtful exploration of the dataset(s).
+![Vaping Recency and College Completion with Never](figures/3_vapewnever.png) College students are slightly more likely to have vaped nicotine before than graduated adults and those not in college. If you remove the group that hasn't used nicotine before you can get a better idea of changes in habits of users. ![Vaping Recency and College Completion without Never](figures/3_vapewonever.png) All groups saw an increase in those that had vaped in the last 30 days while no group saw a decrease in people who had never vaped before. This suggests that the increase is due to people who have already vaped before starting to vape more frequently, perhaps to cope with stress from the pandemic. I expected college students to see the largest increase however graduated adults saw a significant increase although on average students are still more likely to have vaped recently.
 
-A thoughtful exploration weaves together prose, figures, and tables to help a reader build understanding. It is a guided tour that should have clear motivations for each step in the process (think guiding curiosities or research questions). It should be clear how things build of of each other and why we are looking at what is being presented. Should also be letting the reader know whether what is shown is as expected or is it surprising (maybe some of each).
-
-You could imagine structuring this section around analysis type: univariate, bivariate, and multivariate. Can be a little harder to build a narrative with this structure. Could build sections that are dedicated to important variables: variable 1, variable 2, etc. In this case the sections would thoroughly explore the section's variable through univariate, bivariate, and multivariate analyses. Alternatively, could build your sections around broad curiosities/research questions. Some of which probably inspired the project, and others that were developed through conducting the EDA.
-
-```{r}
-#| label: load-pkgs and datasets
-#| fig-cap: Short description
-#| tbl-cap: Short description
-```
+I lastly wanted to explore the misuse of stimulants by students.
 
 ## Conclusion
 
-State conclusions or insights. Were you surprised by things you found or were they as expected? Why? This is a great place for future work, new research questions, and next steps.
+Conclusions: college students were not unhappier from covid. There was no general decrease in mood. There was also no specific increase in drug use. one disadvantage to this approach is couldve focused on class of 2020. Use NCHA III next time. State conclusions or insights. Were you surprised by things you found or were they as expected? Why? This is a great place for future work, new research questions, and next steps.
 
 ## References
 

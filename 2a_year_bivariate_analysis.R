@@ -78,3 +78,4 @@ sdssoc_year <- YA_19_21 %>%
        y="Proportion")+ 
   theme_light()
 ggsave(sdssoc_year,filename="figures/2a_sdssoc_year.png",scale=1.3)
+

@@ -117,3 +117,4 @@ stimstud_rec <- YA_19_21 %>%
   theme_light()
 ggsave(stimstud_rec,filename="figures/2b_stimstud_rec.png",scale=1.3)
 
+
