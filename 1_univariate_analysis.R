@@ -41,7 +41,7 @@ alcmonth <- YA_19_21 %>%
   labs(title="Distribution of Monthly Alcohol Use Among Young Adults",x= "Times Drank in Past Month",y="Count") +
   theme_light()
 
-ggsave(alcmonth,filename="figures/1_alcmonth.png")
+ggsave(alcmonth,filename="figures/1_alcmonth.png",scale=1.3)
 
 #marijuana frequency month
 mjmonth <-YA_19_21 %>%
@@ -50,5 +50,5 @@ mjmonth <-YA_19_21 %>%
   labs(title="Distribution of Monthly Marijuana Use Among Young Adults",x= "Times Used in Past Month",y="Count") +
   theme_light()
 
-ggsave(mjmonth,filename="figures/1_mjmonth.png")
+ggsave(mjmonth,filename="figures/1_mjmonth.png",scale=1.3)
 

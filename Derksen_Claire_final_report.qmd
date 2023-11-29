@@ -43,8 +43,7 @@ The goal of this exploration is to investigate the effects of the pandemic on dr
 
 In the famous "Rat Park" Experiment both isolated rats and rats in communities were given one bottle filled with water and the laced with heroin or cocaine. The isolated rats drank from the laced bottle to the point of overdose while those in the "Rat Park" community typically preferred the regular water (Sederer, 2019). This raises the question of whether humans in isolation are more likely to fall into addiction. The isolation of quarantine could make people more susceptible to drug use.
 
-In this exploration we will use the National Survey on Drug Use and Health (NSDUH) for the years 2019-2021. This survey is conducted on people over the age of 12 residing in the US and covers topics such as drug use, mental health, and other health-related issues. To focus on college students we will be only looking at young adults 18-25. Some of the ways they assess mental health are K6, MICAT, and SDS scores. The Kessler Psychological Distress Scale (K6) is a 6-question measure that assesses someones emotional state in the past 30 days. It runs on a scale from 0-24, higher numbers indicating more psychological distress. The Sheehan Disability Scale (SDS) measures the impact of a disorder on an adults life. It categorically measures across four domains: home management, work, close relationships, and social life.SAMHSA also has their own categorical mental illness indicator (MICAT) that assess whether the person is showing symptoms of mental illness and the serverity.  (CBHSQ, 2020, Appendix E).
-
+In this exploration we will use the National Survey on Drug Use and Health (NSDUH) for the years 2019-2021. This survey is conducted on people over the age of 12 residing in the US and covers topics such as drug use, mental health, and other health-related issues. To focus on college students we will be only looking at young adults 18-25. Some of the ways they assess mental health are K6, MICAT, and SDS scores. The Kessler Psychological Distress Scale (K6) is a 6-question measure that assesses someones emotional state in the past 30 days. It runs on a scale from 0-24, higher numbers indicating more psychological distress. The Sheehan Disability Scale (SDS) measures the impact of a disorder on an adults life. It categorically measures across four domains: home management, work, close relationships, and social life.SAMHSA also has their own categorical mental illness indicator (MICAT) that assess whether the person is showing symptoms of mental illness and the serverity. (CBHSQ, 2020, Appendix E).
 
 ## Data overview & quality
 
@@ -127,28 +126,28 @@ The most common income group is between \$20,000 and \$49,000. According to the 
 We see there is slightly more females than males in our data set. This holds true across years as well (2a_sex_year) although the amount more of females differs. After the univariate analysis, I though of different ways of defining college students and what groups would be best to compare college students to.
 
 ![Income of College-Aged Adults](figures/2b_income_enrolled.png){#fig-collage}
- 
- In @fig-collage, college students are defined as adults 18-22 who are full-time college students. One disadvantage of this grouping is the 18-22 year olds who are unknown and those who aren't college aged are grouped together. It's possible the unknowns are mostly not in college or are in college so its hard to compare. Students aged 18-22 tend to move towards the more extreme ends with less than \$20,000 or \$75,000 or more.
- 
+
+In @fig-collage, college students are defined as adults 18-22 who are full-time college students. One disadvantage of this grouping is the 18-22 year olds who are unknown and those who aren't college aged are grouped together. It's possible the unknowns are mostly not in college or are in college so its hard to compare. Students aged 18-22 tend to move towards the more extreme ends with less than \$20,000 or \$75,000 or more.
+
 ![Income of Adults in College and Graduated](figures/2b_income_inpost.png){#fig-collgrad}
- 
- In @fig-collgrad college students are defined as currently in or entering college and having completed some college. This grouping can compare people in college and graduated regardless of age. One concern with the grouping in @fig-collage is that I would be indirectly comparing income groups rather than the effect of being in college. Comparing college students to graduated adults might allow us to compare people of similar socioeconomic backgrounds.
- 
+
+In @fig-collgrad college students are defined as currently in or entering college and having completed some college. This grouping can compare people in college and graduated regardless of age. One concern with the grouping in @fig-collage is that I would be indirectly comparing income groups rather than the effect of being in college. Comparing college students to graduated adults might allow us to compare people of similar socioeconomic backgrounds.
+
 ## Mental Health
-To explore the pandemics affect on mental health, we'll mainly be looking at variables related to mental health from 2019-2021. If there's an effect we expect a slight increase in signs of poor mental health in 2020 then a larger increase in 2021. 
+
+To explore the pandemics affect on mental health, we'll mainly be looking at variables related to mental health from 2019-2021. If there's an effect we expect a slight increase in signs of poor mental health in 2020 then a larger increase in 2021.
 
 ![Current K6 Scores Overtime for Graduated and In College](figures/3_k6mon_comp_year.png){#fig-k6moncomp}
- 
- The neither group was removed to make it easier to compare graduated to in college. We see an increase in K6 score for both groups in 2020, perhaps as an effect of the pandemic. However, there is no increase in 2021 which suggests maybe the initial change had negative effects but didn't worsen over time.
- 
- ![Worst K6 Scores Overtime for Graduated and In College](figures/3_k6max_comp_year.png){#fig-k6maxcomp}
- 
- Participants were asked to complete K6 scores for the worst month of the year, if it was the same as the current month those scores were just used. In graduated adults we see a similar pattern to @fig-k6moncomp with the initial increase in 2020. However for students we see a slight increase followed by a larger increase. This could be from the isolation felt from online schooling. However, when we look only at 18-22 year old there isn't much of a difference between years.
-  ![Worst K6 Scores Overtime for Graduated and In College](figures/3_k6max_ft_year.png){#fig-k6maxcomp}
 
-This is also true for K6 scores for current month as seen in (figures/3_k6mon_ft_year.png). Overall, the data doesn't support a significant worsening of psychological distress for college students. 
+The neither group was removed to make it easier to compare graduated to in college. We see an increase in K6 score for both groups in 2020, perhaps as an effect of the pandemic. However, there is no increase in 2021 which suggests maybe the initial change had negative effects but didn't worsen over time.
 
-One hypothesis I had was that young adults would report more severe SDS scores in 2020 and 2021 because their mental disorder compounding with stress with COVID-19 could further impede their everyday life. 
+![Worst K6 Scores Overtime for Graduated and In College](figures/3_k6max_comp_year.png){#fig-k6maxcomp}
+
+Participants were asked to complete K6 scores for the worst month of the year, if it was the same as the current month those scores were just used. In graduated adults we see a similar pattern to @fig-k6moncomp with the initial increase in 2020. However for students we see a slight increase followed by a larger increase. This could be from the isolation felt from online schooling. However, when we look only at 18-22 year old there isn't much of a difference between years. ![Worst K6 Scores Overtime for Graduated and In College](figures/3_k6max_ft_year.png)
+
+This is also true for K6 scores for current month as seen in (figures/3_k6mon_ft_year.png). Overall, the data doesn't support a significant worsening of psychological distress for college students.
+
+One hypothesis I had was that young adults would report more severe SDS scores in 2020 and 2021 because their mental disorder compounding with stress with COVID-19 could further impede their everyday life.
 
 ![Home Task Impairment in Young Adults from 2019-2021](figures/2a_sdshome_year.png){#fig-sdshome_year}
 
@@ -160,7 +159,19 @@ Focusing on college students one trend I found was that the further along in col
 
 This could be from the stress of college or from starting to take on independent responsibilities such as housing. It's also possible that as people get older its more likely underlying mental illnesses will start to show symptoms.
 
- This is the heart or main body of the the report. The structure of this portion can look VERY different depending on narrative choices and organization choices made to guide readers through the project EDA. Could decide to make sections for major parts of the EDA and not used an Explorations header. The key is that you have sections that are clearly organized and guide the reader through a systematic and thoughtful exploration of the dataset(s).
+## Drug Use
+
+I started with two univariate explorations of alcohol and marijuana monthly frequency to get a better idea of the distribution.
+
+![Distribution of Monthly Alcohol Use](figures/1_alcmonth.png){#fig-distalc}
+The distribution is unimodal and skewed right with the majority of people drinking 0 times in the past month. 
+
+![Distribution of Monthly Alcohol Use](figures/1_mjmonth.png){#fig-distmj}
+The distribution of marijuana use is bimodal. Unlike alcohol, theres a considerable amount of daily or near daily users.
+
+To explore the pandemics affect on drug use I started with looking at the average monthly frequency of drug use.
+
+![Monthly Drug Use for Graduated and In College](figures/3_mondrugcomp.png){#fig-drugcomp} From @fig-drugcomp I found that few drugs were strictly increasing or decreasing. Only marijuana in graduated is strictly increasing and only cigarettes in college students is strictly decreasing. The increase in graduated use of marijuana could also be due to more places legalizing marijuana for adults above 21. Cigarette use frequency decreasing could be a result of fear of being vulnerable to COVID. ![Monthly Drug Use in Adults 18-22](figures/3_mondrugft.png){#fig-drugft} College aged adults not in school there was a significant in marijuana use. That combined with the increase in graduated adults as seen in @fig-drugcomp implies that on average the pandemic increased marijuana use frequency in young adults not in college. This is the heart or main body of the the report. The structure of this portion can look VERY different depending on narrative choices and organization choices made to guide readers through the project EDA. Could decide to make sections for major parts of the EDA and not used an Explorations header. The key is that you have sections that are clearly organized and guide the reader through a systematic and thoughtful exploration of the dataset(s).
 
 A thoughtful exploration weaves together prose, figures, and tables to help a reader build understanding. It is a guided tour that should have clear motivations for each step in the process (think guiding curiosities or research questions). It should be clear how things build of of each other and why we are looking at what is being presented. Should also be letting the reader know whether what is shown is as expected or is it surprising (maybe some of each).
 
@@ -172,29 +183,17 @@ You could imagine structuring this section around analysis type: univariate, biv
 #| tbl-cap: Short description
 ```
 
-## Drug Use
-
-
-
 ## Conclusion
 
 State conclusions or insights. Were you surprised by things you found or were they as expected? Why? This is a great place for future work, new research questions, and next steps.
 
 ## References
-Center for Behavioral Health Statistics and Quality.
-(2020). 2019 National Survey on Drug Use and Health Public Use File
-Codebook, Substance Abuse and Mental Health Services Administration,
-Rockville, MD <https://www.datafiles.samhsa.gov/sites/default/files/field-uploads-protected/studies/NSDUH-2019/NSDUH-2019-datasets/NSDUH-2019-DS0001/NSDUH-2019-DS0001-info/NSDUH-2019-DS0001-info-codebook.pdf>
 
-Center for Behavioral Health Statistics and Quality.
-(2021). 2020 National Survey on Drug Use and Health Public Use File
-Codebook, Substance Abuse and Mental Health Services Administration,
-Rockville, MD <https://www.datafiles.samhsa.gov/sites/default/files/field-uploads-protected/studies/NSDUH-2020/NSDUH-2020-datasets/NSDUH-2020-DS0001/NSDUH-2020-DS0001-info/NSDUH-2020-DS0001-info-codebook.pdf>
+Center for Behavioral Health Statistics and Quality. (2020). 2019 National Survey on Drug Use and Health Public Use File Codebook, Substance Abuse and Mental Health Services Administration, Rockville, MD <https://www.datafiles.samhsa.gov/sites/default/files/field-uploads-protected/studies/NSDUH-2019/NSDUH-2019-datasets/NSDUH-2019-DS0001/NSDUH-2019-DS0001-info/NSDUH-2019-DS0001-info-codebook.pdf>
 
- Center for Behavioral Health Statistics and Quality.
-(2022). 2021 National Survey on Drug Use and Health Public Use File
-Codebook, Substance Abuse and Mental Health Services Administration,
-Rockville, MD <https://www.datafiles.samhsa.gov/sites/default/files/field-uploads-protected/studies/NSDUH-2021/NSDUH-2021-datasets/NSDUH-2021-DS0001/NSDUH-2021-DS0001-info/NSDUH-2021-DS0001-info-codebook.pdf>
+Center for Behavioral Health Statistics and Quality. (2021). 2020 National Survey on Drug Use and Health Public Use File Codebook, Substance Abuse and Mental Health Services Administration, Rockville, MD <https://www.datafiles.samhsa.gov/sites/default/files/field-uploads-protected/studies/NSDUH-2020/NSDUH-2020-datasets/NSDUH-2020-DS0001/NSDUH-2020-DS0001-info/NSDUH-2020-DS0001-info-codebook.pdf>
+
+Center for Behavioral Health Statistics and Quality. (2022). 2021 National Survey on Drug Use and Health Public Use File Codebook, Substance Abuse and Mental Health Services Administration, Rockville, MD <https://www.datafiles.samhsa.gov/sites/default/files/field-uploads-protected/studies/NSDUH-2021/NSDUH-2021-datasets/NSDUH-2021-DS0001/NSDUH-2021-DS0001-info/NSDUH-2021-DS0001-info-codebook.pdf>
 
 SAMHSA. (2020). National Survey on Drug Use and Health (NSDUH) population data. National Survey on Drug Use and Health 2019 (NSDUH-2021-DS0001).<https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2019-nsduh-2019-ds0001>
 
