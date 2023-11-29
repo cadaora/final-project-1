@@ -79,3 +79,41 @@ grademicat <- YA_19_21 %>%
   theme_light()
 
 ggsave(grademicat,filename="figures/2b_grademicat.png",scale=1.5)
+
+#collen vs stimrec
+collen_stimrec <-YA_19_21 %>%
+  filter(irstmnmrec!="Never") %>%
+  ggplot(aes(x=collenrlft,fill=irstmnmrec)) +
+  geom_bar(position="fill") +
+  labs(title="Last Stimulant Use for Users by College Enrollment",
+       x="College Enrollment",
+       y="Proportion",
+       fill="Last Stimulant Use") +
+  theme_light()
+
+ggsave(collen_stimrec,filename="figures/2b_collen_stimrec.png",scale=1.3)
+
+#collen vs stimstudy
+collen_stimstud <- YA_19_21 %>%
+  filter(!is.na(stmrsstdy)) %>%
+  ggplot(aes(x=collenrlft,fill=stmrsstdy)) +
+  geom_bar(position="fill")+
+  labs(title="Stimulant Use for Studying of Users by College Enrollment",
+       x="College Enrollment",
+       y="Proportion",
+       fill="Last Used Stimulants to Study") +
+  theme_light()
+ggsave(collen_stimstud,filename="figures/2b_collen_stimstud.png",scale=1.3)
+
+#stimstudy vs stim recency
+stimstud_rec <- YA_19_21 %>%
+  filter(!is.na(stmrsstdy)) %>%
+  ggplot(aes(x=stmrsstdy,fill=irstmnmrec)) +
+  geom_bar(position="fill")+
+  labs(title="Stimulant Studing Use vs Recency of Use",
+       x="Last Used Stimulants to Study",
+       y="Proportion",
+       fill="Last Stimulant Use") +
+  theme_light()
+ggsave(stimstud_rec,filename="figures/2b_stimstud_rec.png",scale=1.3)
+

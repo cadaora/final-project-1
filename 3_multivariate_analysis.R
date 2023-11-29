@@ -133,3 +133,4 @@ vapewnever <-YA_19_21 %>%
        fill="Vaping Recency")+ 
   theme_light()
 ggsave(vapewnever,filename="figures/3_vapewnever.png")
+
