@@ -148,8 +148,17 @@ To explore the pandemics affect on mental health, we'll mainly be looking at var
 
 This is also true for K6 scores for current month as seen in (figures/3_k6mon_ft_year.png). Overall, the data doesn't support a significant worsening of psychological distress for college students. 
 
-If we instead look at suicidal thoughts...
+One hypothesis I had was that young adults would report more severe SDS scores in 2020 and 2021 because their mental disorder compounding with stress with COVID-19 could further impede their everyday life. 
 
+![Home Task Impairment in Young Adults from 2019-2021](figures/2a_sdshome_year.png){#fig-sdshome_year}
+
+There is an increase in home task impairment severity as seen in @fig-sdshome_year. This trend is visible in work tasks, close relationships, and social life as seen in (figures/2a_sdswork_year.png) (figures/2a_sdsrel_year.png,figures/2a_sdssoc_year.png) respectively.
+
+Focusing on college students one trend I found was that the further along in college, the more likely someone is to show symptoms of mental illness.
+
+![Worst K6 Scores Overtime for Graduated and In College](figures/2b_grademicat.png){#fig-gradcat}
+
+This could be from the stress of college or from starting to take on independent responsibilities such as housing. It's also possible that as people get older its more likely underlying mental illnesses will start to show symptoms.
 
  This is the heart or main body of the the report. The structure of this portion can look VERY different depending on narrative choices and organization choices made to guide readers through the project EDA. Could decide to make sections for major parts of the EDA and not used an Explorations header. The key is that you have sections that are clearly organized and guide the reader through a systematic and thoughtful exploration of the dataset(s).
 

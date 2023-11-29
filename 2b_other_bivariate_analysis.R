@@ -63,7 +63,19 @@ sex_inpost <-YA_19_21 %>%
   theme_light()
 ggsave(sex_enrolled,filename="figures/2b_sex_inpost.png",scale=1.3)
 
-#k6 score vs year in school
-YA_19_21 %>%
-  ggplot(aes(x=eduschgrd2,y=k6scmon)) +
-  geom_boxplot()
+#micat vs year in school
+grademicat <- YA_19_21 %>%
+  filter(eduschgrd2=="12th grade"|
+           eduschgrd2=="1st year"|
+           eduschgrd2=="2nd or 3rd year"|
+           eduschgrd2=="4th year or higher"|
+           eduschgrd2=="Not in school") %>%
+  ggplot(aes(x=eduschgrd2,fill=mi_cat_u)) + 
+  geom_bar(position="fill") +
+  labs(title="Grade in School vs Mental Illness Indicator",
+       fill="Indicated Mental Illness",
+       x="Grade",
+       y="Proportion") +
+  theme_light()
+
+ggsave(grademicat,filename="figures/2b_grademicat.png",scale=1.5)
