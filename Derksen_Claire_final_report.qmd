@@ -39,21 +39,21 @@ YA_19_21 <-read_rds("data/YA_clean_19_21.rds")
 
 ## Introduction
 
-The goal of this exploration is to investigate the effects of the pandemic on drug use and mental health in college students. I graduated high school in 2020 during the start of the pandemic. I didn't begin college until a year later, but my friends would start their freshman year online. Having what is usually a pivotal point in ones life be somewhat stunted had a negative affect on the mental health of many students in my graduating class. The isolation caused by quarantining could lead to poor mental and perhaps even physical health.
+The goal of this exploration is to investigate the effects of the pandemic on drug use and mental health in college students. I graduated from high school in 2020 during the start of the pandemic. I didn't begin college until a year later, but my friends would start their freshman year online. Having what is usually a pivotal point in one's life be somewhat stunted had a negative effect on the mental health of many students in my graduating class. The isolation caused by quarantining could lead to poor mental and perhaps even physical health.
 
-In the famous "Rat Park" Experiment both isolated rats and rats in communities were given one bottle filled with water and the laced with heroin or cocaine. The isolated rats drank from the laced bottle to the point of overdose while those in the "Rat Park" community typically preferred the regular water (Sederer, 2019). This raises the question of whether humans in isolation are more likely to fall into addiction. The isolation of quarantine could make people more susceptible to drug use. It's also possible that the limitations on acquiring drugs during quarantine would make people use drugs less.
+In the famous "Rat Park" Experiment, both isolated rats and rats in communities were given one bottle filled with water and one laced with heroin or cocaine. The isolated rats drank from the laced bottle to the point of overdose, while those in the "Rat Park" community typically preferred the regular water (Sederer, 2019). This raises the question of whether humans in isolation are more likely to fall into addiction. The isolation of quarantine could make people more susceptible to drug use. It's also possible that the limitations on acquiring drugs during quarantine would make people use drugs less.
 
-In this exploration we will use the National Survey on Drug Use and Health (NSDUH) for the years 2019-2021. This survey is conducted on people over the age of 12 residing in the US and covers topics such as drug use, mental health, and other health-related issues. To focus on college students we will be only looking at young adults 18-25. Some of the ways they assess mental health are K6, MICAT, and SDS scores. The Kessler Psychological Distress Scale (K6) is a 6-question measure that assesses someones emotional state in the past 30 days. It runs on a scale from 0-24, higher numbers indicating more psychological distress. The Sheehan Disability Scale (SDS) measures the impact of a disorder on an adults life. It categorically measures across four domains: home management, work, close relationships, and social life.SAMHSA also has their own categorical mental illness indicator (MICAT) that assess whether the person is showing symptoms of mental illness and the serverity. (CBHSQ, 2020, Appendix E).
+In this exploration, we will use the National Survey on Drug Use and Health (NSDUH) for the years 2019-2021. This survey is conducted on people over the age of 12 residing in the US and covers topics such as drug use, mental health, and other health-related issues. To focus on college students, we will be only looking at young adults 18-25. Some of the ways they assess mental health are K6, MICAT, and SDS scores. The Kessler Psychological Distress Scale (K6) is a 6-question measure that assesses someone's emotional state in the past 30 days. It runs on a scale from 0-24, higher numbers indicating more psychological distress. The Sheehan Disability Scale (SDS) measures the impact of a disorder on an adult's life. It categorically measures across four domains: home management, work, close relationships, and social life. SAMHSA also has its own categorical mental illness indicator (MICAT) that assess whether the person is showing symptoms of mental illness and the severity. (CBHSQ, 2020, Appendix E).
 
 ## Data overview & quality
 
 When answering our research questions it's important to keep in mind that there is some breakdown in comparability between the years. The 2019 interviews were all in-person while the 2021 interviews were all online. People may be more or less comfortable answering honestly when in-person vs online. The 2020 interviews began the year with in-person, stopped interviews, then continued with online interviews in the last quarter. We can see this reflected in the count of observations by year.
 
-![Total Observations in Each NSDUH Dataset](figures/4_totalobs.png){#fig-totalobs}
+![Total Observations in Each NSDUH Dataset](figures/4_totalobs.png){#fig-totalobs width="610"}
 
-The observations we would have had in 2020 between in-person and online are implicitly missing. Because of this, we should avoid counts and instead use proportions in our comparison between years. Additionally, some data might be unreliable if it is affected by what time of year it is. For example, some people suffer from seasonal depression which causes a more depressed mood in the Winter months. Another example is perhaps there is an increase in stimulant use in students right before finals.
+The observations we would have had in 2020 between in-person and online are implicitly missing. Because of this, we should avoid counts and instead use proportions in our comparison between years. Additionally, some data might be unreliable if it is affected by what time of year it is. For example, some people suffer from seasonal depression, which causes a more depressed mood in the Winter months. Another example is that perhaps there is an increase in stimulant use in students right before finals.
 
-For the 2021, 2020, and 2019 datasets there were: 58034 observations of 2988 variables, 32893 observations of 2890 variables, and 56136 observations of 2741 variables respectively. After combining the years, selecting for variables of interest, and filtering only young adults (18-25), there were 36151 observations of 35 variables. All of these were numeric and most could be converted to factors using the code book. Before factorizing, the following variables had missing values:
+For the 2021, 2020, and 2019 datasets, there were: 58034 observations of 2988 variables, 32893 observations of 2890 variables, and 56136 observations of 2741 variables respectively. After combining the years, selecting for variables of interest, and filtering only young adults (18-25), there were 36151 observations of 35 variables. All of these were numeric and most could be converted to factors using the code book. Before factorizing, the following variables had missing values:
 
 ```{r}
 #| label: tbl-missing-before-factorizing
@@ -92,7 +92,7 @@ YA_19_21_unfact %>%
 
 ```
 
-The ASDS scores (variables starting with ASDS) are mostly missing because those questions were only asked of people who reported depression symptoms. Questions about depression (`AMDEYR`) or suicidal thoughts (`MHSUITHK`) are sensitive subjects so the missing values could be due to people being uncomfortable answering and skipping the question. However, the coding of recency of vaping nicotine (`IRVAPNICREC`) and full-time college enrollment (`COLLENRLFT`) were different across years.
+The ASDS scores (variables starting with ASDS) are mostly missing because those questions were only asked of people who reported depression symptoms. Questions about depression (`AMDEYR`) or suicidal thoughts (`MHSUITHK`) are sensitive subjects so the missing values could be due to people being uncomfortable answering and skipping the question. However, the coding of recency of vaping nicotine (`IRVAPNICREC`) and full-time college enrollment (`COLLENRLFT`) were different across the years.
 
 ```{r}
 #| label: tbl-missing-IRVAPNIC-COLLENRLFT-year
@@ -107,25 +107,25 @@ YA_19_21_unfact %>%
   kable(col.names = c("Year","Variable","# Missing","% Missing"))
 ```
 
-In 2019 and 2020, NA values meant unknown enrollment while 3 meant the participant was not aged 18-22. In 2021, they combined these two groups into 3 so we don't see any NA values. To fix this I converted all NA values to 3 to have continuity between the years. The vaping nicotine variable was only added in 2020. I decided to keep this because vaping I predicted vaping would be popular among young adults and be worth exploring even with just 2 years' data.
+In 2019 and 2020, NA values meant unknown enrollment, while 3 meant the participant was not aged 18-22. In 2021, they combined these two groups into 3 so we don't see any NA values. To fix this, I converted all NA values to 3 to have continuity between the years. The vaping nicotine variable was only added in 2020. I decided to keep this because I predicted vaping would be popular among young adults and be worth exploring even with just 2 years of data.
 
-After factorizing, the same missing values remained along with those purposefully added. For example, I wanted to keep the values for times used a drug in the past 30 days numeric, so people who had never used the drug before were coded as NA while those who just didn't use in the past month were coded as 0.
+After factorizing, the same missing values remained along with those purposefully added. For example, I wanted to keep the values for times used a drug in the past 30 days numeric, so people who had never used the drug before were coded as NA while those who just didn't use it in the past month were coded as 0.
 
 ## Demographic Explorations
 
-The main purpose of these explorations was to understand what kind of sample I'm working with. I started with univariate analysis of sex and income to see if there is any over-representation of certain groups in the data set.
+The main purpose of these explorations was to understand what kind of sample I was working with. I started with univariate analysis of sex and income to see if there is any over-representation of certain groups in the data set.
 
-![Count of Income Groups](figures/1_incomecount.png){#fig-countinc}
+![Count of Income Groups](figures/1_incomecount.png){#fig-countinc width="591"}
 
 The most common income group is between \$20,000 and \$49,000. According to the 2019, 2020, and 2021 codebooks, the \$75,000 or more group is typically the largest and the less than \$20,000 group is usually smaller. This is expected since as young adults grow older they tend to make more money and are able to contribute more to the family income.
 
-![Count of Sex](figures/1_sexcount.png){#fig-countsex}
+![Count of Sex](figures/1_sexcount.png){#fig-countsex width="621"}
 
-We see there is slightly more females than males in our data set. This holds true across years as well as seen in @fig-sex_year, although the amount more of females differs. After the univariate analysis, I though of different ways of defining college students and what groups would be best to compare college students to.
+We see there are slightly more females than males in our data set. This holds true across years as well as seen in @fig-sex_year, although the amount more of females differs. After the univariate analysis, I thought of different ways of defining college students and what groups would be best to compare college students to.
 
 ![Income of College-Aged Adults](figures/2b_income_enrolled.png){#fig-collage}
 
-In @fig-collage, college students are defined as adults 18-22 who are full-time college students. One disadvantage of this grouping is the 18-22 year olds who are unknown and those who aren't college aged are grouped together. It's possible the unknowns are mostly not in college or mostly in college so its hard to compare. Students aged 18-22 tend to move towards the more extreme ends with less than \$20,000 and \$75,000 or more.
+In @fig-collage, college students are defined as adults 18-22 who are full-time college students. One disadvantage of this grouping is the 18-22 year olds who are unknown and those who aren't college-aged are grouped together. It's possible the unknowns are mostly not in college or mostly in college so it's hard to compare. Students aged 18-22 tend to move towards the more extreme ends with less than \$20,000 and \$75,000 or more.
 
 ![Income of Adults in College and Graduated](figures/2b_income_inpost.png){#fig-collgrad}
 
@@ -133,23 +133,23 @@ In @fig-collgrad college students are defined as currently in or entering colleg
 
 ## Mental Health
 
-To explore the pandemics affect on mental health, we'll mainly be looking at variables related to mental health from 2019-2021. If there's an effect we expect a slight increase in signs of poor mental health in 2020 then a larger increase in 2021.
+To explore the pandemic's effect on mental health, we'll mainly be looking at variables related to mental health from 2019-2021. If there's an effect we expect a slight increase in signs of poor mental health in 2020 and then a larger increase in 2021.
 
 ![Current K6 Scores from 2019-2021 for Graduated and In College](figures/3_k6mon_comp_year.png){#fig-k6moncomp}
 
-We see an increase in K6 score for both groups in 2020, perhaps as an effect of the pandemic. However, there is no increase in 2021 which suggests maybe the initial change had negative effects but didn't worsen over time.
+We see an increase in K6 scores for both groups in 2020, perhaps as an effect of the pandemic. However, there is no increase in 2021 which suggests maybe the initial change had negative effects but didn't worsen over time.
 
 ![Worst K6 Scores from 2019-2021 for Graduated and In College](figures/3_k6max_comp_year.png){#fig-k6maxcomp}
 
-Participants were asked to complete K6 scores for the worst month of the year, if it was the same as the current month those scores were just used. In graduated adults we see a similar pattern to @fig-k6moncomp with the initial increase in 2020. However for students we see a slight increase followed by a larger increase. This could be from the isolation felt from online schooling. However, when we look only at 18-22 year old there isn't much of a difference between years.
+Participants were asked to complete K6 scores for the worst month of the year, if it was the same as the current month those scores were just used. In graduated adults, we see a similar pattern to @fig-k6moncomp with the initial increase in 2020. However, for students we see a slight increase followed by a larger increase. This could be from the isolation felt from online schooling. However, when we look only at 18-22 year old there isn't much of a difference between years.
 
 ![Worst K6 Scores from 2019-2021 for College Aged Adults](figures/3_k6max_ft_year.png){#fig-k6max-ft_year}
 
-This is also true for K6 scores for current month as seen in @fig-k6mon_ft_year. Overall, the data doesn't support a significant worsening of psychological distress for college students.
+This is also true for K6 scores for the current month as seen in @fig-k6mon_ft_year. Overall, the data doesn't support a significant worsening of psychological distress for college students.
 
-One hypothesis I had was that young adults would report more severe SDS scores in 2020 and 2021 because their mental disorder compounding with stress with COVID-19 could further impede their everyday life.
+One hypothesis I had was that young adults would report more severe SDS scores in 2020 and 2021 because their mental disorder compounded by the stress from COVID-19 could further impede their everyday life.
 
-![Home Task Impairment in Young Adults from 2019-2021](figures/2a_sdshome_year.png){#fig-sdshome_year}
+![Home Task Impairment in Young Adults from 2019-2021](figures/2a_sdshome_year.png){#fig-sdshome_year width="599"}
 
 There is a continuous increase in home task impairment severity from 2019-2021. This trend is visible in work tasks, close relationships, and social life as seen in @fig-sdswork_year, @fig-sdsrel_year, and @fig-sdssoc_year respectively. For those with mental disorders, the interference in their daily tasks seemed to increase over the course of the pandemic.
 
@@ -157,75 +157,91 @@ Focusing on college students one interesting trend I found was that the further 
 
 ![Worst K6 Scores Overtime for Graduated and In College](figures/2b_grademicat.png){#fig-gradcat}
 
-This could be from the stress of college or from starting to take on independent responsibilities such as housing. It's also possible that as people get older its more likely underlying mental illnesses will start to show symptoms.
+This could be from the stress of college or from starting to take on independent responsibilities such as housing. It's also possible that as people get older it's more likely underlying mental illnesses will start to show symptoms.
 
 ## Drug Use
 
-I started with two univariate explorations of alcohol and marijuana monthly frequency to get a better idea of the distribution. As I mentioned in the Data overview, non-users were coded as NA so these graphs only represent people who have used the drug.
+I started with two univariate explorations of alcohol and marijuana monthly frequency to get a better idea of the distribution. As I mentioned in the data overview, non-users were coded as NA so these graphs only represent people who have used the drug.
 
-![Distribution of Monthly Alcohol Use](figures/1_alcmonth.png){#fig-distalc} The distribution is unimodal and skewed right with the majority of people drinking 0 times in the past month.
+![Distribution of Monthly Alcohol Use](figures/1_alcmonth.png){#fig-distalc}
 
-![Distribution of Monthly Alcohol Use](figures/1_mjmonth.png){#fig-distmj} The distribution of marijuana use is bimodal. Unlike alcohol, theres a considerable amount of daily or near daily users.
+The distribution is unimodal and skewed right with the majority of people drinking 0 times in the past month.
 
-To explore the pandemics affect on drug use I started with looking at the average monthly frequency of drug use from 2019-2021.
+![Distribution of Monthly Alcohol Use](figures/1_mjmonth.png){#fig-distmj}
+
+The distribution of marijuana use is bimodal. Unlike alcohol, there's a considerable amount of daily or near--daily users.
+
+To explore the pandemic's effect on drug use, I started by looking at the average monthly frequency of drug use from 2019-2021.
 
 ![Monthly Drug Use for Graduated and In College](figures/3_mondrugcomp.png){#fig-drugcomp}
 
-From @fig-drugcomp I found that few drugs were strictly increasing or decreasing. Only marijuana in graduated is strictly increasing and only cigarettes in college students is strictly decreasing. The increase in graduated use of marijuana could also be due to more places legalizing marijuana for adults above 21. Cigarette use frequency decreasing could be a result of fear of being vulnerable to COVID. ![Monthly Drug Use in Adults 18-22](figures/3_mondrugft.png){#fig-drugft}
+From @fig-drugcomp I found that few drugs were strictly increasing or decreasing. Only marijuana in graduates is strictly increasing, and only cigarettes in college students is strictly decreasing. The increase in graduated use of marijuana could also be due to more places legalizing marijuana for adults above 21. The decrease in cigarette use could be a result of fear of being vulnerable to COVID.
 
-College aged adults not in school there was a significant in marijuana use. That combined with the increase in graduated adults as seen in @fig-drugcomp suggests that on average the pandemic increased marijuana use frequency in young adults not in college.
+![Monthly Drug Use in Adults 18-22](figures/3_mondrugft.png){#fig-drugft}
 
-I tried a different approach of looking at year in college to determine if the 2024 graduating class was any different than those before or after. I also wanted to explore how drug use changes as a student moves through college. I predicted that alcohol and marijuana use frequency would increase as students go through college since they approach the legal age.
+There was a significant in marijuana use for college-aged adults not in school. Similar to the increase in graduates as seen in @fig-drugcomp, it could be due to increasing legalization. Increased use could also be a way to cope with stress caused by the pandemic.
+
+I tried a different approach of looking at year in college to determine if the 2024 graduating class was any different from those before or after. I also wanted to explore how drug use changes as a student moves through college. I predicted that alcohol and marijuana use frequency would increase as students go through college, since they approach the legal age.
 
 ![Monthly for College Students by Year](figures/3_collyear_drug.png){#fig-collyear_drug}
 
-As expected alcohol use increased as students went through college, however marijuana use was highest for first years. From @fig-collyear_drug it seems generally as students move through college marijuana and cigarette use frequency go down while alcohol frequency goes up. Cocaine use frequency generally decreased in 2020 compared to other years. This could be due to it being a more social drug and people being in isolation. The class of 2024 who were freshman in 2020 and sophomores in 2021 seem to use marijuana more frequently than other years. I hypothesized that perhaps the freshman who are already using marijuana used it more in 2020 since their course load wasn't as rigorous as later years and online schooling gave more free time.
+As expected, alcohol use increased as students went through college, however marijuana use was highest for first years. From @fig-collyear_drug it seems generally as students move through college marijuana and cigarette use frequency go down while alcohol frequency goes up. Cocaine use frequency generally decreased in 2020 compared to other years. This could be due to it being a more social drug and people being in isolation.
+
+The class of 2024 who were freshmen in 2020 and sophomores in 2021 seem to use marijuana more frequently than the other classes. I hypothesized that perhaps the freshmen who are already using marijuana used it more in 2020 since their course load wasn't as rigorous as later years and online schooling gave more free time. Seeing the distribution of frequency in @fig-distmj, I decided to assess this by looking at daily or near-daily use.
 
 ```{r}
 #| label: tbl-mj-daily
+#| tbl-cap: Near Daily Marijuana Use in College Students from 2019-2021
 YA_19_21 %>%
   filter(eduschgrd2=="1st year"|
            eduschgrd2=="2nd or 3rd year") %>%
   mutate(dailymj = ifelse(irmjfm>27,
-                          "Daily/Near Daily",
+                          "Daily or Near Daily",
                           "Not")) %>%
   group_by(year,eduschgrd2,dailymj) %>%
   summarise(n = n()) %>%
   mutate(Freq = n/sum(n)) %>%
-  filter(dailymj=="Daily/Near Daily") %>%
+  filter(dailymj=="Daily or Near Daily") %>%
   select(year,eduschgrd2,Freq) %>%
   mutate(Freq=round(100*Freq,2)) %>%
-  kable(col.names = c("Year","College Year","% Daily/Near Daily"),
-        caption = "Table 3: Near Daily Marijuana Use in College Students from 2019-2021")
+  kable(col.names = c("Year","College Year","% Daily or Near-Daily"))
 ```
 
-I defined daily use as 28 or more times in the past 30 days. There is a distinct increase in 2020 in percentage of 1st year daily or near daily marijuana users. There is also a decrease in 2nd and 3rd years marijuana daily marijuana use, perhaps because they will have a heavier course load.
+I defined daily use as 28 or more times in the past 30 days. There is a distinct increase in 2020 in the percentage of 1st year daily or near-daily marijuana users. There was also a decrease in 2nd and 3rd years marijuana daily marijuana use, perhaps because they will have a heavier course load and so had less free time.
 
-I expected to see an increase in vaping nicotine in college students particularly due to the stress of school and it being popular among young adults.
+I expected to see an increase in vaping nicotine in college students from 2020-2021 particularly due to the stress of school and its increasing popularity among young adults.
 
-![Vaping Recency and College Completion with Never](figures/3_vapewnever.png)
+![Vaping Recency and College Completion Inlcuding Non-Users](figures/3_vapewnever.png){#fig-vapwnever}
 
-College students are slightly more likely to have vaped nicotine before than graduated adults and those not in college. If you remove the group that hasn't used nicotine before you can get a better idea of changes in habits of users.
+College students are slightly more likely to have vaped nicotine before than graduated adults and those not in college. If you remove the group that hasn't used nicotine before you can get a better idea of changes in the habits of users.
 
-![Vaping Recency and College Completion without Never](figures/3_vapewonever.png)
+![Vaping Recency and College Completion Not Including Non-Users](figures/3_vapewonever.png){#fig-vapwonever}
 
 All groups saw an increase in those that had vaped in the last 30 days while no group saw a decrease in people who had never vaped before. This suggests that the increase is due to people who have already vaped before starting to vape more frequently, perhaps to cope with stress from the pandemic. I expected college students to see the largest increase however graduated adults saw a significant increase although on average students are still more likely to have vaped recently.
 
-I lastly wanted to explore the misuse of stimulants by students. I expected college students to use stimulants more than other groups and be more likely to use them to study. I predict the stress of college will make students more likely to use stimulants.
+I lastly wanted to explore the misuse of stimulants by students. Since we are exploring misuse this does not include people who use stimulants as prescribed. I expected college students to use stimulants more than other groups and be more likely to use them to study. I predict the stress of college will make students more likely to use stimulants.
 
 ![Stimulant Use Recency by College Enrollment](figures/2b_collen_stimrec.png){#fig-stimrec}
 
-In @fig-stimrec, we are only looking at people who have used stimulants before. So full-time college students are more likely to have used stimulants recently.
+In @fig-stimrec, we are only looking at people who have used stimulants before. So full-time college students who use stimulants are more likely to have used stimulants recently.
 
-![Stimulant Use for Studying by College Enrollment](figures/2b_collen_stimstud.png) The majority (around 70%) of student users reported last using stimulants to study. ![](figures/2b_stimstud_rec.png)
+![Stimulant Use for Studying by College Enrollment](figures/2b_collen_stimstud.png){#fig-collen_stimstud}
+
+The majority (around 70%) of student users reported last using stimulants to study as compared to other college-aged adults (around 40%). I wasn't sure whether to expect those who use stimulants for studying to use stimulants more or less than those who don't.
+
+![Stimulant Use for Studying by Use Recency](figures/2b_stimstud_rec.png){#fig-stimstud_rec} It seems that those who use stimulants to study use it slightly less frequently than those who do not.
 
 ## Conclusion
 
-From exploration on metal health, I found that college students did not show any more psychological distress than those not in college as reported by the Kessler Psychological Distress Scale. I also found that young adults with showing signs of mental illness experiences more impairment from their disorder in 2020 and 2021. Particularly in home tasks as seen in @fig-sdshome_year. This could be due to COVID-19, however its also possible it is a general trend. This can be better explored by incorporating data from 2018 as well as data for 2022 and 2023 once it is available. Finally, I found that as students move through college it is more likely they indicate mild to serious mental illness as seen in @fig-gradcat.
+From my exploration of mental health, I found that college students did not show any more psychological distress than those not in college, as reported by the Kessler Psychological Distress Scale. I also found that young adults showing signs of mental illness experienced more impairment from their disorder in 2020 and 2021. Particularly, in home tasks as seen in @fig-sdshome_year. This could be due to COVID-19, however, it's also possible it is a general trend. This can be better explored by incorporating data from 2018 as well as data for 2022 and 2023 once it is available. Finally, I found that as students move through college it is more likely they indicate mild to serious mental illness as seen in @fig-gradcat.
 
-Conclusions: college students were not unhappier from covid. There was no general decrease in mood. There was also no specific increase in drug use. one disadvantage to this approach is couldve focused on class of 2020. Use NCHA III next time. State conclusions or insights. Were you surprised by things you found or were they as expected? Why? This is a great place for future work, new research questions, and next steps. @tbl-mj-daily
+From my exploration of drug use, I didn't find any significant increase in drug use for adults in college vs those not in college as seen in @fig-drugcomp and @fig-drugft. I also found that the freshman class in 2020 had a greater percentage of daily marijuana users than in 2019 or 2021 as seen in @tbl-mj-daily. Young adults who vape nicotine started to vape more frequently from 2020 to 2021. College students used stimulants more frequently than other college-aged adults and were more likely to report their last use was for studying.
+
+One way one could continue this investigation is to separate young adults into their graduating class to better understand how the timing of the pandemic impacts their mental health and drug use. A better dataset for this analysis would be the American College Health Association's (ACHA) National College Health Assessment which focuses solely on college students, however, the dataset isn't public (ACHA, 2021).
 
 ## References
+
+American College Health Association, Inc. (2021). ACHA-National College Health Assessment (NCHA). About NCHA. <https://www.acha.org/NCHA/About_ACHA_NCHA/Overview/NCHA/About/About_NCHA.aspx?hkey=75eaa64f-e82c-4cfd-a19c-4e3f9bf126ee>
 
 Center for Behavioral Health Statistics and Quality. (2020). 2019 National Survey on Drug Use and Health Public Use File Codebook, Substance Abuse and Mental Health Services Administration, Rockville, MD <https://www.datafiles.samhsa.gov/sites/default/files/field-uploads-protected/studies/NSDUH-2019/NSDUH-2019-datasets/NSDUH-2019-DS0001/NSDUH-2019-DS0001-info/NSDUH-2019-DS0001-info-codebook.pdf>
 
@@ -241,11 +257,7 @@ SAMHSA. (2022). National Survey on Drug Use and Health (NSDUH) population data. 
 
 Sederer, L. I. (2019, June 10). What does "rat park" teach us about addiction? Psychiatric Times. <https://www.psychiatrictimes.com/view/what-does-rat-park-teach-us-about-addiction>
 
-## Appendix: technical info --- if needed
-
-A place to share complex and important technical steps that may highly impact explorations, but the details are too technical to share in main body of the report.
-
-## Appendix: extra explorations --- if needed
+## Appendix: extra explorations
 
 ![Observations of each Sex by Year](figures/2a_sex_year.png){#fig-sex_year}
 
