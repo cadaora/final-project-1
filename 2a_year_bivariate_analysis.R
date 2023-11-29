@@ -42,9 +42,10 @@ sdshome_year <- YA_19_21 %>%
   geom_bar(position="fill") +
   labs(title="Functional Impairment in Home Tasks for Young Adults",
        x="Year",
-       y="Proportion") + 
+       y="Proportion",
+       fill="SDS Home Rating") + 
   theme_light()
-ggsave(sdshome_year,filename="figures/2a_sdshome_year.png",scale=1.3)
+ggsave(sdshome_year,filename="figures/2a_sdshome_year.png")
 
 #SDSwork year
 sdswork_year <- YA_19_21 %>%
@@ -53,9 +54,10 @@ sdswork_year <- YA_19_21 %>%
   geom_bar(position="fill") +
   labs(title="Functional Impairment in Work Tasks for Young Adults",
        x="Year",
-       y="Proportion")+ 
+       y="Proportion",
+       fill="SDS Work Rating")+ 
   theme_light()
-ggsave(sdswork_year,filename="figures/2a_sdswork_year.png",scale=1.3)
+ggsave(sdswork_year,filename="figures/2a_sdswork_year.png")
 
 #SDS close relationships year
 sdsrel_year <- YA_19_21 %>%
@@ -64,9 +66,10 @@ sdsrel_year <- YA_19_21 %>%
   geom_bar(position="fill") +
   labs(title="Functional Impairment in Relationships for Young Adults",
        x="Year",
-       y="Proportion")+ 
+       y="Proportion",
+       fill="SDS Relationship Rating")+ 
   theme_light()
-ggsave(sdsrel_year,filename="figures/2a_sdsrel_year.png",scale=1.3)
+ggsave(sdsrel_year,filename="figures/2a_sdsrel_year.png")
 
 #SDS social year
 sdssoc_year <- YA_19_21 %>%
@@ -75,7 +78,8 @@ sdssoc_year <- YA_19_21 %>%
   geom_bar(position="fill") +
   labs(title="Functional Impairment in Social Life for Young Adults",
        x="Year",
-       y="Proportion")+ 
+       y="Proportion",
+       fill="SDS Social Rating")+ 
   theme_light()
-ggsave(sdssoc_year,filename="figures/2a_sdssoc_year.png",scale=1.3)
+ggsave(sdssoc_year,filename="figures/2a_sdssoc_year.png")
 

@@ -36,7 +36,7 @@ k6mon_ft_year <- YA_19_21 %>%
   ggplot(aes(x=factor(year),y=k6scmon)) + 
   geom_boxplot() +
   facet_wrap(~collenrlft) +
-  labs(title="Distribution of Worst K6 Scores 2019-2021 for College-Aged Adults",
+  labs(title="Distribution of Current K6 Scores 2019-2021 for College-Aged Adults",
        x="Year",
        y="K6 Score for Worst Month")+
   theme_light()

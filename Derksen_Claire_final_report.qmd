@@ -47,8 +47,6 @@ In this exploration we will use the National Survey on Drug Use and Health (NSDU
 
 ## Data overview & quality
 
-A concise high level overview of the dataset(s) being explored. Description of the dataset(s) that covers basics: size, number of observations, number, of variables, variable types, and discussion of any quality issues (especially missingness and how it may impact the analysis). Highlight any important data collection issues or concerns. If over-technical, but important, then place technical details in Appendix: technical info.
-
 When answering our research questions it's important to keep in mind that there is some breakdown in comparability between the years. The 2019 interviews were all in-person while the 2021 interviews were all online. People may be more or less comfortable answering honestly when in-person vs online. The 2020 interviews began the year with in-person, stopped interviews, then continued with online interviews in the last quarter. We can see this reflected in the count of observations by year.
 
 ![Total Observations in Each NSDUH Dataset](figures/4_totalobs.png){#fig-totalobs}
@@ -59,6 +57,7 @@ For the 2021, 2020, and 2019 datasets there were: 58034 observations of 2988 var
 
 ```{r}
 #| label: tbl-missing-before-factorizing
+#| tbl-cap: Missing Values Before Factorizing
 YA_2021 <- YA_2021 %>%
   mutate(AGE3=case_when(AGE3==4 ~ 7,
                         AGE3==5 ~ 10,
@@ -89,8 +88,7 @@ YA_19_21_unfact %>%
   miss_var_summary(order = TRUE) %>%
   filter(pct_miss>0) %>%
   mutate(pct_miss=round(pct_miss,1)) %>%
-  kable(col.names = c("Variable","# Missing","% Missing"),
-        caption = "Table 1: Missing Values Before Factorizing")
+  kable(col.names = c("Variable","# Missing","% Missing"))
 
 ```
 
@@ -98,6 +96,7 @@ The ASDS scores (variables starting with ASDS) are mostly missing because those 
 
 ```{r}
 #| label: tbl-missing-IRVAPNIC-COLLENRLFT-year
+#| tbl-cap: Nicotine Vaping and Full-Time College Enrollment Missing Values by Year
 YA_19_21_unfact %>%
   group_by(year) %>%
   miss_var_summary() %>%
@@ -105,8 +104,7 @@ YA_19_21_unfact %>%
   arrange(variable,.by_group=TRUE) %>%
   filter(variable=="IRVAPNICREC"|
            variable=="COLLENRLFT") %>%
-  kable(col.names = c("Year","Variable","# Missing","% Missing"),
-        caption = "Table 2: Nicotine Vaping and Full-Time College Enrollment Missing Values by Year")
+  kable(col.names = c("Year","Variable","# Missing","% Missing"))
 ```
 
 In 2019 and 2020, NA values meant unknown enrollment while 3 meant the participant was not aged 18-22. In 2021, they combined these two groups into 3 so we don't see any NA values. To fix this I converted all NA values to 3 to have continuity between the years. The vaping nicotine variable was only added in 2020. I decided to keep this because vaping I predicted vaping would be popular among young adults and be worth exploring even with just 2 years' data.
@@ -123,11 +121,11 @@ The most common income group is between \$20,000 and \$49,000. According to the 
 
 ![Count of Sex](figures/1_sexcount.png){#fig-countsex}
 
-We see there is slightly more females than males in our data set. This holds true across years as well (2a_sex_year) although the amount more of females differs. After the univariate analysis, I though of different ways of defining college students and what groups would be best to compare college students to.
+We see there is slightly more females than males in our data set. This holds true across years as well as seen in @fig-sex_year, although the amount more of females differs. After the univariate analysis, I though of different ways of defining college students and what groups would be best to compare college students to.
 
 ![Income of College-Aged Adults](figures/2b_income_enrolled.png){#fig-collage}
 
-In @fig-collage, college students are defined as adults 18-22 who are full-time college students. One disadvantage of this grouping is the 18-22 year olds who are unknown and those who aren't college aged are grouped together. It's possible the unknowns are mostly not in college or are in college so its hard to compare. Students aged 18-22 tend to move towards the more extreme ends with less than \$20,000 or \$75,000 or more.
+In @fig-collage, college students are defined as adults 18-22 who are full-time college students. One disadvantage of this grouping is the 18-22 year olds who are unknown and those who aren't college aged are grouped together. It's possible the unknowns are mostly not in college or mostly in college so its hard to compare. Students aged 18-22 tend to move towards the more extreme ends with less than \$20,000 and \$75,000 or more.
 
 ![Income of Adults in College and Graduated](figures/2b_income_inpost.png){#fig-collgrad}
 
@@ -137,23 +135,25 @@ In @fig-collgrad college students are defined as currently in or entering colleg
 
 To explore the pandemics affect on mental health, we'll mainly be looking at variables related to mental health from 2019-2021. If there's an effect we expect a slight increase in signs of poor mental health in 2020 then a larger increase in 2021.
 
-![Current K6 Scores Overtime for Graduated and In College](figures/3_k6mon_comp_year.png){#fig-k6moncomp}
+![Current K6 Scores from 2019-2021 for Graduated and In College](figures/3_k6mon_comp_year.png){#fig-k6moncomp}
 
-The neither group was removed to make it easier to compare graduated to in college. We see an increase in K6 score for both groups in 2020, perhaps as an effect of the pandemic. However, there is no increase in 2021 which suggests maybe the initial change had negative effects but didn't worsen over time.
+We see an increase in K6 score for both groups in 2020, perhaps as an effect of the pandemic. However, there is no increase in 2021 which suggests maybe the initial change had negative effects but didn't worsen over time.
 
-![Worst K6 Scores Overtime for Graduated and In College](figures/3_k6max_comp_year.png){#fig-k6maxcomp}
+![Worst K6 Scores from 2019-2021 for Graduated and In College](figures/3_k6max_comp_year.png){#fig-k6maxcomp}
 
-Participants were asked to complete K6 scores for the worst month of the year, if it was the same as the current month those scores were just used. In graduated adults we see a similar pattern to @fig-k6moncomp with the initial increase in 2020. However for students we see a slight increase followed by a larger increase. This could be from the isolation felt from online schooling. However, when we look only at 18-22 year old there isn't much of a difference between years. ![Worst K6 Scores Overtime for Graduated and In College](figures/3_k6max_ft_year.png)
+Participants were asked to complete K6 scores for the worst month of the year, if it was the same as the current month those scores were just used. In graduated adults we see a similar pattern to @fig-k6moncomp with the initial increase in 2020. However for students we see a slight increase followed by a larger increase. This could be from the isolation felt from online schooling. However, when we look only at 18-22 year old there isn't much of a difference between years.
 
-This is also true for K6 scores for current month as seen in (figures/3_k6mon_ft_year.png). Overall, the data doesn't support a significant worsening of psychological distress for college students.
+![Worst K6 Scores from 2019-2021 for College Aged Adults](figures/3_k6max_ft_year.png){#fig-k6max-ft_year}
+
+This is also true for K6 scores for current month as seen in @fig-k6mon_ft_year. Overall, the data doesn't support a significant worsening of psychological distress for college students.
 
 One hypothesis I had was that young adults would report more severe SDS scores in 2020 and 2021 because their mental disorder compounding with stress with COVID-19 could further impede their everyday life.
 
 ![Home Task Impairment in Young Adults from 2019-2021](figures/2a_sdshome_year.png){#fig-sdshome_year}
 
-There is an increase in home task impairment severity as seen in @fig-sdshome_year. This trend is visible in work tasks, close relationships, and social life as seen in (figures/2a_sdswork_year.png) (figures/2a_sdsrel_year.png,figures/2a_sdssoc_year.png) respectively.
+There is a continuous increase in home task impairment severity from 2019-2021. This trend is visible in work tasks, close relationships, and social life as seen in @fig-sdswork_year, @fig-sdsrel_year, and @fig-sdssoc_year respectively. For those with mental disorders, the interference in their daily tasks seemed to increase over the course of the pandemic.
 
-Focusing on college students one trend I found was that the further along in college, the more likely someone is to show symptoms of mental illness.
+Focusing on college students one interesting trend I found was that the further along in college, the more likely someone is to show symptoms of mental illness.
 
 ![Worst K6 Scores Overtime for Graduated and In College](figures/2b_grademicat.png){#fig-gradcat}
 
@@ -161,7 +161,7 @@ This could be from the stress of college or from starting to take on independent
 
 ## Drug Use
 
-I started with two univariate explorations of alcohol and marijuana monthly frequency to get a better idea of the distribution.
+I started with two univariate explorations of alcohol and marijuana monthly frequency to get a better idea of the distribution. As I mentioned in the Data overview, non-users were coded as NA so these graphs only represent people who have used the drug.
 
 ![Distribution of Monthly Alcohol Use](figures/1_alcmonth.png){#fig-distalc} The distribution is unimodal and skewed right with the majority of people drinking 0 times in the past month.
 
@@ -171,8 +171,7 @@ To explore the pandemics affect on drug use I started with looking at the averag
 
 ![Monthly Drug Use for Graduated and In College](figures/3_mondrugcomp.png){#fig-drugcomp}
 
-From @fig-drugcomp I found that few drugs were strictly increasing or decreasing. Only marijuana in graduated is strictly increasing and only cigarettes in college students is strictly decreasing. The increase in graduated use of marijuana could also be due to more places legalizing marijuana for adults above 21. Cigarette use frequency decreasing could be a result of fear of being vulnerable to COVID.
-![Monthly Drug Use in Adults 18-22](figures/3_mondrugft.png){#fig-drugft}
+From @fig-drugcomp I found that few drugs were strictly increasing or decreasing. Only marijuana in graduated is strictly increasing and only cigarettes in college students is strictly decreasing. The increase in graduated use of marijuana could also be due to more places legalizing marijuana for adults above 21. Cigarette use frequency decreasing could be a result of fear of being vulnerable to COVID. ![Monthly Drug Use in Adults 18-22](figures/3_mondrugft.png){#fig-drugft}
 
 College aged adults not in school there was a significant in marijuana use. That combined with the increase in graduated adults as seen in @fig-drugcomp suggests that on average the pandemic increased marijuana use frequency in young adults not in college.
 
@@ -214,18 +213,17 @@ All groups saw an increase in those that had vaped in the last 30 days while no 
 
 I lastly wanted to explore the misuse of stimulants by students. I expected college students to use stimulants more than other groups and be more likely to use them to study. I predict the stress of college will make students more likely to use stimulants.
 
-![Stimulant Use Recency by College Enrollment](figures/2b_collen_stimrec.png){#fig-stimrec} 
+![Stimulant Use Recency by College Enrollment](figures/2b_collen_stimrec.png){#fig-stimrec}
 
 In @fig-stimrec, we are only looking at people who have used stimulants before. So full-time college students are more likely to have used stimulants recently.
 
-![Stimulant Use for Studying by College Enrollment](figures/2b_collen_stimstud.png) 
-The majority (around 70%) of student users reported last using stimulants to study. ![](figures/2b_stimstud_rec.png)
+![Stimulant Use for Studying by College Enrollment](figures/2b_collen_stimstud.png) The majority (around 70%) of student users reported last using stimulants to study. ![](figures/2b_stimstud_rec.png)
 
 ## Conclusion
-From my exploration I found that college students did not show any more psychological distress than those not in college.
 
-Conclusions: college students were not unhappier from covid. There was no general decrease in mood. There was also no specific increase in drug use. one disadvantage to this approach is couldve focused on class of 2020. Use NCHA III next time. State conclusions or insights. Were you surprised by things you found or were they as expected? Why? This is a great place for future work, new research questions, and next steps.
-@tbl-mj-daily
+From exploration on metal health, I found that college students did not show any more psychological distress than those not in college as reported by the Kessler Psychological Distress Scale. I also found that young adults with showing signs of mental illness experiences more impairment from their disorder in 2020 and 2021. Particularly in home tasks as seen in @fig-sdshome_year. This could be due to COVID-19, however its also possible it is a general trend. This can be better explored by incorporating data from 2018 as well as data for 2022 and 2023 once it is available. Finally, I found that as students move through college it is more likely they indicate mild to serious mental illness as seen in @fig-gradcat.
+
+Conclusions: college students were not unhappier from covid. There was no general decrease in mood. There was also no specific increase in drug use. one disadvantage to this approach is couldve focused on class of 2020. Use NCHA III next time. State conclusions or insights. Were you surprised by things you found or were they as expected? Why? This is a great place for future work, new research questions, and next steps. @tbl-mj-daily
 
 ## References
 
@@ -249,4 +247,12 @@ A place to share complex and important technical steps that may highly impact ex
 
 ## Appendix: extra explorations --- if needed
 
-Useful in cases where there are an over-abundance of explorations and they are not useful in the main body of the report or they are uninteresting, but still think readers should have access to them for reference.
+![Observations of each Sex by Year](figures/2a_sex_year.png){#fig-sex_year}
+
+![Current K6 Scores from 2019-2021 for College Aged Adults](figures/3_k6mon_ft_year.png){#fig-k6mon_ft_year}
+
+![Work Task Impairment in Young Adults from 2019-2021](figures/2a_sdswork_year.png){#fig-sdswork_year}
+
+![Close Relationship Impairment in Young Adults from 2019-2021](figures/2a_sdsrel_year.png){#fig-sdsrel_year}
+
+![Social Life Impairment in Young Adults from 2019-2021](figures/2a_sdssoc_year.png){#fig-sdssoc_year}

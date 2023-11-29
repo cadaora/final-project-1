@@ -76,9 +76,10 @@ grademicat <- YA_19_21 %>%
        fill="Indicated Mental Illness",
        x="Grade",
        y="Proportion") +
-  theme_light()
+  theme_light() +
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
 
-ggsave(grademicat,filename="figures/2b_grademicat.png",scale=1.5)
+ggsave(grademicat,filename="figures/2b_grademicat.png",scale=1.3)
 
 #collen vs stimrec
 collen_stimrec <-YA_19_21 %>%
