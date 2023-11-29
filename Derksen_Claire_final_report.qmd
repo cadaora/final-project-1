@@ -41,7 +41,7 @@ YA_19_21 <-read_rds("data/YA_clean_19_21.rds")
 
 The goal of this exploration is to investigate the effects of the pandemic on drug use and mental health in college students. I graduated high school in 2020 during the start of the pandemic. I didn't begin college until a year later, but my friends would start their freshman year online. Having what is usually a pivotal point in ones life be somewhat stunted had a negative affect on the mental health of many students in my graduating class. The isolation caused by quarantining could lead to poor mental and perhaps even physical health.
 
-In the famous "Rat Park" Experiment both isolated rats and rats in communities were given one bottle filled with water and the laced with heroin or cocaine. The isolated rats drank from the laced bottle to the point of overdose while those in the "Rat Park" community typically preferred the regular water (Sederer, 2019). This raises the question of whether humans in isolation are more likely to fall into addiction. The isolation of quarantine could make people more susceptible to drug use.
+In the famous "Rat Park" Experiment both isolated rats and rats in communities were given one bottle filled with water and the laced with heroin or cocaine. The isolated rats drank from the laced bottle to the point of overdose while those in the "Rat Park" community typically preferred the regular water (Sederer, 2019). This raises the question of whether humans in isolation are more likely to fall into addiction. The isolation of quarantine could make people more susceptible to drug use. It's also possible that the limitations on acquiring drugs during quarantine would make people use drugs less.
 
 In this exploration we will use the National Survey on Drug Use and Health (NSDUH) for the years 2019-2021. This survey is conducted on people over the age of 12 residing in the US and covers topics such as drug use, mental health, and other health-related issues. To focus on college students we will be only looking at young adults 18-25. Some of the ways they assess mental health are K6, MICAT, and SDS scores. The Kessler Psychological Distress Scale (K6) is a 6-question measure that assesses someones emotional state in the past 30 days. It runs on a scale from 0-24, higher numbers indicating more psychological distress. The Sheehan Disability Scale (SDS) measures the impact of a disorder on an adults life. It categorically measures across four domains: home management, work, close relationships, and social life.SAMHSA also has their own categorical mental illness indicator (MICAT) that assess whether the person is showing symptoms of mental illness and the serverity. (CBHSQ, 2020, Appendix E).
 
@@ -163,15 +163,25 @@ This could be from the stress of college or from starting to take on independent
 
 I started with two univariate explorations of alcohol and marijuana monthly frequency to get a better idea of the distribution.
 
-![Distribution of Monthly Alcohol Use](figures/1_alcmonth.png){#fig-distalc}
-The distribution is unimodal and skewed right with the majority of people drinking 0 times in the past month. 
+![Distribution of Monthly Alcohol Use](figures/1_alcmonth.png){#fig-distalc} The distribution is unimodal and skewed right with the majority of people drinking 0 times in the past month.
 
-![Distribution of Monthly Alcohol Use](figures/1_mjmonth.png){#fig-distmj}
-The distribution of marijuana use is bimodal. Unlike alcohol, theres a considerable amount of daily or near daily users.
+![Distribution of Monthly Alcohol Use](figures/1_mjmonth.png){#fig-distmj} The distribution of marijuana use is bimodal. Unlike alcohol, theres a considerable amount of daily or near daily users.
 
-To explore the pandemics affect on drug use I started with looking at the average monthly frequency of drug use.
+To explore the pandemics affect on drug use I started with looking at the average monthly frequency of drug use from 2019-2021.
 
-![Monthly Drug Use for Graduated and In College](figures/3_mondrugcomp.png){#fig-drugcomp} From @fig-drugcomp I found that few drugs were strictly increasing or decreasing. Only marijuana in graduated is strictly increasing and only cigarettes in college students is strictly decreasing. The increase in graduated use of marijuana could also be due to more places legalizing marijuana for adults above 21. Cigarette use frequency decreasing could be a result of fear of being vulnerable to COVID. ![Monthly Drug Use in Adults 18-22](figures/3_mondrugft.png){#fig-drugft} College aged adults not in school there was a significant in marijuana use. That combined with the increase in graduated adults as seen in @fig-drugcomp implies that on average the pandemic increased marijuana use frequency in young adults not in college. This is the heart or main body of the the report. The structure of this portion can look VERY different depending on narrative choices and organization choices made to guide readers through the project EDA. Could decide to make sections for major parts of the EDA and not used an Explorations header. The key is that you have sections that are clearly organized and guide the reader through a systematic and thoughtful exploration of the dataset(s).
+![Monthly Drug Use for Graduated and In College](figures/3_mondrugcomp.png){#fig-drugcomp}
+
+From @fig-drugcomp I found that few drugs were strictly increasing or decreasing. Only marijuana in graduated is strictly increasing and only cigarettes in college students is strictly decreasing. The increase in graduated use of marijuana could also be due to more places legalizing marijuana for adults above 21. Cigarette use frequency decreasing could be a result of fear of being vulnerable to COVID. ![Monthly Drug Use in Adults 18-22](figures/3_mondrugft.png){#fig-drugft}
+
+College aged adults not in school there was a significant in marijuana use. That combined with the increase in graduated adults as seen in @fig-drugcomp suggests that on average the pandemic increased marijuana use frequency in young adults not in college.
+
+I expected to see an increase in vaping nicotine in college students particularly due to the stress of school and it being popular among young adults.
+
+![Vaping Recency and College Completion with Never](figures/3_vapewnever.png)
+College students are slightly more likely to have vaped nicotine before than graduated adults and those not in college. If you remove the group that hasn't used nicotine before you can get a better idea of changes in habits of users.
+![Vaping Recency and College Completion without Never](figures/3_vapewonever.png)
+All groups saw an increase in those that had vaped in the last 30 days while no group saw a decrease in people who had never vaped before. This suggests that the increase is due to people who have already vaped before starting to vape more frequently, perhaps to cope with stress from the pandemic. I expected college students to see the largest increase however graduated adults saw a significant increase although on average students are still more likely to have vaped recently.
+This is the heart or main body of the the report. The structure of this portion can look VERY different depending on narrative choices and organization choices made to guide readers through the project EDA. Could decide to make sections for major parts of the EDA and not used an Explorations header. The key is that you have sections that are clearly organized and guide the reader through a systematic and thoughtful exploration of the dataset(s).
 
 A thoughtful exploration weaves together prose, figures, and tables to help a reader build understanding. It is a guided tour that should have clear motivations for each step in the process (think guiding curiosities or research questions). It should be clear how things build of of each other and why we are looking at what is being presented. Should also be letting the reader know whether what is shown is as expected or is it surprising (maybe some of each).
 

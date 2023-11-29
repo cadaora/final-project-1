@@ -106,3 +106,30 @@ mondrugft <- YA_19_21 %>%
   theme_light()
 ggsave(mondrugft,filename="figures/3_mondrugft.png",scale=1.3)
 
+#vape without never
+
+vapewonever <- YA_19_21 %>%
+  filter(!is.na(irvapnicrec),irvapnicrec!="Never") %>%
+  ggplot(aes(x=year,fill=irvapnicrec)) +
+  geom_bar(position="fill") +
+  scale_x_continuous(breaks = c(2020,2021)) + 
+  facet_wrap(~postin_coll) +
+  labs(title="Nicotine Vaping Recency in College Aged Adult Users",
+       x="Year",
+       y="Proportion",
+       fill="Vaping Recency")+ 
+  theme_light()
+ggsave(vapewonever,filename="figures/3_vapewonever.png")
+#vape with never
+vapewnever <-YA_19_21 %>%
+  filter(!is.na(irvapnicrec)) %>%
+  ggplot(aes(x=year,fill=irvapnicrec)) +
+  geom_bar(position="fill") +
+  scale_x_continuous(breaks = c(2020,2021)) + 
+  facet_wrap(~postin_coll)+
+  labs(title="Nicotine Vaping Recency in College Aged Adults",
+       x="Year",
+       y="Proportion",
+       fill="Vaping Recency")+ 
+  theme_light()
+ggsave(vapewnever,filename="figures/3_vapewnever.png")
