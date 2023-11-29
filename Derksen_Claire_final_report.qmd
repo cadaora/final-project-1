@@ -58,7 +58,7 @@ The observations we would have had in 2020 between in-person and online are impl
 For the 2021, 2020, and 2019 datasets there were: 58034 observations of 2988 variables, 32893 observations of 2890 variables, and 56136 observations of 2741 variables respectively. After combining the years, selecting for variables of interest, and filtering only young adults (18-25), there were 36151 observations of 35 variables. All of these were numeric and most could be converted to factors using the code book. Before factorizing, the following variables had missing values:
 
 ```{r}
-#| label: missing before factorizing
+#| label: tbl-missing-before-factorizing
 YA_2021 <- YA_2021 %>%
   mutate(AGE3=case_when(AGE3==4 ~ 7,
                         AGE3==5 ~ 10,
@@ -97,7 +97,7 @@ YA_19_21_unfact %>%
 The ASDS scores (variables starting with ASDS) are mostly missing because those questions were only asked of people who reported depression symptoms. Questions about depression (`AMDEYR`) or suicidal thoughts (`MHSUITHK`) are sensitive subjects so the missing values could be due to people being uncomfortable answering and skipping the question. However, the coding of recency of vaping nicotine (`IRVAPNICREC`) and full-time college enrollment (`COLLENRLFT`) were different across years.
 
 ```{r}
-#| label: missing IRVAPNICREC and COLLENRLFT by year
+#| label: tbl-missing-IRVAPNIC-COLLENRLFT-year
 YA_19_21_unfact %>%
   group_by(year) %>%
   miss_var_summary() %>%
@@ -171,19 +171,61 @@ To explore the pandemics affect on drug use I started with looking at the averag
 
 ![Monthly Drug Use for Graduated and In College](figures/3_mondrugcomp.png){#fig-drugcomp}
 
-From @fig-drugcomp I found that few drugs were strictly increasing or decreasing. Only marijuana in graduated is strictly increasing and only cigarettes in college students is strictly decreasing. The increase in graduated use of marijuana could also be due to more places legalizing marijuana for adults above 21. Cigarette use frequency decreasing could be a result of fear of being vulnerable to COVID. ![Monthly Drug Use in Adults 18-22](figures/3_mondrugft.png){#fig-drugft}
+From @fig-drugcomp I found that few drugs were strictly increasing or decreasing. Only marijuana in graduated is strictly increasing and only cigarettes in college students is strictly decreasing. The increase in graduated use of marijuana could also be due to more places legalizing marijuana for adults above 21. Cigarette use frequency decreasing could be a result of fear of being vulnerable to COVID.
+![Monthly Drug Use in Adults 18-22](figures/3_mondrugft.png){#fig-drugft}
 
 College aged adults not in school there was a significant in marijuana use. That combined with the increase in graduated adults as seen in @fig-drugcomp suggests that on average the pandemic increased marijuana use frequency in young adults not in college.
 
+I tried a different approach of looking at year in college to determine if the 2024 graduating class was any different than those before or after. I also wanted to explore how drug use changes as a student moves through college. I predicted that alcohol and marijuana use frequency would increase as students go through college since they approach the legal age.
+
+![Monthly for College Students by Year](figures/3_collyear_drug.png){#fig-collyear_drug}
+
+As expected alcohol use increased as students went through college, however marijuana use was highest for first years. From @fig-collyear_drug it seems generally as students move through college marijuana and cigarette use frequency go down while alcohol frequency goes up. Cocaine use frequency generally decreased in 2020 compared to other years. This could be due to it being a more social drug and people being in isolation. The class of 2024 who were freshman in 2020 and sophomores in 2021 seem to use marijuana more frequently than other years. I hypothesized that perhaps the freshman who are already using marijuana used it more in 2020 since their course load wasn't as rigorous as later years and online schooling gave more free time.
+
+```{r}
+#| label: tbl-mj-daily
+YA_19_21 %>%
+  filter(eduschgrd2=="1st year"|
+           eduschgrd2=="2nd or 3rd year") %>%
+  mutate(dailymj = ifelse(irmjfm>27,
+                          "Daily/Near Daily",
+                          "Not")) %>%
+  group_by(year,eduschgrd2,dailymj) %>%
+  summarise(n = n()) %>%
+  mutate(Freq = n/sum(n)) %>%
+  filter(dailymj=="Daily/Near Daily") %>%
+  select(year,eduschgrd2,Freq) %>%
+  mutate(Freq=round(100*Freq,2)) %>%
+  kable(col.names = c("Year","College Year","% Daily/Near Daily"),
+        caption = "Table 3: Near Daily Marijuana Use in College Students from 2019-2021")
+```
+
+I defined daily use as 28 or more times in the past 30 days. There is a distinct increase in 2020 in percentage of 1st year daily or near daily marijuana users. There is also a decrease in 2nd and 3rd years marijuana daily marijuana use, perhaps because they will have a heavier course load.
+
 I expected to see an increase in vaping nicotine in college students particularly due to the stress of school and it being popular among young adults.
 
-![Vaping Recency and College Completion with Never](figures/3_vapewnever.png) College students are slightly more likely to have vaped nicotine before than graduated adults and those not in college. If you remove the group that hasn't used nicotine before you can get a better idea of changes in habits of users. ![Vaping Recency and College Completion without Never](figures/3_vapewonever.png) All groups saw an increase in those that had vaped in the last 30 days while no group saw a decrease in people who had never vaped before. This suggests that the increase is due to people who have already vaped before starting to vape more frequently, perhaps to cope with stress from the pandemic. I expected college students to see the largest increase however graduated adults saw a significant increase although on average students are still more likely to have vaped recently.
+![Vaping Recency and College Completion with Never](figures/3_vapewnever.png)
 
-I lastly wanted to explore the misuse of stimulants by students.
+College students are slightly more likely to have vaped nicotine before than graduated adults and those not in college. If you remove the group that hasn't used nicotine before you can get a better idea of changes in habits of users.
+
+![Vaping Recency and College Completion without Never](figures/3_vapewonever.png)
+
+All groups saw an increase in those that had vaped in the last 30 days while no group saw a decrease in people who had never vaped before. This suggests that the increase is due to people who have already vaped before starting to vape more frequently, perhaps to cope with stress from the pandemic. I expected college students to see the largest increase however graduated adults saw a significant increase although on average students are still more likely to have vaped recently.
+
+I lastly wanted to explore the misuse of stimulants by students. I expected college students to use stimulants more than other groups and be more likely to use them to study. I predict the stress of college will make students more likely to use stimulants.
+
+![Stimulant Use Recency by College Enrollment](figures/2b_collen_stimrec.png){#fig-stimrec} 
+
+In @fig-stimrec, we are only looking at people who have used stimulants before. So full-time college students are more likely to have used stimulants recently.
+
+![Stimulant Use for Studying by College Enrollment](figures/2b_collen_stimstud.png) 
+The majority (around 70%) of student users reported last using stimulants to study. ![](figures/2b_stimstud_rec.png)
 
 ## Conclusion
+From my exploration I found that college students did not show any more psychological distress than those not in college.
 
 Conclusions: college students were not unhappier from covid. There was no general decrease in mood. There was also no specific increase in drug use. one disadvantage to this approach is couldve focused on class of 2020. Use NCHA III next time. State conclusions or insights. Were you surprised by things you found or were they as expected? Why? This is a great place for future work, new research questions, and next steps.
+@tbl-mj-daily
 
 ## References
 

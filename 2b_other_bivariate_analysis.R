@@ -117,4 +117,19 @@ stimstud_rec <- YA_19_21 %>%
   theme_light()
 ggsave(stimstud_rec,filename="figures/2b_stimstud_rec.png",scale=1.3)
 
+#Freshman daily
+YA_19_21 %>%
+  filter(eduschgrd2=="1st year"|
+           eduschgrd2=="2nd or 3rd year") %>%
+  mutate(dailymj = ifelse(irmjfm>27,
+                          "Daily/Near Daily",
+                          "Not")) %>%
+  group_by(year,eduschgrd2,dailymj) %>%
+  summarise(n = n()) %>%
+  mutate(Freq = n/sum(n)) %>%
+  filter(dailymj=="Daily/Near Daily") %>%
+  select(year,Freq,eduschgrd2) %>%
+  mutate(Freq=round(100*Freq,2)) %>%
+  kable(col.names = c("Year","% Daily/Near Daily","College Year"),
+        caption = "Table 3:")
 

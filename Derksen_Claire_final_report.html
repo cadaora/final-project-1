@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Claire Derksen">
-<meta name="dcterms.date" content="2023-11-28">
+<meta name="dcterms.date" content="2023-11-29">
 
 <title>Mental Health and Drug Use in College Students during the Pandemic: An EDA of 2019-2021 NSDUH</title>
 <style>
@@ -66,7 +66,7 @@ Data Science 1 with R (STAT 301-1)</p><p></p>
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 28, 2023</p>
+      <p class="date">November 29, 2023</p>
     </div>
   </div>
   
@@ -107,10 +107,14 @@ Github Repo Link
 </div>
 <p>The observations we would have had in 2020 between in-person and online are implicitly missing. Because of this, we should avoid counts and instead use proportions in our comparison between years. Additionally, some data might be unreliable if it is affected by what time of year it is. For example, some people suffer from seasonal depression which causes a more depressed mood in the Winter months. Another example is perhaps there is an increase in stimulant use in students right before finals.</p>
 <p>For the 2021, 2020, and 2019 datasets there were: 58034 observations of 2988 variables, 32893 observations of 2890 variables, and 56136 observations of 2741 variables respectively. After combining the years, selecting for variables of interest, and filtering only young adults (18-25), there were 36151 observations of 35 variables. All of these were numeric and most could be converted to factors using the code book. Before factorizing, the following variables had missing values:</p>
-<div class="cell">
-<div class="cell-output-display">
+<div id="tbl-missing-before-factorizing" class="cell tbl-parent quarto-layout-panel anchored">
+<div class="panel-caption table-caption">
+<p>Table&nbsp;1: <strong>?(caption)</strong></p>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div id="tbl-missing-before-factorizing-1" class="quarto-layout-cell quarto-layout-cell-subref anchored" data-ref-parent="tbl-missing-before-factorizing" style="flex-basis: 100.0%;justify-content: center;">
 <table class="table table-sm table-striped small">
-<caption>Table 1: Missing Values Before Factorizing</caption>
+<caption>(a) Table 1: Missing Values Before Factorizing</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Variable</th>
@@ -163,11 +167,16 @@ Github Repo Link
 </table>
 </div>
 </div>
+</div>
 <p>The ASDS scores (variables starting with ASDS) are mostly missing because those questions were only asked of people who reported depression symptoms. Questions about depression (<code>AMDEYR</code>) or suicidal thoughts (<code>MHSUITHK</code>) are sensitive subjects so the missing values could be due to people being uncomfortable answering and skipping the question. However, the coding of recency of vaping nicotine (<code>IRVAPNICREC</code>) and full-time college enrollment (<code>COLLENRLFT</code>) were different across years.</p>
-<div class="cell">
-<div class="cell-output-display">
+<div id="tbl-missing-IRVAPNIC-COLLENRLFT-year" class="cell tbl-parent quarto-layout-panel anchored">
+<div class="panel-caption table-caption">
+<p>Table&nbsp;2: <strong>?(caption)</strong></p>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div id="tbl-missing-IRVAPNIC-COLLENRLFT-year-1" class="quarto-layout-cell quarto-layout-cell-subref anchored" data-ref-parent="tbl-missing-IRVAPNIC-COLLENRLFT-year" style="flex-basis: 100.0%;justify-content: center;">
 <table class="table table-sm table-striped small">
-<caption>Table 2: Nicotine Vaping and Full-Time College Enrollment Missing Values by Year</caption>
+<caption>(a) Table 2: Nicotine Vaping and Full-Time College Enrollment Missing Values by Year</caption>
 <thead>
 <tr class="header">
 <th style="text-align: right;">Year</th>
@@ -215,6 +224,7 @@ Github Repo Link
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 </div>
 <p>In 2019 and 2020, NA values meant unknown enrollment while 3 meant the participant was not aged 18-22. In 2021, they combined these two groups into 3 so we don’t see any NA values. To fix this I converted all NA values to 3 to have continuity between the years. The vaping nicotine variable was only added in 2020. I decided to keep this because vaping I predicted vaping would be popular among young adults and be worth exploring even with just 2 years’ data.</p>
@@ -301,13 +311,95 @@ Github Repo Link
 </div>
 <p>From <a href="#fig-drugcomp">Figure&nbsp;10</a> I found that few drugs were strictly increasing or decreasing. Only marijuana in graduated is strictly increasing and only cigarettes in college students is strictly decreasing. The increase in graduated use of marijuana could also be due to more places legalizing marijuana for adults above 21. Cigarette use frequency decreasing could be a result of fear of being vulnerable to COVID. <img src="figures/3_mondrugft.png" id="fig-drugft" class="img-fluid" alt="Monthly Drug Use in Adults 18-22"></p>
 <p>College aged adults not in school there was a significant in marijuana use. That combined with the increase in graduated adults as seen in <a href="#fig-drugcomp">Figure&nbsp;10</a> suggests that on average the pandemic increased marijuana use frequency in young adults not in college.</p>
+<p>I tried a different approach of looking at year in college to determine if the 2024 graduating class was any different than those before or after. I also wanted to explore how drug use changes as a student moves through college. I predicted that alcohol and marijuana use frequency would increase as students go through college since they approach the legal age.</p>
+<div id="fig-collyear_drug" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/3_collyear_drug.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;11: Monthly for College Students by Year</figcaption>
+</figure>
+</div>
+<p>As expected alcohol use increased as students went through college, however marijuana use was highest for first years. From <a href="#fig-collyear_drug">Figure&nbsp;11</a> it seems generally as students move through college marijuana and cigarette use frequency go down while alcohol frequency goes up. Cocaine use frequency generally decreased in 2020 compared to other years. This could be due to it being a more social drug and people being in isolation. The class of 2024 who were freshman in 2020 and sophomores in 2021 seem to use marijuana more frequently than other years. I hypothesized that perhaps the freshman who are already using marijuana used it more in 2020 since their course load wasn’t as rigorous as later years and online schooling gave more free time.</p>
+<div id="tbl-mj-daily" class="cell tbl-parent quarto-layout-panel anchored">
+<div class="panel-caption table-caption">
+<p>Table&nbsp;3: <strong>?(caption)</strong></p>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div id="tbl-mj-daily-1" class="quarto-layout-cell quarto-layout-cell-subref anchored" data-ref-parent="tbl-mj-daily" style="flex-basis: 100.0%;justify-content: center;">
+<table class="table table-sm table-striped small">
+<caption>(a) Table 3: Near Daily Marijuana Use in College Students from 2019-2021</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Year</th>
+<th style="text-align: left;">College Year</th>
+<th style="text-align: right;">% Daily/Near Daily</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">1st year</td>
+<td style="text-align: right;">4.36</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">2nd or 3rd year</td>
+<td style="text-align: right;">4.30</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2020</td>
+<td style="text-align: left;">1st year</td>
+<td style="text-align: right;">5.33</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2020</td>
+<td style="text-align: left;">2nd or 3rd year</td>
+<td style="text-align: right;">3.53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">1st year</td>
+<td style="text-align: right;">4.32</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">2nd or 3rd year</td>
+<td style="text-align: right;">4.62</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>I defined daily use as 28 or more times in the past 30 days. There is a distinct increase in 2020 in percentage of 1st year daily or near daily marijuana users. There is also a decrease in 2nd and 3rd years marijuana daily marijuana use, perhaps because they will have a heavier course load.</p>
 <p>I expected to see an increase in vaping nicotine in college students particularly due to the stress of school and it being popular among young adults.</p>
-<p><img src="figures/3_vapewnever.png" class="img-fluid" alt="Vaping Recency and College Completion with Never"> College students are slightly more likely to have vaped nicotine before than graduated adults and those not in college. If you remove the group that hasn’t used nicotine before you can get a better idea of changes in habits of users. <img src="figures/3_vapewonever.png" class="img-fluid" alt="Vaping Recency and College Completion without Never"> All groups saw an increase in those that had vaped in the last 30 days while no group saw a decrease in people who had never vaped before. This suggests that the increase is due to people who have already vaped before starting to vape more frequently, perhaps to cope with stress from the pandemic. I expected college students to see the largest increase however graduated adults saw a significant increase although on average students are still more likely to have vaped recently.</p>
-<p>I lastly wanted to explore the misuse of stimulants by students.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/3_vapewnever.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Vaping Recency and College Completion with Never</figcaption>
+</figure>
+</div>
+<p>College students are slightly more likely to have vaped nicotine before than graduated adults and those not in college. If you remove the group that hasn’t used nicotine before you can get a better idea of changes in habits of users.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/3_vapewonever.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Vaping Recency and College Completion without Never</figcaption>
+</figure>
+</div>
+<p>All groups saw an increase in those that had vaped in the last 30 days while no group saw a decrease in people who had never vaped before. This suggests that the increase is due to people who have already vaped before starting to vape more frequently, perhaps to cope with stress from the pandemic. I expected college students to see the largest increase however graduated adults saw a significant increase although on average students are still more likely to have vaped recently.</p>
+<p>I lastly wanted to explore the misuse of stimulants by students. I expected college students to use stimulants more than other groups and be more likely to use them to study. I predict the stress of college will make students more likely to use stimulants.</p>
+<div id="fig-stimrec" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/2b_collen_stimrec.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;12: Stimulant Use Recency by College Enrollment</figcaption>
+</figure>
+</div>
+<p>In <a href="#fig-stimrec">Figure&nbsp;12</a>, we are only looking at people who have used stimulants before. So full-time college students are more likely to have used stimulants recently.</p>
+<p><img src="figures/2b_collen_stimstud.png" class="img-fluid" alt="Stimulant Use for Studying by College Enrollment"> The majority (around 70%) of student users reported last using stimulants to study. <img src="figures/2b_stimstud_rec.png" class="img-fluid"></p>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>Conclusions: college students were not unhappier from covid. There was no general decrease in mood. There was also no specific increase in drug use. one disadvantage to this approach is couldve focused on class of 2020. Use NCHA III next time. State conclusions or insights. Were you surprised by things you found or were they as expected? Why? This is a great place for future work, new research questions, and next steps.</p>
+<p>From my exploration I found that college students did not show any more psychological distress than those not in college.</p>
+<p>Conclusions: college students were not unhappier from covid. There was no general decrease in mood. There was also no specific increase in drug use. one disadvantage to this approach is couldve focused on class of 2020. Use NCHA III next time. State conclusions or insights. Were you surprised by things you found or were they as expected? Why? This is a great place for future work, new research questions, and next steps. <a href="#tbl-mj-daily">Table&nbsp;3</a></p>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>

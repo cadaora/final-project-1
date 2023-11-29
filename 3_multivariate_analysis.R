@@ -134,3 +134,49 @@ vapewnever <-YA_19_21 %>%
   theme_light()
 ggsave(vapewnever,filename="figures/3_vapewnever.png")
 
+# collyear_drug
+collyear_drug<- YA_19_21 %>%
+  filter(eduschgrd2=="4th year or higher"|
+           eduschgrd2=="2nd or 3rd year"|
+         eduschgrd2=="1st year")%>%
+  pivot_longer(
+    cols = contains("fm"),
+    names_to = "drug",
+    values_to = "frequency"
+  ) %>%
+  group_by(drug,year,eduschgrd2) %>%
+  summarise(meanfq = mean(frequency,na.rm=TRUE)) %>%
+  mutate(drug=fct_recode(factor(drug),
+                         "Alcohol"="iralcfm",
+                         "Cigarettes"="ircigfm",
+                         "Cocaine"="ircocfm",
+                         "Marijuana"="irmjfm")) %>%
+  ggplot(aes(x=year,y=meanfq,color=drug)) +
+  geom_line() +
+  facet_wrap(~eduschgrd2) +
+  scale_x_continuous(breaks = c(2019, 2020,2021)) +
+  labs(title="Monthly Drug for Use for College Students by Year from 2019-2021",
+       x="Year",
+       y="Average Times Used in Past Month",
+       color="Drug") +
+  theme_light() +
+  theme(panel.spacing.x = unit(6, "mm"))
+ggsave(collyear_drug,filename="figures/3_collyear_drug.png",scale=1.3)
+
+
+YA_19_21 %>%
+  mutate(irmjfm=case_when(
+    irmjfm==0 ~ "0",
+    irmjfm>0 & irmjfm<11 ~ "1-10",
+    irmjfm >10 & irmjfm<25 ~ "11-24",
+    irmjfm >24 ~ "25+",
+    .default = "Never"),
+    irmjfm=factor(irmjfm)) %>%
+  filter(eduschgrd2=="2nd or 3rd year",
+         irmjfm!="Never") %>%
+  ggplot(aes(x=year,fill=irmjfm)) +
+  geom_bar(position="fill")
+
+
+
+        
