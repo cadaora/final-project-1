@@ -1,6 +1,6 @@
 ## Mental Health and Drug Use Habits of College Students
 
-This repository is for analysis of 2019-2021 NSDUH data.
+This repository is for analysis of 2019-2021 NSDUH data for young adults (18-25).
 
 ## What's in the repo
 
