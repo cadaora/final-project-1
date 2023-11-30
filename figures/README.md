@@ -71,6 +71,6 @@ This repo contains graphs saved from R scripts in the main repo. Not all the fig
 
 ### 4 Data Quality
 
--`4_missingafterfactor.png`: variables missing after factorizing
+-`4_missingafterfactor.png`: variables missing after factorizing (not used)
 
 -`4_totalobs.png`: total (all ages) observations by year
