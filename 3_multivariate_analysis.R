@@ -4,6 +4,7 @@
 ## load packages ----
 library(tidyverse)
 library(ggthemes)
+library(knitr)
 ## load dataset
 YA_19_21 <-read_rds("data/YA_clean_19_21.rds")
 
@@ -99,7 +100,7 @@ mondrugft <- YA_19_21 %>%
   geom_line() +
   scale_x_continuous(breaks = c(2019, 2020,2021)) +
   facet_wrap(~collenrlft)+
-  labs(title="Monthly Drug Use Among College Aged Adults from 2019-2021",
+  labs(title="Monthly Drug Use Among College Aged Adults",
        x="Year",
        y="Average Times Used in Past Month",
        color="Drug") +
@@ -114,12 +115,13 @@ vapewonever <- YA_19_21 %>%
   geom_bar(position="fill") +
   scale_x_continuous(breaks = c(2020,2021)) + 
   facet_wrap(~postin_coll) +
-  labs(title="Nicotine Vaping Recency in College Aged Adult Users",
+  labs(title="Nicotine Vaping Recency in College Aged Users",
        x="Year",
        y="Proportion",
        fill="Vaping Recency")+ 
   theme_light()
 ggsave(vapewonever,filename="figures/3_vapewonever.png")
+
 #vape with never
 vapewnever <-YA_19_21 %>%
   filter(!is.na(irvapnicrec)) %>%
@@ -163,20 +165,13 @@ collyear_drug<- YA_19_21 %>%
   theme(panel.spacing.x = unit(6, "mm"))
 ggsave(collyear_drug,filename="figures/3_collyear_drug.png",scale=1.3)
 
-
+#execsum k6 score table
 YA_19_21 %>%
-  mutate(irmjfm=case_when(
-    irmjfm==0 ~ "0",
-    irmjfm>0 & irmjfm<11 ~ "1-10",
-    irmjfm >10 & irmjfm<25 ~ "11-24",
-    irmjfm >24 ~ "25+",
-    .default = "Never"),
-    irmjfm=factor(irmjfm)) %>%
-  filter(eduschgrd2=="2nd or 3rd year",
-         irmjfm!="Never") %>%
-  ggplot(aes(x=year,fill=irmjfm)) +
-  geom_bar(position="fill")
-
+  filter(postin_coll!="Neither") %>%
+  group_by(year,postin_coll) %>%
+  summarise(mean = mean(k6scmax, na.rm= TRUE),
+            median = median(k6scmax, na.rm= TRUE)) %>%
+  kable(cols = c("Year","College Completion", "Mean K6","Median K6"))
 
 
         

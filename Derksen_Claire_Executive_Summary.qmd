@@ -1,5 +1,5 @@
 ---
-title: "Executive Summary: Exploring the Impact of the Pandemic on Drug Use and Mental Health in College Students"
+title: "Executive Summary: Impact of the Pandemic on Drug Use and Mental Health in College Students"
 subtitle: |
   | Final Project 
   | Data Science 1 with R (STAT 301-1)
@@ -13,6 +13,24 @@ execute:
   warning: false
 ---
 
+```{r}
+#| label: load-pkgs and datasets
+# Loading package(s)
+library(tidyverse)
+library(naniar)
+library(janitor)
+library(readxl)
+library(knitr)
+library(ggthemes)
+
+# Loading datasets
+YA_2021 <- read_rds(file="data/NSDUH_2021_YA.rds")
+YA_2020 <- read_rds(file="data/NSDUH_2020_YA.rds")
+YA_2019 <- read_rds(file="data/NSDUH_2019_YA.rds")
+
+YA_19_21 <-read_rds("data/YA_clean_19_21.rds")
+```
+
 ::: {.callout-tip icon="false"}
 ## Github Repo Link
 
@@ -21,25 +39,7 @@ execute:
 
 ## Objective
 
-This report explores the effects of the COVID-19 pandemic on drug use and mental health among college students, using data from the National Survey on Drug Use and Health (NSDUH) from 2019-2021. The goal is to understand the potential links between the isolation and the mental health outcomes, as well as any changes in drug use habits in young adults (18-25).
-
-## Key Findings
-
-### Mental Health
-
--   College students generally did not show any more distress than those not in college, as measured by the Kessler Psychological Distress Scale (K6), over the course of the pandemic. There were slight increases in some measures of distress in 2020 and 2021, however, the differences aren't significant.
-
--   Young adults showing signs of mental illness experienced worsening impairment in daily functioning, during 2020 and 2021. This impairment affected their home tasks, work tasks, close relationships, and social life.
-
--   As students progressed through college, they were more likely to indicate mild to serious mental illness, highlighting a potential correlation between academic advancement and mental health. This could be due to advancing in age.
-
-### Drug Use
-
--   There was no significant increase in drug use among adults in college compared to those not in college. However, there were noticible trends in use of specific substances.
-
--   The freshman class of 2020 showed a higher percentage of daily marijuana users compared to 2019 and 2021, possibly due to the circumstances caused by online schooling.
-
--   Stimulant use was more prevalent among college students than those not in college. Students were also more likely to report using stimulants to study.
+This report explores the effects of the COVID-19 pandemic on drug use and mental health among college students, using data from the National Survey on Drug Use and Health (NSDUH) from 2019-2021. The goal is to understand the potential links between isolation and mental health outcomes, as well as any changes in drug use habits in young adults (18-25).
 
 ## Data Considerations
 
@@ -47,6 +47,69 @@ This report explores the effects of the COVID-19 pandemic on drug use and mental
 
 -   In 2020 there was a pause in data collection due to COVID-19, resulting in a decrease in observations for the year.
 
+## Key Findings
+
+### Mental Health
+
+-   College students generally did not show any more distress than those not in college, as measured by the Kessler Psychological Distress Scale (K6), over the course of the pandemic. There were slight increases in some measures of distress in 2020 and 2021, however, the differences aren't significant.
+
+```{r}
+#| label: tbl-k6-worst
+#| tbl-cap: Worst K6 scores for Graduated and In College
+
+YA_19_21 %>%
+  filter(postin_coll!="Neither") %>%
+  group_by(year,postin_coll) %>%
+  summarise(mean = round(mean(k6scmax, na.rm= TRUE),2),
+            median = median(k6scmax, na.rm= TRUE)) %>%
+  kable(col.names = c("Year","College Completion", "Mean K6","Median K6"))
+```
+
+-   Young adults showing signs of mental illness experienced worsening impairment in daily functioning, during 2020 and 2021. This impairment affected their home tasks, work tasks, close relationships, and social life.
+
+![Home Task Impairment in Young Adults from 2019-2021](figures/2a_sdshome_year.png){#fig-sdshome_year width="559"}
+
+-   As students progressed through college, they were more likely to indicate mild to serious mental illness, highlighting a potential correlation between academic advancement and mental health. This could be due to advancing in age.
+
+![Grade in College vs Severity of Mental Illness Symptoms](figures/2b_grademicat.png){#fig-gradcat width="539"}
+
+### Drug Use
+
+-   There were no significant changes over 2019-2021 in the drug use of college students. There were some differences in drug use between those in college and those not in college. However, the freshman class of 2020 showed a higher percentage of daily marijuana users compared to 2019 and 2021, possibly due to the circumstances caused by online schooling. 
+
+![Monthly Drug Use in Adults 18-22](figures/3_mondrugft.png){#fig-drugft width="557"}
+
+```{r}
+#| label: tbl-mj-daily
+#| tbl-cap: Near Daily Marijuana Use in College Students from 2019-2021
+YA_19_21 %>%
+  filter(eduschgrd2=="1st year"|
+           eduschgrd2=="2nd or 3rd year") %>%
+  mutate(dailymj = ifelse(irmjfm>27,
+                          "Daily or Near Daily",
+                          "Not")) %>%
+  group_by(year,eduschgrd2,dailymj) %>%
+  summarise(n = n()) %>%
+  mutate(Freq = n/sum(n)) %>%
+  filter(dailymj=="Daily or Near Daily") %>%
+  select(year,eduschgrd2,Freq) %>%
+  mutate(Freq=round(100*Freq,2)) %>%
+  kable(col.names = c("Year","College Year","% Daily or Near-Daily"))
+```
+
+-   Stimulant misuse was more prevalent among college students than those not in college. Students were also more likely to report using stimulants to study.
+
+![Stimulant Use Recency by College Enrollment](figures/2b_collen_stimrec.png){#fig-stimrec width="564"}
+
 ## Recommendations
 
-Since the data had mixed results on the changes in college students drug use and mental health, it is recommended the topic be further explored. A more comprehensive analysis could focus on the effect of the timing of the COVID-19 pandemic by looking at specific graduating classes. Additionally, the investigation could be enhanced by utilizing the American College Health Association\'s National College Health Assessment which focuses solely on college students.
+Since the data had mixed results on the changes in college students' drug use and mental health, it is recommended the topic be further explored. A more comprehensive analysis could focus on the effect of the timing of the COVID-19 pandemic by looking at specific graduating classes. Additionally, the investigation could be enhanced by utilizing the American College Health Association's National College Health Assessment, which focuses solely on college students (ACHA, 2021).
+
+## References
+American College Health Association, Inc. (2021). ACHA-National College Health Assessment (NCHA). About NCHA. <https://www.acha.org/NCHA/About_ACHA_NCHA/Overview/NCHA/About/About_NCHA.aspx?hkey=75eaa64f-e82c-4cfd-a19c-4e3f9bf126ee>
+
+SAMHSA. (2020). National Survey on Drug Use and Health (NSDUH) population data. National Survey on Drug Use and Health 2019 (NSDUH-2021-DS0001).<https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2019-nsduh-2019-ds0001>
+
+SAMHSA. (2021). National Survey on Drug Use and Health (NSDUH) population data. National Survey on Drug Use and Health 2020 (NSDUH-2021-DS0001).<https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2020-nsduh-2020-ds0001>
+
+SAMHSA. (2022). National Survey on Drug Use and Health (NSDUH) population data. National Survey on Drug Use and Health 2021 (NSDUH-2021-DS0001). <https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2021-nsduh-2021-ds0001>

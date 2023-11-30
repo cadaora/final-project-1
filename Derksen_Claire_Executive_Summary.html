@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Claire Derksen">
+<meta name="dcterms.date" content="2023-11-29">
+
+<title>Executive Summary: Impact of the Pandemic on Drug Use and Mental Health in College Students</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="Derksen_Claire_Executive_Summary_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Derksen_Claire_Executive_Summary_files/libs/quarto-html/quarto.js"></script>
+<script src="Derksen_Claire_Executive_Summary_files/libs/quarto-html/popper.min.js"></script>
+<script src="Derksen_Claire_Executive_Summary_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Derksen_Claire_Executive_Summary_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Derksen_Claire_Executive_Summary_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Derksen_Claire_Executive_Summary_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Derksen_Claire_Executive_Summary_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Derksen_Claire_Executive_Summary_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Derksen_Claire_Executive_Summary_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Executive Summary: Impact of the Pandemic on Drug Use and Mental Health in College Students</h1>
+<p class="subtitle lead"></p><p>Final Project<br>
+Data Science 1 with R (STAT 301-1)</p><p></p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Claire Derksen </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 29, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Github Repo Link
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="https://github.com/stat301-1-2023-fall/final-project-1-cadaora" class="uri">https://github.com/stat301-1-2023-fall/final-project-1-cadaora</a></p>
+</div>
+</div>
+<section id="objective" class="level2">
+<h2 class="anchored" data-anchor-id="objective">Objective</h2>
+<p>This report explores the effects of the COVID-19 pandemic on drug use and mental health among college students, using data from the National Survey on Drug Use and Health (NSDUH) from 2019-2021. The goal is to understand the potential links between isolation and mental health outcomes, as well as any changes in drug use habits in young adults (18-25).</p>
+</section>
+<section id="data-considerations" class="level2">
+<h2 class="anchored" data-anchor-id="data-considerations">Data Considerations</h2>
+<ul>
+<li><p>Breakdowns in data comparability between years, owing to variations in interview formats (in-person vs.&nbsp;online), should be kept in mind when interpreting results.</p></li>
+<li><p>In 2020 there was a pause in data collection due to COVID-19, resulting in a decrease in observations for the year.</p></li>
+</ul>
+</section>
+<section id="key-findings" class="level2">
+<h2 class="anchored" data-anchor-id="key-findings">Key Findings</h2>
+<section id="mental-health" class="level3">
+<h3 class="anchored" data-anchor-id="mental-health">Mental Health</h3>
+<ul>
+<li>College students generally did not show any more distress than those not in college, as measured by the Kessler Psychological Distress Scale (K6), over the course of the pandemic. There were slight increases in some measures of distress in 2020 and 2021, however, the differences aren’t significant.</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-k6-worst" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Table&nbsp;1: Worst K6 scores for Graduated and In College</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Year</th>
+<th style="text-align: left;">College Completion</th>
+<th style="text-align: right;">Mean K6</th>
+<th style="text-align: right;">Median K6</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">Graduated</td>
+<td style="text-align: right;">8.10</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">In College</td>
+<td style="text-align: right;">9.35</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2020</td>
+<td style="text-align: left;">Graduated</td>
+<td style="text-align: right;">8.98</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2020</td>
+<td style="text-align: left;">In College</td>
+<td style="text-align: right;">9.56</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">Graduated</td>
+<td style="text-align: right;">8.80</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">In College</td>
+<td style="text-align: right;">9.64</td>
+<td style="text-align: right;">9</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<ul>
+<li>Young adults showing signs of mental illness experienced worsening impairment in daily functioning, during 2020 and 2021. This impairment affected their home tasks, work tasks, close relationships, and social life.</li>
+</ul>
+<div id="fig-sdshome_year" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/2a_sdshome_year.png" class="img-fluid figure-img" width="559"></p>
+<figcaption class="figure-caption">Figure&nbsp;1: Home Task Impairment in Young Adults from 2019-2021</figcaption>
+</figure>
+</div>
+<ul>
+<li>As students progressed through college, they were more likely to indicate mild to serious mental illness, highlighting a potential correlation between academic advancement and mental health. This could be due to advancing in age.</li>
+</ul>
+<div id="fig-gradcat" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/2b_grademicat.png" class="img-fluid figure-img" width="539"></p>
+<figcaption class="figure-caption">Figure&nbsp;2: Grade in College vs Severity of Mental Illness Symptoms</figcaption>
+</figure>
+</div>
+</section>
+<section id="drug-use" class="level3">
+<h3 class="anchored" data-anchor-id="drug-use">Drug Use</h3>
+<ul>
+<li>There were no significant changes over 2019-2021 in the drug use of college students. There were some differences in drug use between those in college and those not in college. However, the freshman class of 2020 showed a higher percentage of daily marijuana users compared to 2019 and 2021, possibly due to the circumstances caused by online schooling.</li>
+</ul>
+<div id="fig-drugft" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/3_mondrugft.png" class="img-fluid figure-img" width="557"></p>
+<figcaption class="figure-caption">Figure&nbsp;3: Monthly Drug Use in Adults 18-22</figcaption>
+</figure>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-mj-daily" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Table&nbsp;2: Near Daily Marijuana Use in College Students from 2019-2021</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Year</th>
+<th style="text-align: left;">College Year</th>
+<th style="text-align: right;">% Daily or Near-Daily</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">1st year</td>
+<td style="text-align: right;">4.36</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">2nd or 3rd year</td>
+<td style="text-align: right;">4.30</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2020</td>
+<td style="text-align: left;">1st year</td>
+<td style="text-align: right;">5.33</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2020</td>
+<td style="text-align: left;">2nd or 3rd year</td>
+<td style="text-align: right;">3.53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">1st year</td>
+<td style="text-align: right;">4.32</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">2nd or 3rd year</td>
+<td style="text-align: right;">4.62</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<ul>
+<li>Stimulant misuse was more prevalent among college students than those not in college. Students were also more likely to report using stimulants to study.</li>
+</ul>
+<div id="fig-stimrec" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/2b_collen_stimrec.png" class="img-fluid figure-img" width="564"></p>
+<figcaption class="figure-caption">Figure&nbsp;4: Stimulant Use Recency by College Enrollment</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="recommendations" class="level2">
+<h2 class="anchored" data-anchor-id="recommendations">Recommendations</h2>
+<p>Since the data had mixed results on the changes in college students’ drug use and mental health, it is recommended the topic be further explored. A more comprehensive analysis could focus on the effect of the timing of the COVID-19 pandemic by looking at specific graduating classes. Additionally, the investigation could be enhanced by utilizing the American College Health Association’s National College Health Assessment, which focuses solely on college students (ACHA, 2021).</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>American College Health Association, Inc.&nbsp;(2021). ACHA-National College Health Assessment (NCHA). About NCHA. <a href="https://www.acha.org/NCHA/About_ACHA_NCHA/Overview/NCHA/About/About_NCHA.aspx?hkey=75eaa64f-e82c-4cfd-a19c-4e3f9bf126ee" class="uri">https://www.acha.org/NCHA/About_ACHA_NCHA/Overview/NCHA/About/About_NCHA.aspx?hkey=75eaa64f-e82c-4cfd-a19c-4e3f9bf126ee</a></p>
+<p>SAMHSA. (2020). National Survey on Drug Use and Health (NSDUH) population data. National Survey on Drug Use and Health 2019 (NSDUH-2021-DS0001).<a href="https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2019-nsduh-2019-ds0001" class="uri">https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2019-nsduh-2019-ds0001</a></p>
+<p>SAMHSA. (2021). National Survey on Drug Use and Health (NSDUH) population data. National Survey on Drug Use and Health 2020 (NSDUH-2021-DS0001).<a href="https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2020-nsduh-2020-ds0001" class="uri">https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2020-nsduh-2020-ds0001</a></p>
+<p>SAMHSA. (2022). National Survey on Drug Use and Health (NSDUH) population data. National Survey on Drug Use and Health 2021 (NSDUH-2021-DS0001). <a href="https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2021-nsduh-2021-ds0001" class="uri">https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2021-nsduh-2021-ds0001</a></p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
