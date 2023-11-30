@@ -4,7 +4,8 @@ https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-202
 https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2020-nsduh-2020-ds0001
 https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2019-nsduh-2019-ds0001
 
-## Raw Datasets (>100 MB, not visible)
+## What's in the Repo
+### Raw Datasets (>100 MB, not visible)
 The raw .txt files aren't visible because they are too large and have been added to .gitignore.
 
 -`NSDUH_2019_Tab.txt`: all NSDUH data from 2019 as tab-seperated values
@@ -13,7 +14,7 @@ The raw .txt files aren't visible because they are too large and have been added
 
 -`NSDUH_2021_Tab.txt`: all NSDUH data from 2021 as tab-seperated values
 
-## Other Files
+### Other Files
 
 -`NSDUH-2019-codebook.pdf`: codebook variables in 2019 data
 
