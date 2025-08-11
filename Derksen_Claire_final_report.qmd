@@ -35,7 +35,7 @@ YA_19_21 <-read_rds("data/YA_clean_19_21.rds")
 ::: {.callout-tip icon="false"}
 ## Github Repo Link
 
-<https://github.com/stat301-1-2023-fall/final-project-1-cadaora>
+<https://github.com/cadaora/final-project-1>
 :::
 
 ## Introduction
@@ -133,7 +133,9 @@ In @fig-collage, college students are defined as adults 18-22 who are full-time 
 In @fig-collgrad college students are defined as currently in or entering college and having completed some college. This grouping can compare people in college and graduated regardless of age. One concern with the grouping in @fig-collage is that I would be indirectly comparing income groups rather than the effect of being in college. Comparing college students to graduated adults might allow us to compare people of similar socioeconomic backgrounds.
 
 ## Mental Health
+
 ### Kessler Distress Scale
+
 To explore the pandemic's effect on mental health, we'll mainly be looking at variables related to mental health from 2019-2021. If there's an effect we expect a slight increase in signs of poor mental health in 2020 and then a larger increase in 2021.
 
 ![Current K6 Scores from 2019-2021 for Graduated and In College](figures/3_k6mon_comp_year.png){#fig-k6moncomp}
@@ -149,6 +151,7 @@ Participants were asked to complete K6 scores for the worst month of the year, i
 This is also true for K6 scores for the current month as seen in @fig-k6mon_ft_year. Overall, the data doesn't support a significant worsening of psychological distress for college students.
 
 ### Sheehan Disability Scale (SDS)
+
 One hypothesis I had was that young adults would report more severe SDS scores in 2020 and 2021 because their mental disorder compounded by the stress from COVID-19 could further impede their everyday life.
 
 ![Home Task Impairment in Young Adults from 2019-2021](figures/2a_sdshome_year.png){#fig-sdshome_year width="599"}
@@ -156,6 +159,7 @@ One hypothesis I had was that young adults would report more severe SDS scores i
 There is a continuous increase in home task impairment severity from 2019-2021. This trend is visible in work tasks, close relationships, and social life as seen in @fig-sdswork_year, @fig-sdsrel_year, and @fig-sdssoc_year respectively. For those with mental disorders, the interference in their daily tasks seemed to increase over the course of the pandemic.
 
 ### Mental Illness Indicator
+
 Focusing on college students one interesting trend I found was that the further along in college, the more likely someone is to show symptoms of mental illness.
 
 ![Grade in College vs Severity of Mental Illness Symptoms](figures/2b_grademicat.png){#fig-gradcat}
@@ -163,7 +167,9 @@ Focusing on college students one interesting trend I found was that the further 
 This could be from the stress of college or from starting to take on independent responsibilities such as housing. It's also possible that as people get older it's more likely underlying mental illnesses will start to show symptoms.
 
 ## Drug Use
+
 ### Alcohol and Marijuana Use in Young Adults
+
 I started with two univariate explorations of alcohol and marijuana monthly frequency to get a better idea of the distribution. As I mentioned in the data overview, non-users were coded as NA so these graphs only represent people who have used the drug.
 
 ![Distribution of Monthly Alcohol Use](figures/1_alcmonth.png){#fig-distalc}
@@ -175,6 +181,7 @@ The distribution is unimodal and skewed right with the majority of people drinki
 The distribution of marijuana use is bimodal. Unlike alcohol, there's a considerable amount of daily or near--daily users.
 
 ### College Enrollment and Drug Use
+
 To explore the pandemic's effect on drug use, I started by looking at the average monthly frequency of drug use from 2019-2021.
 
 ![Monthly Drug Use for Graduated and In College](figures/3_mondrugcomp.png){#fig-drugcomp}
@@ -186,6 +193,7 @@ From @fig-drugcomp I found that few drugs were strictly increasing or decreasing
 There was a significant in marijuana use for college-aged adults not in school. Similar to the increase in graduates as seen in @fig-drugcomp, it could be due to increasing legalization. Increased use could also be a way to cope with stress caused by the pandemic.
 
 ### Drug Use Habits of the Class of 2024
+
 I tried a different approach of looking at year in college to determine if the 2024 graduating class was any different from those before or after. I also wanted to explore how drug use changes as a student moves through college. I predicted that alcohol and marijuana use frequency would increase as students go through college, since they approach the legal age.
 
 ![Monthly Drug Use for College Students by Year](figures/3_collyear_drug.png){#fig-collyear_drug}
@@ -214,7 +222,8 @@ YA_19_21 %>%
 
 I defined daily use as 28 or more times in the past 30 days. There is a distinct increase in 2020 in the percentage of 1st year daily or near-daily marijuana users. There was also a decrease in 2nd and 3rd years marijuana daily marijuana use, perhaps because they will have a heavier course load and so had less free time.
 
-### Vaping Nicotine 
+### Vaping Nicotine
+
 I expected to see an increase in vaping nicotine in college students from 2020-2021 particularly due to the stress of school and its increasing popularity among young adults.
 
 ![Vaping Recency and College Completion Including Non-Users](figures/3_vapewnever.png){#fig-vapwnever}
@@ -226,6 +235,7 @@ College students are slightly more likely to have vaped nicotine before than gra
 All groups saw an increase in those that had vaped in the last 30 days while no group saw a decrease in people who had never vaped before. This suggests that the increase is due to people who have already vaped before starting to vape more frequently, perhaps to cope with stress from the pandemic. I expected college students to see the largest increase however graduated adults saw a significant increase although on average students are still more likely to have vaped recently.
 
 ### Stimulant Misuse
+
 I lastly wanted to explore the misuse of stimulants by students. Since we are exploring misuse this does not include people who use stimulants as prescribed. I expected college students to use stimulants more than other groups and be more likely to use them to study. I predict the stress of college will make students more likely to use stimulants.
 
 ![Stimulant Use Recency by College Enrollment](figures/2b_collen_stimrec.png){#fig-stimrec}
@@ -236,7 +246,7 @@ In @fig-stimrec, we are only looking at people who have used stimulants before. 
 
 The majority (around 70%) of student users reported last using stimulants to study as compared to other college-aged adults (around 40%). I wasn't sure whether to expect those who use stimulants for studying to use stimulants more or less than those who don't.
 
-![Stimulant Use for Studying by Use Recency](figures/2b_stimstud_rec.png){#fig-stimstud_rec} 
+![Stimulant Use for Studying by Use Recency](figures/2b_stimstud_rec.png){#fig-stimstud_rec}
 
 It seems that those who use stimulants to study use it slightly less frequently than those who do not.
 

@@ -2,6 +2,9 @@
 
 This repository is for analysis of 2019-2021 NSDUH data for young adults (18-25).
 
+[Preview final report](https://html-preview.github.io/?url=https://github.com/cadaora/final-project-1/blob/main/Derksen_Claire_final_report.html)
+
+
 ## What's in the repo
 
 ### Files
